@@ -1,9 +1,9 @@
-import { Author } from "@/components/Author";
-import { Categories } from "@/components/Categories";
+import { Author } from "@/components/molecules/Author";
+import { Categories } from "@/components/molecules/Categories";
 import { PortableText } from "next-sanity";
 import { POST_QUERYResult } from "@/sanity/types";
-import { PublishedAt } from "@/components/PublishedAt";
-import { Title } from "@/components/Title";
+import { PublishedAt } from "@/components/atoms/PublishedAt";
+import { Title } from "@/components/atoms/Title";
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 import { components } from "@/sanity/portableTextComponents";

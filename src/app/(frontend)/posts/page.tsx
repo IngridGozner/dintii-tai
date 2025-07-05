@@ -1,7 +1,7 @@
 import { sanityFetch } from "@/sanity/lib/live";
 import { POSTS_QUERY } from '@/sanity/lib/queries'
-import { PostCard } from '@/components/PostCard'
-import { Title } from '@/components/Title'
+import { PostCard } from '@/components/components/PostCard'
+import { Title } from '@/components/atoms/Title'
 
 export default async function Page() {
     const { data: posts } = await sanityFetch({ query: POSTS_QUERY });

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Title } from "@/components/Title";
+import { Title } from "@/components/atoms/Title";
 
 export default async function Page() {
   return (

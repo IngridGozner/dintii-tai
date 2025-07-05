@@ -1,4 +1,4 @@
-import { Header } from "@/components/Header";
+import { Header } from "@/components/components/Header";
 import { SanityLive } from "@/sanity/lib/live";
 
 export default function FrontendLayout({
