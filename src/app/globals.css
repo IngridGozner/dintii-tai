@@ -1,2 +1,11 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+
+@theme {
+  --color-base-dark: #0383fe;
+  --color-base-light: #03c2fe;
+  --color-background: #ebebeb;
+  --color-font: #313131;
+  --color-link: #0383fe;
+  --color-link-hover: #03adfe;
+}
