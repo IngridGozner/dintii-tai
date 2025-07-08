@@ -8,6 +8,18 @@ export const siteInfoType = defineType({
     icon: HomeIcon,
     fields: [
         defineField({
+            name: 'title',
+            type: 'string',
+        }),
+        defineField({
+            name: 'subtitle',
+            type: 'string',
+        }),
+        defineField({
+            name: 'logo',
+            type: 'image',
+        }),
+        defineField({
             name: 'name',
             type: 'string',
         }),
@@ -15,7 +27,7 @@ export const siteInfoType = defineType({
             name: 'slug',
             type: 'slug',
             options: {
-                source: 'name',
+                source: 'title',
             },
         }),
         defineField({
