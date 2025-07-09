@@ -7,6 +7,11 @@ export default async function Page() {
       <Title>Layer Caker Home Page</Title>
       <hr />
       <Link href="/posts">Posts index &rarr;</Link>
+      <div className="h-500 bg-base-dark"></div>
+      <div className="h-500 bg-background"></div>
+      <div className="h-500 bg-base-light"></div>
+      <div className="h-500 bg-black"></div>
+
     </section>
   );
 }
