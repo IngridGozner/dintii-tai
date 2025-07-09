@@ -19,6 +19,7 @@ export default async function RootLayout({
 
   return (
     <html lang={lang}>
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
       <body>{children}</body>
     </html>
   );
