@@ -47,3 +47,11 @@ export const POST_QUERY =
     image
   }
 }`)
+
+export const HEADER_SITEINFO_QUERY =
+  defineQuery(`*[_type == "siteInfo"][0]{
+  _id,
+  title,
+  subtitle[_key == $language][0]{value},
+  logo
+}`)
