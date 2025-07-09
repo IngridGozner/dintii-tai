@@ -13,7 +13,7 @@ export const siteInfoType = defineType({
         }),
         defineField({
             name: 'subtitle',
-            type: 'string',
+            type: 'internationalizedArrayString',
         }),
         defineField({
             name: 'logo',
@@ -35,7 +35,7 @@ export const siteInfoType = defineType({
             type: 'string',
         }),
         defineField({
-            name: 'enail',
+            name: 'email',
             type: 'string',
         }),
         defineField({
@@ -44,7 +44,7 @@ export const siteInfoType = defineType({
         }),
         defineField({
             name: 'timetable',
-            type: 'blockContent',
+            type: 'internationalizedArrayBlockContent',
         }),
     ],
 })
