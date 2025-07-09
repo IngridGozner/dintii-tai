@@ -1,4 +1,5 @@
 import { Header } from "@/components/components/Header";
+import LanguageProvider from "@/components/providers/LanguageProvider";
 import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 import { HEADER_SITEINFO_QUERY } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
@@ -17,9 +18,11 @@ export default async function FrontendLayout({
 
     return (
         <section className="bg-white min-h-screen">
-            <Header {...siteInfo} />
-            {children}
-            <SanityLive />
+            <LanguageProvider language={lang}>
+                <Header {...siteInfo} />
+                {children}
+                <SanityLive />
+            </LanguageProvider>
         </section>
     );
 }
