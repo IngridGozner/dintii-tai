@@ -5,13 +5,16 @@ import { notFound } from "next/navigation";
 
 export default async function FrontendLayout({
     children,
+    params
 }: Readonly<{
     children: React.ReactNode;
+    params: Promise<{ lang: string }>
 }>) {
-    const { data: siteInfo } = await sanityFetch({ query: HEADER_SITEINFO_QUERY, params: {language: "en"} })
+    const { lang } = await params
+    const { data: siteInfo } = await sanityFetch({ query: HEADER_SITEINFO_QUERY, params: { language: lang } })
 
-    if(!siteInfo) notFound();
-    
+    if (!siteInfo) notFound();
+
     return (
         <section className="bg-white min-h-screen">
             <Header {...siteInfo} />
