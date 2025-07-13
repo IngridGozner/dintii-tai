@@ -4,10 +4,10 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --color-base-dark: #0383fe;
-  --color-base-light: #03c2fe;
-  --color-background: #ebebeb;
-  --color-font: #313131;
-  --color-link: #0383fe;
-  --color-link-hover: #03adfe;
+  --color-base-dark: #386D92;
+  --color-base-light: #4D88AE;
+  --color-background: #f8f9fa;
+  --color-font: #343a40;
+  --color-link: var(--color-base-dark);
+  --color-link-hover: var(--color-base-light);
 }
