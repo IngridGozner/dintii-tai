@@ -5,10 +5,11 @@ type ButtonProps = Partial<GoogleIconProps> & {
     label?: string;
     onClick?: () => void;
     href?: string;
+    asLink?: boolean;
 }
 
-export function Button({ className, label, onClick, href, iconName, iconClassName }: ButtonProps) {
-    const buttonClasses = `py-2 px-3 border-base-dark border-2 flex items-center bg-white${className ? ` ${className}` : ''}`;
+export function Button({ className, label, onClick, href, iconName, iconClassName, asLink }: ButtonProps) {
+    const buttonClasses = `flex items-center ${asLink ? 'text-link hover:text-link-hover' : 'border-base-dark border-2 py-2 px-3 bg-white'} ${className ? ` ${className}` : ''}`;
 
     const buttonContent = <>{iconName && <GoogleIcon iconName={iconName} iconClassName={iconClassName} />}<span className={iconName && "ml-2"}>{label ? label : ''}</span></>
 

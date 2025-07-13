@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import NextLink from 'next/link'
 import { GridContainer } from '../molecules/GridContainer';
 import { HEADER_SITEINFO_QUERYResult } from '@/sanity/types';
 import Image from 'next/image'
@@ -6,6 +6,7 @@ import { urlFor } from '@/sanity/lib/image';
 import { LanguageSelector } from '../molecules/LanguageSelector';
 import { ComponentContainer } from '../molecules/ComponentContainer';
 import { Button } from '../atoms/Button';
+import { Link } from '../atoms/Link';
 
 export function Header(props: NonNullable<HEADER_SITEINFO_QUERYResult>) {
     //TODO: take link names from sanity?
@@ -20,8 +21,8 @@ export function Header(props: NonNullable<HEADER_SITEINFO_QUERYResult>) {
             <ComponentContainer contentClass='!py-4 !mt-0'>
                 <GridContainer>
                     <div className="col-span-6">
-                        <Link
-                            className="flex flex-row mt-7 md:mt-0"
+                        <NextLink
+                            className="flex flex-row mt-7 md:mt-0 text-font"
                             href="/"
                         >
                             {logo && <div className="w-16 lg:w-22 aspect-square"
@@ -36,22 +37,21 @@ export function Header(props: NonNullable<HEADER_SITEINFO_QUERYResult>) {
                                 {subtitle && <p className="ml-3 italic text-base lg:text-2xl">{subtitle.value}
                                 </p>}
                             </div>
-                        </Link>
+                        </NextLink>
                     </div>
                     <div className="col-span-6 flex flex-col items-center justify-center md:items-end">
-                        <div className="flex flex-row top-0 absolute gap-x-4 md:gap-x-6">
-                            {phone && <Button iconName='phone' href={`tel:${phone}`} label={phone} className='h-fit' />}
+                        <div className="flex flex-row top-0 absolute gap-x-4 md:gap-x-8 mt-3 text-base md:text-lg">
+                            {phone && <Button iconName='phone' href={`tel:${phone}`} label={phone} className='h-fit' asLink />}
                             <LanguageSelector />
                         </div>
                         <nav className='md:mt-6'>
-                            <ul className="flex gap-x-8 lg:gap-x-12">
+                            <ul className="flex gap-x-8 lg:gap-x-18">
                                 {navgationLinks.map((link, index) => <li key={link.href + index}>
                                     <Link
-                                        className="hover:text-link-hover hover:underline text-font transition-colors text-base lg:text-xl"
+                                        className="!text-font transition-colors text-base lg:text-xl"
                                         href={link.href}
-                                    >
-                                        {link.name}
-                                    </Link>
+                                        label={link.name}
+                                    />
                                 </li>)}
                             </ul>
                         </nav>
