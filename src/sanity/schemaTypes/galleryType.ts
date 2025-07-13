@@ -15,7 +15,7 @@ export const galleryType = defineType({
             name: 'slug',
             type: 'slug',
             options: {
-                source: 'name',
+                source: 'title',
             },
         }),
         defineField({
