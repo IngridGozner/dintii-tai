@@ -63,6 +63,6 @@ export const FOOTER_SITEINFO_QUERY =
   phone,
   address,
   email, 
-  timetable
+  timetable[_key == $language][0]{value}
 }`)
 

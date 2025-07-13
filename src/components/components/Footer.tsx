@@ -25,8 +25,8 @@ export function Footer(props: NonNullable<FOOTER_SITEINFO_QUERYResult>) {
                             <Link href={`mailto:${email}`} label={email} iconName="email" darkBackground />
                         }
                     </div>
-                    {timetable && <div className="col-span-6">
-                        <PortableText value={timetable} components={components} />
+                    {timetable && timetable.value && <div className="col-span-6 text-white text-base md:text-xl">
+                        <PortableText value={timetable.value} components={components} />
                     </div>}
                 </GridContainer>
             </ComponentContainer>

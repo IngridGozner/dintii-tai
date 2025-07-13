@@ -626,15 +626,15 @@ export type HEADER_SITEINFO_QUERYResult = {
   phone: string | null;
 } | null;
 // Variable: FOOTER_SITEINFO_QUERY
-// Query: *[_type == "siteInfo"][0]{  _id,  phone,  address,  email,   timetable}
+// Query: *[_type == "siteInfo"][0]{  _id,  phone,  address,  email,   timetable[_key == $language][0]{value}}
 export type FOOTER_SITEINFO_QUERYResult = {
   _id: string;
   phone: string | null;
   address: string | null;
   email: string | null;
-  timetable: Array<{
-    _key: string;
-  } & InternationalizedArrayBlockContentValue> | null;
+  timetable: {
+    value: BlockContent | null;
+  } | null;
 } | null;
 
 // Query TypeMap
@@ -645,6 +645,6 @@ declare module "@sanity/client" {
     "*[_type == \"post\" && defined(slug.current)]{ \n  \"slug\": slug.current\n}": POSTS_SLUGS_QUERYResult;
     "*[_type == \"post\" && slug.current == $slug][0]{\n  _id,\n  title,\n  body,\n  mainImage,\n  publishedAt,\n  \"categories\": coalesce(\n    categories[]->{\n      _id,\n      slug,\n      title\n    },\n    []\n  ),\n  author->{\n    name,\n    image\n  }\n}": POST_QUERYResult;
     "*[_type == \"siteInfo\"][0]{\n  _id,\n  title,\n  subtitle[_key == $language][0]{value},\n  logo,\n  phone\n}": HEADER_SITEINFO_QUERYResult;
-    "*[_type == \"siteInfo\"][0]{\n  _id,\n  phone,\n  address,\n  email, \n  timetable\n}": FOOTER_SITEINFO_QUERYResult;
+    "*[_type == \"siteInfo\"][0]{\n  _id,\n  phone,\n  address,\n  email, \n  timetable[_key == $language][0]{value}\n}": FOOTER_SITEINFO_QUERYResult;
   }
 }
