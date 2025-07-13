@@ -9,7 +9,7 @@ import { Button } from '../atoms/Button';
 
 export function Header(props: NonNullable<HEADER_SITEINFO_QUERYResult>) {
     //TODO: take link names from sanity?
-    const navgationLinks = [{ name: 'Prices', href: '/prices' }, { name: 'About Us', href: '/aboutus' }, { name: 'Contact', href: '#contact' }];
+    const navgationLinks = [{ name: 'Prices', href: '#prices' }, { name: 'About Us', href: '#aboutus' }, { name: 'Contact', href: '#contact' }];
 
     if (!props) return undefined;
 
@@ -21,7 +21,7 @@ export function Header(props: NonNullable<HEADER_SITEINFO_QUERYResult>) {
                 <GridContainer>
                     <div className="col-span-6">
                         <Link
-                            className="flex flex-row"
+                            className="flex flex-row mt-7 md:mt-0"
                             href="/"
                         >
                             {logo && <div className="w-16 lg:w-22 aspect-square"
@@ -38,12 +38,12 @@ export function Header(props: NonNullable<HEADER_SITEINFO_QUERYResult>) {
                             </div>
                         </Link>
                     </div>
-                    <div className="col-span-6 flex flex-col items-center md:justify-end justify-center md:items-end">
-                        <div className="flex flex-row top-0 absolute gap-x-2 md:gap-x-6">
+                    <div className="col-span-6 flex flex-col items-center justify-center md:items-end">
+                        <div className="flex flex-row top-0 absolute gap-x-4 md:gap-x-6">
                             {phone && <Button iconName='phone' href={`tel:${phone}`} label={phone} className='h-fit' />}
                             <LanguageSelector />
                         </div>
-                        <nav className='mt-3'>
+                        <nav className='md:mt-6'>
                             <ul className="flex gap-x-8 lg:gap-x-12">
                                 {navgationLinks.map((link, index) => <li key={link.href + index}>
                                     <Link
