@@ -1,8 +1,8 @@
+import { Footer } from "@/components/components/Footer";
 import { Header } from "@/components/components/Header";
 import LanguageProvider from "@/components/providers/LanguageProvider";
 import { sanityFetch, SanityLive } from "@/sanity/lib/live";
-import { HEADER_SITEINFO_QUERY } from "@/sanity/lib/queries";
-import { notFound } from "next/navigation";
+import { FOOTER_SITEINFO_QUERY, HEADER_SITEINFO_QUERY } from "@/sanity/lib/queries";
 
 export default async function FrontendLayout({
     children,
@@ -12,15 +12,15 @@ export default async function FrontendLayout({
     params: Promise<{ lang: string }>
 }>) {
     const { lang } = await params
-    const { data: siteInfo } = await sanityFetch({ query: HEADER_SITEINFO_QUERY, params: { language: lang } })
-
-    if (!siteInfo) notFound();
+    const { data: headerSiteInfo } = await sanityFetch({ query: HEADER_SITEINFO_QUERY, params: { language: lang } })
+    const { data: footerSiteInfo } = await sanityFetch({ query: FOOTER_SITEINFO_QUERY, params: { language: lang } })
 
     return (
         <section className="bg-white min-h-screen">
             <LanguageProvider language={lang}>
-                <Header {...siteInfo} />
+                {headerSiteInfo && <Header {...headerSiteInfo} />}
                 {children}
+                {footerSiteInfo && <Footer {...footerSiteInfo} />}
                 <SanityLive />
             </LanguageProvider>
         </section>

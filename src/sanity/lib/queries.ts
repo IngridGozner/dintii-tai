@@ -56,3 +56,13 @@ export const HEADER_SITEINFO_QUERY =
   logo,
   phone
 }`)
+
+export const FOOTER_SITEINFO_QUERY =
+  defineQuery(`*[_type == "siteInfo"][0]{
+  _id,
+  phone,
+  address,
+  email, 
+  timetable
+}`)
+
