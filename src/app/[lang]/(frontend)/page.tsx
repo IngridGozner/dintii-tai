@@ -1,7 +1,8 @@
 import ImageSlider from "@/components/components/ImageSlider";
 import Stage from "@/components/components/Stage";
+import TextImage from "@/components/components/TextImage";
 import { sanityFetch } from "@/sanity/lib/live";
-import { GALLERY_QUERY, STAGE_QUERY } from "@/sanity/lib/queries";
+import { ARTICLE_QUERY, GALLERY_QUERY, STAGE_QUERY } from "@/sanity/lib/queries";
 
 export default async function Page({
   params
@@ -10,12 +11,14 @@ export default async function Page({
 }>) {
   const { lang } = await params
 
+  const { data: stageData } = await sanityFetch({ query: STAGE_QUERY, params: { language: lang } });
+  const { data: articleData } = await sanityFetch({ query: ARTICLE_QUERY, params: { language: lang } });
   const { data: images } = await sanityFetch({ query: GALLERY_QUERY })
-  const { data: stage } = await sanityFetch({ query: STAGE_QUERY, params: { language: lang } });
 
   return (
     <section>
-      {stage && <Stage {...stage} />}
+      {stageData && <Stage {...stageData} />}
+      {articleData[0] && <TextImage article={articleData[0]} />}
       {images && <ImageSlider images={images} />}
 
       <div className="h-100 bg-base-dark mt-8"></div>
