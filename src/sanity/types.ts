@@ -636,6 +636,25 @@ export type FOOTER_SITEINFO_QUERYResult = {
     value: BlockContent | null;
   } | null;
 } | null;
+// Variable: GALLERY_QUERY
+// Query: *[_type == "gallery"]{  _id,  title,  image}
+export type GALLERY_QUERYResult = Array<{
+  _id: string;
+  title: string | null;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
+}>;
 
 // Query TypeMap
 import "@sanity/client";
@@ -646,5 +665,6 @@ declare module "@sanity/client" {
     "*[_type == \"post\" && slug.current == $slug][0]{\n  _id,\n  title,\n  body,\n  mainImage,\n  publishedAt,\n  \"categories\": coalesce(\n    categories[]->{\n      _id,\n      slug,\n      title\n    },\n    []\n  ),\n  author->{\n    name,\n    image\n  }\n}": POST_QUERYResult;
     "*[_type == \"siteInfo\"][0]{\n  _id,\n  title,\n  subtitle[_key == $language][0]{value},\n  logo,\n  phone\n}": HEADER_SITEINFO_QUERYResult;
     "*[_type == \"siteInfo\"][0]{\n  _id,\n  phone,\n  address,\n  email, \n  timetable[_key == $language][0]{value}\n}": FOOTER_SITEINFO_QUERYResult;
+    "*[_type == \"gallery\"]{\n  _id,\n  title,\n  image\n}": GALLERY_QUERYResult;
   }
 }

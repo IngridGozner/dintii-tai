@@ -66,3 +66,11 @@ export const FOOTER_SITEINFO_QUERY =
   timetable[_key == $language][0]{value}
 }`)
 
+export const GALLERY_QUERY =
+  defineQuery(`*[_type == "gallery"]{
+  _id,
+  title,
+  image
+}`)
+
+
