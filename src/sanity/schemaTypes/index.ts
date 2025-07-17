@@ -6,11 +6,10 @@ import { authorType } from './authorType'
 import { siteInfoType } from './siteInfoType'
 import { treatmentType } from './treatmentType'
 import { treatmentGroupType } from './treatmentGroupType'
-import { serviceType } from './serviceType'
 import { postType } from './postType'
 import { articleType } from './articleType'
 import { galleryType } from './galleryType'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [blockContentType, siteInfoType, categoryType, authorType, treatmentType, treatmentGroupType, serviceType, postType, articleType, galleryType],
+  types: [blockContentType, siteInfoType, categoryType, authorType, treatmentType, treatmentGroupType, postType, articleType, galleryType],
 }
