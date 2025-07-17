@@ -6,7 +6,7 @@
 @theme {
   --color-base-dark: #386D92;
   --color-base-light: #4D88AE;
-  --color-background: #f8f9fa;
+  --color-background: #e5f3fa;
   --color-font: #343a40;
   --color-link: var(--color-base-dark);
   --color-link-hover: var(--color-base-light);
