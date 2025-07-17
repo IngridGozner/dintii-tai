@@ -31,6 +31,15 @@ export const siteInfoType = defineType({
             },
         }),
         defineField({
+            name: 'motto',
+            type: 'string',
+        }),
+        defineField({
+            name: 'stageImage',
+            type: 'reference',
+            to: { type: 'gallery' },
+        }),
+        defineField({
             name: 'phone',
             type: 'string',
         }),

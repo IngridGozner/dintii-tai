@@ -73,4 +73,14 @@ export const GALLERY_QUERY =
   image
 }`)
 
+export const STAGE_QUERY =
+  defineQuery(`*[_type == "siteInfo"][0]{
+  _id,
+  motto,
+  stageImage->{
+    image
+  }
+}`)
+
+
 

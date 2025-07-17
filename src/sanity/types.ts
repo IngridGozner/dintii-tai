@@ -13,29 +13,6 @@
  */
 
 // Source: schema.json
-export type Gallery = {
-  _id: string;
-  _type: "gallery";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  slug?: Slug;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "image";
-  };
-};
-
 export type Article = {
   _id: string;
   _type: "article";
@@ -276,12 +253,42 @@ export type SiteInfo = {
   };
   name?: string;
   slug?: Slug;
+  motto?: string;
+  stageImage?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "gallery";
+  };
   phone?: string;
   email?: string;
   address?: string;
   timetable?: Array<{
     _key: string;
   } & InternationalizedArrayBlockContentValue>;
+};
+
+export type Gallery = {
+  _id: string;
+  _type: "gallery";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
 };
 
 export type BlockContent = Array<{
@@ -452,7 +459,7 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes = Gallery | Article | Post | Service | Treatment | TreatmentGroup | Author | Category | SiteInfo | BlockContent | InternationalizedArrayBlockContentValue | InternationalizedArrayStringValue | InternationalizedArrayBlockContent | InternationalizedArrayString | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes = Article | Post | Service | Treatment | TreatmentGroup | Author | Category | SiteInfo | Gallery | BlockContent | InternationalizedArrayBlockContentValue | InternationalizedArrayStringValue | InternationalizedArrayBlockContent | InternationalizedArrayString | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: POSTS_QUERY
@@ -655,6 +662,27 @@ export type GALLERY_QUERYResult = Array<{
     _type: "image";
   } | null;
 }>;
+// Variable: STAGE_QUERY
+// Query: *[_type == "siteInfo"][0]{  _id,  motto,  stageImage->{    image  }}
+export type STAGE_QUERYResult = {
+  _id: string;
+  motto: string | null;
+  stageImage: {
+    image: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
+    } | null;
+  } | null;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
@@ -666,5 +694,6 @@ declare module "@sanity/client" {
     "*[_type == \"siteInfo\"][0]{\n  _id,\n  title,\n  subtitle[_key == $language][0]{value},\n  logo,\n  phone\n}": HEADER_SITEINFO_QUERYResult;
     "*[_type == \"siteInfo\"][0]{\n  _id,\n  phone,\n  address,\n  email, \n  timetable[_key == $language][0]{value}\n}": FOOTER_SITEINFO_QUERYResult;
     "*[_type == \"gallery\"]{\n  _id,\n  title,\n  image\n}": GALLERY_QUERYResult;
+    "*[_type == \"siteInfo\"][0]{\n  _id,\n  motto,\n  stageImage->{\n    image\n  }\n}": STAGE_QUERYResult;
   }
 }
