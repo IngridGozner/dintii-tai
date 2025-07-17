@@ -90,5 +90,19 @@ export const ARTICLE_QUERY =
   body[_key == $language][0]{value},
 }`)
 
+export const TREATMENT_QUERY = defineQuery(`*[_type == "treatment"]
+  | order(treatmentGroup->order asc, name[_key == $language][0].value asc) {
+  _id,
+  name[_key == $language][0]{value},
+  price,
+  treatmentGroup->{
+    _id,
+    name[_key == $language][0]{value},
+    order
+  }
+}`)
+
+
+
 
 
