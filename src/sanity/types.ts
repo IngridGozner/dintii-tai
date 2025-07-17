@@ -115,7 +115,9 @@ export type Treatment = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  name?: string;
+  name?: Array<{
+    _key: string;
+  } & InternationalizedArrayStringValue>;
   slug?: Slug;
   treatmentGroup?: {
     _ref: string;
@@ -123,7 +125,7 @@ export type Treatment = {
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "treatmentGroup";
   };
-  price?: number;
+  price?: string;
 };
 
 export type TreatmentGroup = {
@@ -135,6 +137,7 @@ export type TreatmentGroup = {
   name?: Array<{
     _key: string;
   } & InternationalizedArrayStringValue>;
+  order?: number;
   slug?: Slug;
 };
 
@@ -671,6 +674,20 @@ export type ARTICLE_QUERYResult = Array<{
     value: BlockContent | null;
   } | null;
 }>;
+// Variable: TREATMENT_QUERY
+// Query: *[_type == "treatment"]{  _id,  name[_key == $language][0]{value},  treatmentGroup->{    name[_key == $language][0]{value},  },  price,}
+export type TREATMENT_QUERYResult = Array<{
+  _id: string;
+  name: {
+    value: string | null;
+  } | null;
+  treatmentGroup: {
+    name: {
+      value: string | null;
+    } | null;
+  } | null;
+  price: string | null;
+}>;
 
 // Query TypeMap
 import "@sanity/client";
@@ -684,5 +701,6 @@ declare module "@sanity/client" {
     "*[_type == \"gallery\"]{\n  _id,\n  title,\n  image\n}": GALLERY_QUERYResult;
     "*[_type == \"siteInfo\"][0]{\n  _id,\n  motto[_key == $language][0]{value},\n  stageImage->{\n    image\n  }\n}": STAGE_QUERYResult;
     "*[_type == \"article\"]{\n  _id,\n  title[_key == $language][0]{value},\n  image,\n  body[_key == $language][0]{value},\n}": ARTICLE_QUERYResult;
+    "*[_type == \"treatment\"]{\n  _id,\n  name[_key == $language][0]{value},\n  treatmentGroup->{\n    name[_key == $language][0]{value},\n  },\n  price,\n}": TREATMENT_QUERYResult;
   }
 }

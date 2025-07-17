@@ -13,6 +13,10 @@ export const treatmentGroupType = defineType({
             type: 'internationalizedArrayString',
         }),
         defineField({
+            name: 'order',
+            type: 'number',
+        }),
+        defineField({
             name: 'slug',
             type: 'slug',
             options: {
