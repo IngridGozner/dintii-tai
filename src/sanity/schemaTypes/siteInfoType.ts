@@ -32,7 +32,7 @@ export const siteInfoType = defineType({
         }),
         defineField({
             name: 'motto',
-            type: 'string',
+            type: 'internationalizedArrayString',
         }),
         defineField({
             name: 'stageImage',

@@ -1,5 +1,5 @@
 import { DocumentTextIcon } from '@sanity/icons'
-import { defineField, defineType } from 'sanity'
+import { defineField, defineType, SanityDocument, SlugSourceContext } from 'sanity'
 
 export const articleType = defineType({
     name: 'article',
@@ -9,13 +9,23 @@ export const articleType = defineType({
     fields: [
         defineField({
             name: 'title',
-            type: 'string',
+            type: 'internationalizedArrayString',
         }),
         defineField({
             name: 'slug',
             type: 'slug',
             options: {
-                source: 'name',
+                source: ((document) => {
+                    const titleArray = document?.title;
+
+                    if (Array.isArray(titleArray)) {
+                        const enTitle = titleArray.find((item: any) => item._key === 'en')?.value;
+                        return enTitle;
+                    }
+
+                    return 'Untitled Article';
+                }),
+                maxLength: 96,
             },
         }),
         defineField({
@@ -39,7 +49,7 @@ export const articleType = defineType({
         }),
         defineField({
             name: 'body',
-            type: 'blockContent',
+            type: 'internationalizedArrayBlockContent',
         }),
     ],
     preview: {
@@ -47,5 +57,18 @@ export const articleType = defineType({
             title: 'title',
             media: 'image',
         },
+        prepare(selection) {
+            const { title, media } = selection;
+            // Find English title (or fallback)
+            const enTitle = Array.isArray(title)
+                ? title.find(item => item._key === 'en')?.value || 'No title'
+                : 'No title';
+
+            return {
+                title: enTitle,
+                media,
+            };
+        },
     },
 })
+

@@ -19,7 +19,9 @@ export type Article = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title?: string;
+  title?: Array<{
+    _key: string;
+  } & InternationalizedArrayStringValue>;
   slug?: Slug;
   image?: {
     asset?: {
@@ -35,36 +37,8 @@ export type Article = {
     _type: "image";
   };
   body?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
-    listItem?: "bullet";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
     _key: string;
-  } | {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "image";
-    _key: string;
-  }>;
+  } & InternationalizedArrayBlockContentValue>;
 };
 
 export type Post = {
@@ -253,7 +227,9 @@ export type SiteInfo = {
   };
   name?: string;
   slug?: Slug;
-  motto?: string;
+  motto?: Array<{
+    _key: string;
+  } & InternationalizedArrayStringValue>;
   stageImage?: {
     _ref: string;
     _type: "reference";
@@ -663,10 +639,12 @@ export type GALLERY_QUERYResult = Array<{
   } | null;
 }>;
 // Variable: STAGE_QUERY
-// Query: *[_type == "siteInfo"][0]{  _id,  motto,  stageImage->{    image  }}
+// Query: *[_type == "siteInfo"][0]{  _id,  motto[_key == $language][0]{value},  stageImage->{    image  }}
 export type STAGE_QUERYResult = {
   _id: string;
-  motto: string | null;
+  motto: {
+    value: string | null;
+  } | null;
   stageImage: {
     image: {
       asset?: {
@@ -683,6 +661,30 @@ export type STAGE_QUERYResult = {
     } | null;
   } | null;
 } | null;
+// Variable: ARTICLE_QUERY
+// Query: *[_type == "article"]{  _id,  title[_key == $language][0]{value},  image,  body[_key == $language][0]{value},}
+export type ARTICLE_QUERYResult = Array<{
+  _id: string;
+  title: {
+    value: string | null;
+  } | null;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
+  body: {
+    value: BlockContent | null;
+  } | null;
+}>;
 
 // Query TypeMap
 import "@sanity/client";
@@ -694,6 +696,7 @@ declare module "@sanity/client" {
     "*[_type == \"siteInfo\"][0]{\n  _id,\n  title,\n  subtitle[_key == $language][0]{value},\n  logo,\n  phone\n}": HEADER_SITEINFO_QUERYResult;
     "*[_type == \"siteInfo\"][0]{\n  _id,\n  phone,\n  address,\n  email, \n  timetable[_key == $language][0]{value}\n}": FOOTER_SITEINFO_QUERYResult;
     "*[_type == \"gallery\"]{\n  _id,\n  title,\n  image\n}": GALLERY_QUERYResult;
-    "*[_type == \"siteInfo\"][0]{\n  _id,\n  motto,\n  stageImage->{\n    image\n  }\n}": STAGE_QUERYResult;
+    "*[_type == \"siteInfo\"][0]{\n  _id,\n  motto[_key == $language][0]{value},\n  stageImage->{\n    image\n  }\n}": STAGE_QUERYResult;
+    "*[_type == \"article\"]{\n  _id,\n  title[_key == $language][0]{value},\n  image,\n  body[_key == $language][0]{value},\n}": ARTICLE_QUERYResult;
   }
 }
