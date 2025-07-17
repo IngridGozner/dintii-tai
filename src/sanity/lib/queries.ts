@@ -76,10 +76,18 @@ export const GALLERY_QUERY =
 export const STAGE_QUERY =
   defineQuery(`*[_type == "siteInfo"][0]{
   _id,
-  motto,
+  motto[_key == $language][0]{value},
   stageImage->{
     image
   }
+}`)
+
+export const ARTICLE_QUERY =
+  defineQuery(`*[_type == "article"]{
+  _id,
+  title[_key == $language][0]{value},
+  image,
+  body[_key == $language][0]{value},
 }`)
 
 
