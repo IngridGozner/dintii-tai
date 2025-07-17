@@ -109,22 +109,6 @@ export type Post = {
   }>;
 };
 
-export type Service = {
-  _id: string;
-  _type: "service";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  name?: string;
-  slug?: Slug;
-  treatmentGroup?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "treatmentGroup";
-  };
-};
-
 export type Treatment = {
   _id: string;
   _type: "treatment";
@@ -148,7 +132,9 @@ export type TreatmentGroup = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  name?: string;
+  name?: Array<{
+    _key: string;
+  } & InternationalizedArrayStringValue>;
   slug?: Slug;
 };
 
@@ -435,7 +421,7 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes = Article | Post | Service | Treatment | TreatmentGroup | Author | Category | SiteInfo | Gallery | BlockContent | InternationalizedArrayBlockContentValue | InternationalizedArrayStringValue | InternationalizedArrayBlockContent | InternationalizedArrayString | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes = Article | Post | Treatment | TreatmentGroup | Author | Category | SiteInfo | Gallery | BlockContent | InternationalizedArrayBlockContentValue | InternationalizedArrayStringValue | InternationalizedArrayBlockContent | InternationalizedArrayString | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: POSTS_QUERY

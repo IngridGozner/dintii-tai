@@ -1,3 +1,4 @@
+import { getEnglishNameFromInternationalizedField, getInternationalizedPreviewTitle } from '@/helpers';
 import { DocumentTextIcon } from '@sanity/icons'
 import { defineField, defineType } from 'sanity'
 
@@ -9,14 +10,24 @@ export const treatmentGroupType = defineType({
     fields: [
         defineField({
             name: 'name',
-            type: 'string',
+            type: 'internationalizedArrayString',
         }),
         defineField({
             name: 'slug',
             type: 'slug',
             options: {
-                source: 'name',
+                source: ((document) => {
+                    return getEnglishNameFromInternationalizedField(document, 'name');
+                }),
             },
         }),
     ],
+    preview: {
+        select: {
+            title: 'name',
+        },
+        prepare(selection) {
+            return getInternationalizedPreviewTitle(selection);
+        },
+    },
 })

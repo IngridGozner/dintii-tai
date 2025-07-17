@@ -1,5 +1,6 @@
+import { getEnglishNameFromInternationalizedField, getInternationalizedPreviewTitle } from '@/helpers';
 import { DocumentTextIcon } from '@sanity/icons'
-import { defineField, defineType, SanityDocument, SlugSourceContext } from 'sanity'
+import { defineField, defineType } from 'sanity'
 
 export const articleType = defineType({
     name: 'article',
@@ -16,16 +17,8 @@ export const articleType = defineType({
             type: 'slug',
             options: {
                 source: ((document) => {
-                    const titleArray = document?.title;
-
-                    if (Array.isArray(titleArray)) {
-                        const enTitle = titleArray.find((item: any) => item._key === 'en')?.value;
-                        return enTitle;
-                    }
-
-                    return 'Untitled Article';
+                    return getEnglishNameFromInternationalizedField(document, 'title');
                 }),
-                maxLength: 96,
             },
         }),
         defineField({
@@ -58,16 +51,7 @@ export const articleType = defineType({
             media: 'image',
         },
         prepare(selection) {
-            const { title, media } = selection;
-            // Find English title (or fallback)
-            const enTitle = Array.isArray(title)
-                ? title.find(item => item._key === 'en')?.value || 'No title'
-                : 'No title';
-
-            return {
-                title: enTitle,
-                media,
-            };
+            return getInternationalizedPreviewTitle(selection);
         },
     },
 })
