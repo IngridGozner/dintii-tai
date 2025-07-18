@@ -32,7 +32,7 @@ const Slider: React.FC<SliderProps> = (props) => {
   } = usePrevNextButtons(emblaApi)
 
   return (
-    <section className="embla max-w-5xl mx-auto">
+    <section className="embla max-w-5xl mx-auto relative">
       <div className="embla__viewport overflow-hidden" ref={emblaRef}>
         <div className="embla__container flex">
           {slides.map((slide, index) => (
@@ -45,11 +45,11 @@ const Slider: React.FC<SliderProps> = (props) => {
 
       <div className="embla__controls grid grid-cols-[auto_1fr] justify-between gap-5 mt-5">
         <div className="embla__buttons grid grid-cols-2 gap-[0.6rem] items-center">
-          <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
-          <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
+          <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} aria-label='go to previous' />
+          <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} aria-label='go to next' />
         </div>
 
-        <div className="embla__dots flex flex-wrap justify-end items-center gap-2">
+        <div className="embla__dots flex flex-wrap justify-center items-center gap-2">
           {scrollSnaps.map((_, index) => (
             <DotButton
               key={index}
