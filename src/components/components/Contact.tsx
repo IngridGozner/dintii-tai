@@ -7,11 +7,11 @@ import { Link } from "../atoms/Link";
 
 
 export default function Contact(props: NonNullable<FOOTER_SITEINFO_QUERYResult>) {
+    const t = useTranslations('HomePage');
+
     if (!props) return undefined;
 
     const { phone, address, email } = props;
-    const t = useTranslations('HomePage');
-
 
     return (
         <Container darkBackground>
