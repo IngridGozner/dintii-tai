@@ -14,7 +14,7 @@ export default function Stage(props: NonNullable<STAGE_QUERYResult>) {
                 {motto && (
                     <div className="absolute inset-0 grid md:grid-cols-2 grid-cols-1 z-10 md:items-center items-end">
                         <div className="bg-link/50 p-3 lg:p-12">
-                            <h1 className="text-3xl md:text-5xl lg:text-7xl text-white text-shadow-lg font-[Architects_Daughter]">
+                            <h1 className="text-3xl lg:text-7xl text-white text-shadow-lg font-[Architects_Daughter]">
                                 {motto.value}
                             </h1>
                             <div className="lg:ml-5 mt-0 lg:mt-4 text-white text-base lg:text-2xl">{name} | {profession?.value}</div>
