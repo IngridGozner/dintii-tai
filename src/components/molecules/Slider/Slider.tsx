@@ -54,7 +54,7 @@ const Slider: React.FC<SliderProps> = (props) => {
             <DotButton
               key={index}
               onClick={() => onDotButtonClick(index)}
-              className={'embla__dot inline-flex cursor-pointer border-2 rounded-full w-6 h-3 text-font shadow-lg hover:bg-link-hover hover:border-link-hover'.concat(
+              className={'embla__dot inline-flex cursor-pointer border-2 rounded-full w-10 h-4 border-link hover:bg-link-hover hover:border-link-hover'.concat(
                 index === selectedIndex ? ' embla__dot--selected border-link bg-link' : ''
               )}
             />
