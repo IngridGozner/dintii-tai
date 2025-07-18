@@ -19,7 +19,7 @@ export default function TextImage(props: TextImageProps) {
     const imagePositionedRight = imagePosition === 'right';
 
     const textBody = body && body.value && (
-        <div className={`text-xl leading-8 ${image ? `mt-4 md:mt-0 md:w-1/2 ${imagePositionedRight ? 'md:mr-10' : 'md:ml-10'}` : ''}`}>
+        <div className={`text-xl leading-8 text-font ${image ? `mt-4 md:mt-0 md:w-1/2 ${imagePositionedRight ? 'md:mr-10' : 'md:ml-10'}` : ''}`}>
             <PortableText value={body.value} components={components} />
         </div>
     )
