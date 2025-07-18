@@ -5,7 +5,7 @@ import Stage from "@/components/components/Stage";
 import Table from "@/components/components/Table";
 import TextImage from "@/components/components/TextImage";
 import { sanityFetch } from "@/sanity/lib/live";
-import { ARTICLE_SLUG_QUERY, FOOTER_SITEINFO_QUERY, GALLERY_QUERY, STAGE_QUERY, TREATMENT_QUERY } from "@/sanity/lib/queries";
+import { ARTICLE_SLUG_QUERY, SITEINFO_QUERY, GALLERY_QUERY, STAGE_QUERY, TREATMENT_QUERY } from "@/sanity/lib/queries";
 
 export default async function Page({
   params
@@ -19,7 +19,7 @@ export default async function Page({
   const { data: aboutUsData } = await sanityFetch({ query: ARTICLE_SLUG_QUERY, params: { language: lang, slug: 'about-us' } });
   const { data: images } = await sanityFetch({ query: GALLERY_QUERY })
   const { data: treatmentGroups } = await sanityFetch({ query: TREATMENT_QUERY, params: { language: lang } });
-  const { data: footerData } = await sanityFetch({ query: FOOTER_SITEINFO_QUERY, params: { language: lang } })
+  const { data: footerData } = await sanityFetch({ query: SITEINFO_QUERY, params: { language: lang } })
 
   return (
     <section>

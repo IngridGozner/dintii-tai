@@ -1,18 +1,13 @@
 import { defineQuery } from 'next-sanity'
 
-export const HEADER_SITEINFO_QUERY =
+export const SITEINFO_QUERY =
   defineQuery(`*[_type == "siteInfo"][0]{
   _id,
   title,
   subtitle[_key == $language][0]{value},
   name,
+  profession[_key == $language][0]{value},
   logo,
-  phone
-}`)
-
-export const FOOTER_SITEINFO_QUERY =
-  defineQuery(`*[_type == "siteInfo"][0]{
-  _id,
   phone,
   address,
   email, 

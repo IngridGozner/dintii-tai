@@ -1,11 +1,11 @@
 import { GridContainer } from '../molecules/GridContainer';
-import { FOOTER_SITEINFO_QUERYResult } from '@/sanity/types';
+import { SITEINFO_QUERYResult } from '@/sanity/types';
 import { Container } from '../molecules/Container';
 import { Link } from '../atoms/Link';
 import { PortableText } from 'next-sanity';
 import { components } from '@/sanity/portableTextComponents';
 
-export function Footer(props: NonNullable<FOOTER_SITEINFO_QUERYResult>) {
+export function Footer(props: NonNullable<SITEINFO_QUERYResult>) {
     if (!props) return undefined;
 
     const { phone, address, email, timetable } = props;

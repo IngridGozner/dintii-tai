@@ -1,6 +1,6 @@
 import NextLink from 'next/link'
 import { GridContainer } from '../molecules/GridContainer';
-import { HEADER_SITEINFO_QUERYResult } from '@/sanity/types';
+import { SITEINFO_QUERYResult } from '@/sanity/types';
 import Image from 'next/image'
 import { urlFor } from '@/sanity/lib/image';
 import { LanguageSelector } from '../molecules/LanguageSelector';
@@ -9,7 +9,7 @@ import { Button } from '../atoms/Button';
 import { Link } from '../atoms/Link';
 import { useTranslations } from 'next-intl';
 
-export function Header(props: NonNullable<HEADER_SITEINFO_QUERYResult>) {
+export function Header(props: NonNullable<SITEINFO_QUERYResult>) {
     const t = useTranslations('HomePage');
     const navgationLinks = [{ name: t('rates'), href: '#rates' }, { name: t('aboutUs'), href: '#aboutus' }, { name: 'Contact', href: '#contact' }];
 

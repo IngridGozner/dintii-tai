@@ -1,4 +1,4 @@
-import { FOOTER_SITEINFO_QUERYResult } from "@/sanity/types";
+import { SITEINFO_QUERYResult } from "@/sanity/types";
 import { Headline } from "../atoms/Headline";
 import { useTranslations } from "next-intl";
 import { Container } from "../molecules/Container";
@@ -6,7 +6,7 @@ import { GridContainer } from "../molecules/GridContainer";
 import { Link } from "../atoms/Link";
 
 
-export default function Contact(props: NonNullable<FOOTER_SITEINFO_QUERYResult>) {
+export default function Contact(props: NonNullable<SITEINFO_QUERYResult>) {
     const t = useTranslations('HomePage');
 
     if (!props) return undefined;

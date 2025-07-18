@@ -311,15 +311,18 @@ export type SanityAssetSourceData = {
 export type AllSanitySchemaTypes = Article | Treatment | TreatmentGroup | SiteInfo | Gallery | BlockContent | InternationalizedArrayBlockContentValue | InternationalizedArrayStringValue | InternationalizedArrayBlockContent | InternationalizedArrayString | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
-// Variable: HEADER_SITEINFO_QUERY
-// Query: *[_type == "siteInfo"][0]{  _id,  title,  subtitle[_key == $language][0]{value},  name,  logo,  phone}
-export type HEADER_SITEINFO_QUERYResult = {
+// Variable: SITEINFO_QUERY
+// Query: *[_type == "siteInfo"][0]{  _id,  title,  subtitle[_key == $language][0]{value},  name,  profession[_key == $language][0]{value},  logo,  phone,  address,  email,   timetable[_key == $language][0]{value}}
+export type SITEINFO_QUERYResult = {
   _id: string;
   title: string | null;
   subtitle: {
     value: string | null;
   } | null;
   name: string | null;
+  profession: {
+    value: string | null;
+  } | null;
   logo: {
     asset?: {
       _ref: string;
@@ -332,12 +335,6 @@ export type HEADER_SITEINFO_QUERYResult = {
     crop?: SanityImageCrop;
     _type: "image";
   } | null;
-  phone: string | null;
-} | null;
-// Variable: FOOTER_SITEINFO_QUERY
-// Query: *[_type == "siteInfo"][0]{  _id,  phone,  address,  email,   timetable[_key == $language][0]{value}}
-export type FOOTER_SITEINFO_QUERYResult = {
-  _id: string;
   phone: string | null;
   address: string | null;
   email: string | null;
@@ -458,8 +455,7 @@ export type TREATMENT_QUERYResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"siteInfo\"][0]{\n  _id,\n  title,\n  subtitle[_key == $language][0]{value},\n  name,\n  logo,\n  phone\n}": HEADER_SITEINFO_QUERYResult;
-    "*[_type == \"siteInfo\"][0]{\n  _id,\n  phone,\n  address,\n  email, \n  timetable[_key == $language][0]{value}\n}": FOOTER_SITEINFO_QUERYResult;
+    "*[_type == \"siteInfo\"][0]{\n  _id,\n  title,\n  subtitle[_key == $language][0]{value},\n  name,\n  profession[_key == $language][0]{value},\n  logo,\n  phone,\n  address,\n  email, \n  timetable[_key == $language][0]{value}\n}": SITEINFO_QUERYResult;
     "*[_type == \"gallery\"]{\n  _id,\n  title,\n  image\n}": GALLERY_QUERYResult;
     "*[_type == \"siteInfo\"][0]{\n  _id,\n  motto[_key == $language][0]{value},\n  stageImage->{\n    image\n  }\n}": STAGE_QUERYResult;
     "*[_type == \"article\"]{\n  _id,\n  title[_key == $language][0]{value},\n  image,\n  body[_key == $language][0]{value},\n}": ARTICLE_QUERYResult;

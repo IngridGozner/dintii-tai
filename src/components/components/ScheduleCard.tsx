@@ -1,10 +1,10 @@
-import { FOOTER_SITEINFO_QUERYResult } from "@/sanity/types";
+import { SITEINFO_QUERYResult } from "@/sanity/types";
 import LineCard from "../molecules/LineCard";
 import { Container } from "../molecules/Container";
 import { GridContainer } from "../molecules/GridContainer";
 import { useTranslations } from "next-intl";
 
-export default function ScheduleCard(props: NonNullable<FOOTER_SITEINFO_QUERYResult>) {
+export default function ScheduleCard(props: NonNullable<SITEINFO_QUERYResult>) {
     const { timetable } = props;
     const t = useTranslations('HomePage');
 
