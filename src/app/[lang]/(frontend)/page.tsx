@@ -5,7 +5,7 @@ import Stage from "@/components/components/Stage";
 import Table from "@/components/components/Table";
 import TextImage from "@/components/components/TextImage";
 import { sanityFetch } from "@/sanity/lib/live";
-import { ARTICLE_QUERY, FOOTER_SITEINFO_QUERY, GALLERY_QUERY, STAGE_QUERY, TREATMENT_QUERY } from "@/sanity/lib/queries";
+import { ARTICLE_SLUG_QUERY, FOOTER_SITEINFO_QUERY, GALLERY_QUERY, STAGE_QUERY, TREATMENT_QUERY } from "@/sanity/lib/queries";
 
 export default async function Page({
   params
@@ -15,7 +15,8 @@ export default async function Page({
   const { lang } = await params
 
   const { data: stageData } = await sanityFetch({ query: STAGE_QUERY, params: { language: lang } });
-  const { data: articleData } = await sanityFetch({ query: ARTICLE_QUERY, params: { language: lang } });
+  const { data: mottoData } = await sanityFetch({ query: ARTICLE_SLUG_QUERY, params: { language: lang, slug: 'your-teeth-our-care' } });
+  const { data: aboutUsData } = await sanityFetch({ query: ARTICLE_SLUG_QUERY, params: { language: lang, slug: 'about-us' } });
   const { data: images } = await sanityFetch({ query: GALLERY_QUERY })
   const { data: treatmentGroups } = await sanityFetch({ query: TREATMENT_QUERY, params: { language: lang } });
   const { data: footerData } = await sanityFetch({ query: FOOTER_SITEINFO_QUERY, params: { language: lang } })
@@ -23,9 +24,9 @@ export default async function Page({
   return (
     <section>
       {stageData && <Stage {...stageData} />}
-      {articleData[0] && <TextImage article={articleData[0]} darkBackground contentClass="!mt-0" />}
+      {mottoData && <TextImage article={mottoData} darkBackground contentClass="!mt-0" />}
       {treatmentGroups && <Table {...treatmentGroups} />}
-      {articleData[1] && <TextImage darkBackground article={articleData[1]} anchor="aboutus" />}
+      {aboutUsData && <TextImage darkBackground article={aboutUsData} anchor="aboutus" />}
       {images && <ImageSlider images={images} />}
       {footerData && <ScheduleCard {...footerData} />}
       {footerData && <Contact {...footerData} />}

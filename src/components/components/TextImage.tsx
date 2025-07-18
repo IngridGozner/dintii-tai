@@ -1,4 +1,4 @@
-import { ARTICLE_QUERYResult } from "@/sanity/types";
+import { ARTICLE_SLUG_QUERYResult } from "@/sanity/types";
 import { Container, ContainerProps } from "../molecules/Container";
 import { GridContainer } from "../molecules/GridContainer";
 import { Headline, HeadlineProps } from "../atoms/Headline";
@@ -8,7 +8,7 @@ import { PortableText } from "next-sanity";
 import { components } from "@/sanity/portableTextComponents";
 
 type TextImageProps = Partial<HeadlineProps> & ContainerProps & {
-    article: NonNullable<ARTICLE_QUERYResult>[0];
+    article: NonNullable<ARTICLE_SLUG_QUERYResult>;
     imagePosition?: 'left' | 'right';
 }
 

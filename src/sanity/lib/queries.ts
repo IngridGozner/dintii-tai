@@ -90,6 +90,14 @@ export const ARTICLE_QUERY =
   body[_key == $language][0]{value},
 }`)
 
+export const ARTICLE_SLUG_QUERY =
+  defineQuery(`*[_type == "article"][slug.current == $slug][0] {
+  _id,
+  title[_key == $language][0]{value},
+  image,
+  body[_key == $language][0]{value},
+}`)
+
 export const TREATMENT_QUERY = defineQuery(`*[_type == "treatmentGroup"] | order(order asc) {
   _id,
   name[_key == $language][0]{value},

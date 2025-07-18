@@ -674,6 +674,30 @@ export type ARTICLE_QUERYResult = Array<{
     value: BlockContent | null;
   } | null;
 }>;
+// Variable: ARTICLE_SLUG_QUERY
+// Query: *[_type == "article"][slug.current == $slug][0] {  _id,  title[_key == $language][0]{value},  image,  body[_key == $language][0]{value},}
+export type ARTICLE_SLUG_QUERYResult = {
+  _id: string;
+  title: {
+    value: string | null;
+  } | null;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
+  body: {
+    value: BlockContent | null;
+  } | null;
+} | null;
 // Variable: TREATMENT_QUERY
 // Query: *[_type == "treatmentGroup"] | order(order asc) {  _id,  name[_key == $language][0]{value},  order,  slug,  "treatments": *[_type == "treatment" && references(^._id)]    | order(name[_key == $language][0].value asc) {      _id,      name[_key == $language][0]{value},      price,      slug    }}
 export type TREATMENT_QUERYResult = Array<{
@@ -705,6 +729,7 @@ declare module "@sanity/client" {
     "*[_type == \"gallery\"]{\n  _id,\n  title,\n  image\n}": GALLERY_QUERYResult;
     "*[_type == \"siteInfo\"][0]{\n  _id,\n  motto[_key == $language][0]{value},\n  stageImage->{\n    image\n  }\n}": STAGE_QUERYResult;
     "*[_type == \"article\"]{\n  _id,\n  title[_key == $language][0]{value},\n  image,\n  body[_key == $language][0]{value},\n}": ARTICLE_QUERYResult;
+    "*[_type == \"article\"][slug.current == $slug][0] {\n  _id,\n  title[_key == $language][0]{value},\n  image,\n  body[_key == $language][0]{value},\n}": ARTICLE_SLUG_QUERYResult;
     "*[_type == \"treatmentGroup\"] | order(order asc) {\n  _id,\n  name[_key == $language][0]{value},\n  order,\n  slug,\n  \"treatments\": *[_type == \"treatment\" && references(^._id)]\n    | order(name[_key == $language][0].value asc) {\n      _id,\n      name[_key == $language][0]{value},\n      price,\n      slug\n    }\n}\n": TREATMENT_QUERYResult;
   }
 }
