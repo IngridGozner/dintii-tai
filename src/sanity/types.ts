@@ -675,18 +675,22 @@ export type ARTICLE_QUERYResult = Array<{
   } | null;
 }>;
 // Variable: TREATMENT_QUERY
-// Query: *[_type == "treatment"]{  _id,  name[_key == $language][0]{value},  treatmentGroup->{    name[_key == $language][0]{value},  },  price,}
+// Query: *[_type == "treatmentGroup"] | order(order asc) {  _id,  name[_key == $language][0]{value},  order,  slug,  "treatments": *[_type == "treatment" && references(^._id)]    | order(name[_key == $language][0].value asc) {      _id,      name[_key == $language][0]{value},      price,      slug    }}
 export type TREATMENT_QUERYResult = Array<{
   _id: string;
   name: {
     value: string | null;
   } | null;
-  treatmentGroup: {
+  order: number | null;
+  slug: Slug | null;
+  treatments: Array<{
+    _id: string;
     name: {
       value: string | null;
     } | null;
-  } | null;
-  price: string | null;
+    price: string | null;
+    slug: Slug | null;
+  }>;
 }>;
 
 // Query TypeMap
@@ -701,6 +705,6 @@ declare module "@sanity/client" {
     "*[_type == \"gallery\"]{\n  _id,\n  title,\n  image\n}": GALLERY_QUERYResult;
     "*[_type == \"siteInfo\"][0]{\n  _id,\n  motto[_key == $language][0]{value},\n  stageImage->{\n    image\n  }\n}": STAGE_QUERYResult;
     "*[_type == \"article\"]{\n  _id,\n  title[_key == $language][0]{value},\n  image,\n  body[_key == $language][0]{value},\n}": ARTICLE_QUERYResult;
-    "*[_type == \"treatment\"]{\n  _id,\n  name[_key == $language][0]{value},\n  treatmentGroup->{\n    name[_key == $language][0]{value},\n  },\n  price,\n}": TREATMENT_QUERYResult;
+    "*[_type == \"treatmentGroup\"] | order(order asc) {\n  _id,\n  name[_key == $language][0]{value},\n  order,\n  slug,\n  \"treatments\": *[_type == \"treatment\" && references(^._id)]\n    | order(name[_key == $language][0].value asc) {\n      _id,\n      name[_key == $language][0]{value},\n      price,\n      slug\n    }\n}\n": TREATMENT_QUERYResult;
   }
 }
