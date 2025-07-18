@@ -1,6 +1,6 @@
 {
-    "HomePage": {
-      "title": "Hello world EN!",
-      "about": "Go to the about page"
-    }
+  "HomePage": {
+    "ratesTitle": "Rate",
+    "treatmentTitle": "Treatment",
+  }
 }
