@@ -2,6 +2,7 @@
   "HomePage": {
     "ratesTitle": "Rate",
     "treatmentTitle": "Treatment",
-    "contactUs": "Contact Us"
+    "contactUs": "Contact Us",
+    "schedule": "Schedule"
   }
 }

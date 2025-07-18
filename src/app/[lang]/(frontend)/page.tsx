@@ -1,5 +1,6 @@
 import Contact from "@/components/components/Contact";
 import ImageSlider from "@/components/components/ImageSlider";
+import ScheduleCard from "@/components/components/ScheduleCard";
 import Stage from "@/components/components/Stage";
 import Table from "@/components/components/Table";
 import TextImage from "@/components/components/TextImage";
@@ -24,7 +25,9 @@ export default async function Page({
       {stageData && <Stage {...stageData} />}
       {articleData[0] && <TextImage article={articleData[0]} />}
       {treatmentGroups && <Table {...treatmentGroups} />}
+      {articleData[1] && <TextImage darkBackground article={articleData[1]} />}
       {images && <ImageSlider images={images} />}
+      {footerData && <ScheduleCard {...footerData} />}
       {footerData && <Contact {...footerData} />}
     </section>
   );
