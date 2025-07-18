@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { Container } from "../molecules/Container";
 import { GridContainer } from "../molecules/GridContainer";
 import { Link } from "../atoms/Link";
-
+import Image from "next/image";
 
 export default function Contact(props: NonNullable<SITEINFO_QUERYResult>) {
     const t = useTranslations('HomePage');
@@ -25,6 +25,11 @@ export default function Contact(props: NonNullable<SITEINFO_QUERYResult>) {
                     <Headline headline={t('contactUs')} anchor="contact" />
                     <div className="flex flex-col gap-y-4 md:gap-y-4 text-base md:text-2xl">
                         {phone && <Link href={`tel:${phone}`} label={phone} iconName="phone" iconClassName="lg:!text-3xl" />}
+                        {phone &&
+                            <div className="flex flex-row">
+                                <Image src="/whatsapp.svg" height={30} width={30} alt="whatsapp icon" />
+                                <Link href={`https://wa.me/${phone}`} label="WhatsApp" className="ml-3" />
+                            </div>}
                         {email && <Link href={`mailto:${email}`} label={email} iconName="email" iconClassName="lg:!text-3xl" />}
                         {address && <Link href="https://maps.app.goo.gl/EMPERD71bPH24zmu8" label={address} iconName="fmd_good" iconClassName="lg:!text-3xl" />}
                     </div>
