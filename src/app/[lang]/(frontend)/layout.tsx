@@ -16,7 +16,7 @@ export default async function FrontendLayout({
     const { data: footerSiteInfo } = await sanityFetch({ query: FOOTER_SITEINFO_QUERY, params: { language: lang } })
 
     return (
-        <section className="bg-white min-h-screen">
+        <section className="min-h-screen">
             <LanguageProvider language={lang}>
                 {headerSiteInfo && <Header {...headerSiteInfo} />}
                 {children}
