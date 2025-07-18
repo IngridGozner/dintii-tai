@@ -96,6 +96,9 @@ export type SiteInfo = {
     _type: "image";
   };
   name?: string;
+  profession?: Array<{
+    _key: string;
+  } & InternationalizedArrayStringValue>;
   slug?: Slug;
   motto?: Array<{
     _key: string;
@@ -309,13 +312,14 @@ export type AllSanitySchemaTypes = Article | Treatment | TreatmentGroup | SiteIn
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: HEADER_SITEINFO_QUERY
-// Query: *[_type == "siteInfo"][0]{  _id,  title,  subtitle[_key == $language][0]{value},  logo,  phone}
+// Query: *[_type == "siteInfo"][0]{  _id,  title,  subtitle[_key == $language][0]{value},  name,  logo,  phone,}
 export type HEADER_SITEINFO_QUERYResult = {
   _id: string;
   title: string | null;
   subtitle: {
     value: string | null;
   } | null;
+  name: string | null;
   logo: {
     asset?: {
       _ref: string;
@@ -454,7 +458,7 @@ export type TREATMENT_QUERYResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"siteInfo\"][0]{\n  _id,\n  title,\n  subtitle[_key == $language][0]{value},\n  logo,\n  phone\n}": HEADER_SITEINFO_QUERYResult;
+    "*[_type == \"siteInfo\"][0]{\n  _id,\n  title,\n  subtitle[_key == $language][0]{value},\n  name,\n  logo,\n  phone,\n}": HEADER_SITEINFO_QUERYResult;
     "*[_type == \"siteInfo\"][0]{\n  _id,\n  phone,\n  address,\n  email, \n  timetable[_key == $language][0]{value}\n}": FOOTER_SITEINFO_QUERYResult;
     "*[_type == \"gallery\"]{\n  _id,\n  title,\n  image\n}": GALLERY_QUERYResult;
     "*[_type == \"siteInfo\"][0]{\n  _id,\n  motto[_key == $language][0]{value},\n  stageImage->{\n    image\n  }\n}": STAGE_QUERYResult;

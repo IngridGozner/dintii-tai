@@ -5,6 +5,7 @@ export const HEADER_SITEINFO_QUERY =
   _id,
   title,
   subtitle[_key == $language][0]{value},
+  name,
   logo,
   phone
 }`)

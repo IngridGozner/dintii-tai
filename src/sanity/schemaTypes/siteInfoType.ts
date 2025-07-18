@@ -24,6 +24,10 @@ export const siteInfoType = defineType({
             type: 'string',
         }),
         defineField({
+            name: 'profession',
+            type: 'internationalizedArrayString',
+        }),
+        defineField({
             name: 'slug',
             type: 'slug',
             options: {
