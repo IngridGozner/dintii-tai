@@ -4,13 +4,13 @@ import { HEADER_SITEINFO_QUERYResult } from '@/sanity/types';
 import Image from 'next/image'
 import { urlFor } from '@/sanity/lib/image';
 import { LanguageSelector } from '../molecules/LanguageSelector';
-import { ComponentContainer } from '../molecules/ComponentContainer';
+import { Container } from '../molecules/Container';
 import { Button } from '../atoms/Button';
 import { Link } from '../atoms/Link';
 
 export function Header(props: NonNullable<HEADER_SITEINFO_QUERYResult>) {
     //TODO: take link names from sanity?
-    const navgationLinks = [{ name: 'Prices', href: '#prices' }, { name: 'About Us', href: '#aboutus' }, { name: 'Contact', href: '#contact' }];
+    const navgationLinks = [{ name: 'Prices', href: '#rates' }, { name: 'About Us', href: '#aboutus' }, { name: 'Contact', href: '#contact' }];
 
     if (!props) return undefined;
 
@@ -18,7 +18,7 @@ export function Header(props: NonNullable<HEADER_SITEINFO_QUERYResult>) {
 
     return (
         <header className="border-b-2 border-base-dark sticky top-0 bg-white shadow-lg z-50">
-            <ComponentContainer contentClass='!py-4 !mt-0'>
+            <Container contentClass='!py-4 !mt-0'>
                 <GridContainer>
                     <div className="col-span-6">
                         <NextLink
@@ -57,7 +57,7 @@ export function Header(props: NonNullable<HEADER_SITEINFO_QUERYResult>) {
                         </nav>
                     </div>
                 </GridContainer>
-            </ComponentContainer>
+            </Container>
         </header >
     )
 }
