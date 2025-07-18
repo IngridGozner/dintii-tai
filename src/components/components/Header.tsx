@@ -30,13 +30,15 @@ export function Header(props: NonNullable<SITEINFO_QUERYResult>) {
                             className="flex flex-row mt-7 md:mt-0 text-font"
                             href="/"
                         >
-                            {logo && <div className="w-16 lg:w-22 aspect-square"
-                            ><Image
-                                    src={urlFor(logo).width(100).height(100).url()}
-                                    width={100}
-                                    height={100}
-                                    alt={title || ''}
-                                /></div>}
+                            {logo &&
+                                <div className="w-16 lg:w-22 aspect-square">
+                                    <Image
+                                        src={urlFor(logo).width(100).height(100).url()}
+                                        width={100}
+                                        height={100}
+                                        alt={title || ''}
+                                    />
+                                </div>}
                             <div className="mt-3 lg:mt-6">
                                 <p className="text-xl lg:text-4xl font-[Architects_Daughter]">{title}</p>
                                 {subtitle && <p className="ml-3 italic text-base lg:text-2xl">{subtitle.value}

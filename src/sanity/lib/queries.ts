@@ -27,7 +27,9 @@ export const STAGE_QUERY =
   motto[_key == $language][0]{value},
   stageImage->{
     image
-  }
+  },
+  name,
+  profession[_key == $language][0]{value}
 }`)
 
 export const ARTICLE_QUERY =
