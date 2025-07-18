@@ -1,8 +1,10 @@
 {
   "HomePage": {
+    "rates": "Preise",
+    "aboutUs": "Über uns",
     "ratesTitle": "Preis",
     "treatmentTitle": "Behandlung",
-    "contactUs": "Kontaktieren Sie uns",
+    "contactUs": "Kontakt",
     "schedule": "Programm"
   }
 }

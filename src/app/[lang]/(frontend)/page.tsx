@@ -23,9 +23,9 @@ export default async function Page({
   return (
     <section>
       {stageData && <Stage {...stageData} />}
-      {articleData[0] && <TextImage article={articleData[0]} />}
+      {articleData[0] && <TextImage article={articleData[0]} darkBackground contentClass="!mt-0" />}
       {treatmentGroups && <Table {...treatmentGroups} />}
-      {articleData[1] && <TextImage darkBackground article={articleData[1]} />}
+      {articleData[1] && <TextImage darkBackground article={articleData[1]} anchor="aboutus" />}
       {images && <ImageSlider images={images} />}
       {footerData && <ScheduleCard {...footerData} />}
       {footerData && <Contact {...footerData} />}

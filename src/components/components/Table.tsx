@@ -18,7 +18,7 @@ export default function Table(props: NonNullable<TREATMENT_QUERYResult>) {
         <Container>
             <GridContainer>
                 <div className="col-span-6 md:col-span-12">
-                    <Headline headline={t('ratesTitle')} anchor="rates" />
+                    <Headline headline={t('rates')} anchor="rates" />
 
                     <table className="w-full text-left">
                         <colgroup><col /><col /></colgroup>

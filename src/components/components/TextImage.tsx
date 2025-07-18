@@ -1,20 +1,19 @@
 import { ARTICLE_QUERYResult } from "@/sanity/types";
-import { Container } from "../molecules/Container";
+import { Container, ContainerProps } from "../molecules/Container";
 import { GridContainer } from "../molecules/GridContainer";
-import { Headline } from "../atoms/Headline";
+import { Headline, HeadlineProps } from "../atoms/Headline";
 import Image from 'next/image'
 import { urlFor } from "@/sanity/lib/image";
 import { PortableText } from "next-sanity";
 import { components } from "@/sanity/portableTextComponents";
 
-type TextImageProps = {
+type TextImageProps = Partial<HeadlineProps> & ContainerProps & {
     article: NonNullable<ARTICLE_QUERYResult>[0];
     imagePosition?: 'left' | 'right';
-    darkBackground?: boolean;
 }
 
 export default function TextImage(props: TextImageProps) {
-    const { article, imagePosition = 'left', darkBackground = false } = props;
+    const { article, imagePosition = 'left', darkBackground, containerClass, contentClass, headline, ...rest } = props;
 
     const { title, image, body } = article;
     const imagePositionedRight = imagePosition === 'right';
@@ -26,10 +25,10 @@ export default function TextImage(props: TextImageProps) {
     )
 
     return (
-        <Container darkBackground={darkBackground}>
+        <Container darkBackground={darkBackground} containerClass={containerClass} contentClass={contentClass}>
             <GridContainer>
                 <div className={image ? "col-span-6 md:col-span-12 md:col-start-2" : "col-span-6 md:col-start-3 md:col-span-7"}>
-                    {title && title.value && <Headline headline={title.value} />}
+                    {title && title.value && <Headline headline={title.value} {...rest} />}
                     <div className='flex flex-col md:flex-row'>
                         {imagePositionedRight && textBody}
                         {image && (

@@ -7,10 +7,11 @@ import { LanguageSelector } from '../molecules/LanguageSelector';
 import { Container } from '../molecules/Container';
 import { Button } from '../atoms/Button';
 import { Link } from '../atoms/Link';
+import { useTranslations } from 'next-intl';
 
 export function Header(props: NonNullable<HEADER_SITEINFO_QUERYResult>) {
-    //TODO: take link names from sanity?
-    const navgationLinks = [{ name: 'Prices', href: '#rates' }, { name: 'About Us', href: '#aboutus' }, { name: 'Contact', href: '#contact' }];
+    const t = useTranslations('HomePage');
+    const navgationLinks = [{ name: t('rates'), href: '#rates' }, { name: t('aboutUs'), href: '#aboutus' }, { name: 'Contact', href: '#contact' }];
 
     if (!props) return undefined;
 

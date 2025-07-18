@@ -1,8 +1,10 @@
 {
   "HomePage": {
+    "rates": "Rates",
+    "aboutUs": "About us",
     "ratesTitle": "Rate",
     "treatmentTitle": "Treatment",
-    "contactUs": "Contact Us",
+    "contactUs": "Contact",
     "schedule": "Schedule"
   }
 }

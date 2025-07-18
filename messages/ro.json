@@ -1,8 +1,10 @@
 {
   "HomePage": {
-    "ratesTitle": "Tarife",
+    "rates": "Tarife",
+    "aboutUs": "Despre noi",
+    "ratesTitle": "Tarif",
     "treatmentTitle": "Manoperă",
-    "contactUs": "Contactaţi-ne",
+    "contactUs": "Contact",
     "schedule": "Program"
   }
 }
