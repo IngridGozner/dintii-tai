@@ -4,14 +4,14 @@ export function getEnglishNameFromInternationalizedField(document: SanityDocumen
     const array = document?.[element];
 
     if (Array.isArray(array)) {
-        const enTitle = array.find((item: any) => item._key === 'en')?.value;
+        const enTitle = array.find((item) => item._key === 'en')?.value;
         return enTitle;
     }
 
     return 'untitled';
 }
 
-export function getInternationalizedPreviewTitle(selection: Record<"title", any>): { title: string } {
+export function getInternationalizedPreviewTitle(selection: Record<"title", string>): { title: string } {
     const { title, ...rest } = selection;
 
     const enTitle = Array.isArray(title)

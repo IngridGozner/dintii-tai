@@ -19,10 +19,8 @@ const Slider: React.FC<SliderProps> = (props) => {
   const [emblaRef, emblaApi] = useEmblaCarousel(options)
 
   const slides = React.Children.toArray(children);
-  if (!slides || !slides.length) return null;
 
-  const { selectedIndex, scrollSnaps, onDotButtonClick } =
-    useDotButton(emblaApi)
+  const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi)
 
   const {
     prevBtnDisabled,
@@ -30,6 +28,8 @@ const Slider: React.FC<SliderProps> = (props) => {
     onPrevButtonClick,
     onNextButtonClick
   } = usePrevNextButtons(emblaApi)
+
+  if (!slides || !slides.length) return null;
 
   return (
     <section className="embla max-w-5xl mx-auto relative">
