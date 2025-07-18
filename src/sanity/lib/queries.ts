@@ -64,8 +64,3 @@ export const TREATMENT_QUERY = defineQuery(`*[_type == "treatmentGroup"] | order
     }
 }
 `)
-
-
-
-
-
