@@ -1,6 +1,6 @@
 import { GridContainer } from '../molecules/GridContainer';
 import { FOOTER_SITEINFO_QUERYResult } from '@/sanity/types';
-import { ComponentContainer } from '../molecules/ComponentContainer';
+import { Container } from '../molecules/Container';
 import { Link } from '../atoms/Link';
 import { PortableText } from 'next-sanity';
 import { components } from '@/sanity/portableTextComponents';
@@ -11,8 +11,8 @@ export function Footer(props: NonNullable<FOOTER_SITEINFO_QUERYResult>) {
     const { phone, address, email, timetable } = props;
 
     return (
-        <footer className="bg-base-dark p-6">
-            <ComponentContainer>
+        <footer>
+            <Container contentClass='bg-base-dark p-10'>
                 <GridContainer>
                     <div className="col-span-6 flex flex-col gap-y-4 md:gap-y-4 text-base md:text-xl">
                         {phone &&
@@ -29,7 +29,7 @@ export function Footer(props: NonNullable<FOOTER_SITEINFO_QUERYResult>) {
                         <PortableText value={timetable.value} components={components} />
                     </div>}
                 </GridContainer>
-            </ComponentContainer>
+            </Container>
         </footer >
     )
 }

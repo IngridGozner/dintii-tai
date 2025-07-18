@@ -2,7 +2,7 @@ import { GALLERY_QUERYResult } from "@/sanity/types";
 import Slider from "../molecules/Slider/Slider";
 import Image from 'next/image'
 import { urlFor } from '@/sanity/lib/image';
-import { ComponentContainer } from "../molecules/ComponentContainer";
+import { Container } from "../molecules/Container";
 
 type ImageSliderProps = {
     headline?: string;
@@ -15,7 +15,7 @@ export default function ImageSlider(props: ImageSliderProps) {
     if (!values || !values.length) return undefined;
 
     return (
-        <ComponentContainer>
+        <Container>
             {headline && <h2 className="mb-3">{headline}</h2>}
             <Slider options={{ slidesToScroll: 1, loop: true }}>
                 {values.map((item, index) => {
@@ -36,6 +36,6 @@ export default function ImageSlider(props: ImageSliderProps) {
                 }
                 )}
             </Slider>
-        </ComponentContainer>
+        </Container>
     )
 }

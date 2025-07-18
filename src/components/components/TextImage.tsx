@@ -1,5 +1,5 @@
 import { ARTICLE_QUERYResult } from "@/sanity/types";
-import { ComponentContainer } from "../molecules/ComponentContainer";
+import { Container } from "../molecules/Container";
 import { GridContainer } from "../molecules/GridContainer";
 import { Headline } from "../atoms/Headline";
 import Image from 'next/image'
@@ -25,7 +25,7 @@ export default function TextImage(props: TextImageProps) {
     )
 
     return (
-        <ComponentContainer>
+        <Container>
             <GridContainer>
                 <div className={image ? "col-span-6 md:col-span-12 md:col-start-2" : "col-span-6 md:col-start-3 md:col-span-7"}>
                     {title && title.value && <Headline headline={title.value} />}
@@ -46,6 +46,6 @@ export default function TextImage(props: TextImageProps) {
                     </div>
                 </div>
             </GridContainer>
-        </ComponentContainer >
+        </Container >
     );
 }   
