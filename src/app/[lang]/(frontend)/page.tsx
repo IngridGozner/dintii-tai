@@ -21,8 +21,6 @@ export default async function Page({
   const { data: treatmentGroups } = await sanityFetch({ query: TREATMENT_QUERY, params: { language: lang } });
   const { data: footerData } = await sanityFetch({ query: SITEINFO_QUERY, params: { language: lang } })
 
-  console.log('images', images)
-
   return (
     <section>
       {stageData && <Stage {...stageData} />}
