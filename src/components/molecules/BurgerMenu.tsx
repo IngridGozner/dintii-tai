@@ -1,7 +1,3 @@
-'use client';
-
-import { useState } from 'react';
-
 export default function BurgerMenu({ isOpen, toggle }: { isOpen: boolean, toggle: () => void }) {
     const commmonLineClasses = "h-0.5 w-8 bg-link hover:bg-link-hover transition duration-300 ease-in-out";
 
