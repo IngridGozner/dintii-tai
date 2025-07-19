@@ -3,6 +3,8 @@ import { Header } from "@/components/components/Header";
 import LanguageProvider from "@/components/providers/LanguageProvider";
 import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 import { SITEINFO_QUERY } from "@/sanity/lib/queries";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
 
 export default async function FrontendLayout({
     children,
@@ -14,15 +16,18 @@ export default async function FrontendLayout({
     const { lang } = await params
     const { data: headerSiteInfo } = await sanityFetch({ query: SITEINFO_QUERY, params: { language: lang } })
     const { data: footerSiteInfo } = await sanityFetch({ query: SITEINFO_QUERY, params: { language: lang } })
+    const messages = await getMessages();
 
     return (
         <section className="min-h-screen">
-            <LanguageProvider language={lang}>
-                {headerSiteInfo && <Header {...headerSiteInfo} />}
-                {children}
-                {footerSiteInfo && <Footer {...footerSiteInfo} />}
-                <SanityLive />
-            </LanguageProvider>
+            <NextIntlClientProvider messages={messages}>
+                <LanguageProvider language={lang}>
+                    {headerSiteInfo && <Header {...headerSiteInfo} />}
+                    {children}
+                    {footerSiteInfo && <Footer {...footerSiteInfo} />}
+                    <SanityLive />
+                </LanguageProvider>
+            </NextIntlClientProvider>
         </section>
     );
 }
