@@ -53,14 +53,14 @@ export const usePrevNextButtons = (
 }
 
 type PropType = ComponentPropsWithRef<'button'>
-const buttonClassName = "bg-white absolute top-[45%] cursor-pointer z-10 w-12 aspect-square border-2 border-link hover:border-link-hover text-link hover:text-link-hover flex items-center justify-center"
+const buttonClassName = "bg-white absolute top-[35%] md:top-[40%] lg:top-[45%] cursor-pointer z-10 w-12 aspect-square border-2 border-link hover:border-link-hover text-link hover:text-link-hover flex items-center justify-center"
 
 export const PrevButton: React.FC<PropType> = (props) => {
     const { children, ...restProps } = props
 
     return (
         <button
-            className={`embla__button embla__button--prev left-0 ${buttonClassName}`}
+            className={`embla__button embla__button--prev left-0 border-l-0 ${buttonClassName}`}
             type="button"
             {...restProps}
         >
@@ -75,7 +75,7 @@ export const NextButton: React.FC<PropType> = (props) => {
 
     return (
         <button
-            className={`embla__button embla__button--next right-0 ${buttonClassName}`}
+            className={`embla__button embla__button--next right-0 border-r-0 ${buttonClassName}`}
             type="button"
             {...restProps}
         >

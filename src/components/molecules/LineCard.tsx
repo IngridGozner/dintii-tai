@@ -16,7 +16,7 @@ export default function LineCard(props: LineCardProps) {
 
     return (
         <div className={className}>
-            <div className="flex flex-row p-5 lg:p-10">
+            <div className="flex flex-row p-5 lg:p-10 items-center">
                 <div className="bg-white rounded-full flex items-center justify-center w-32 h-32 lg:w-38 lg:h-38">
                     <GoogleIcon iconName={iconName} iconClassName="!text-[7rem] lg:!text-[8rem] text-link" />
                 </div>
