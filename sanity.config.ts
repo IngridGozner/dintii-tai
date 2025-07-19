@@ -15,7 +15,7 @@ import { structure } from './src/sanity/structure'
 import { internationalizedArray } from 'sanity-plugin-internationalized-array'
 
 export default defineConfig({
-  basePath: '/en/studio',
+  basePath: '/ro/studio',
   projectId,
   dataset,
   // Add and edit the content schema in the './sanity/schemaTypes' folder
