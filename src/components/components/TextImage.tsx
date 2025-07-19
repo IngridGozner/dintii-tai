@@ -20,6 +20,7 @@ export default function TextImage(props: TextImageProps) {
 
     const textBody = body && body.value && (
         <div className={`text-xl leading-8 text-font ${image ? `mt-4 md:mt-0 md:w-1/2 ${imagePositionedRight ? 'md:mr-10' : 'md:ml-10'}` : ''}`}>
+            {title && title.value && <Headline headline={headline || title.value} {...rest} />}
             <PortableText value={body.value} components={components} />
         </div>
     )
@@ -28,7 +29,6 @@ export default function TextImage(props: TextImageProps) {
         <Container darkBackground={darkBackground} containerClass={containerClass} contentClass={contentClass}>
             <GridContainer>
                 <div className={image ? "col-span-6 md:col-span-12 md:col-start-2" : "col-span-6 md:col-start-3 md:col-span-7"}>
-                    {title && title.value && <Headline headline={headline || title.value} {...rest} />}
                     <div className='flex flex-col md:flex-row'>
                         {imagePositionedRight && textBody}
                         {image && (
