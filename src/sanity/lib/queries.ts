@@ -46,6 +46,7 @@ export const ARTICLE_SLUG_QUERY =
   title[_key == $language][0]{value},
   image,
   body[_key == $language][0]{value},
+  "plainContent":pt::text(body[_key == $language].value)
 }`)
 
 export const TREATMENT_QUERY = defineQuery(`*[_type == "treatmentGroup"] | order(order asc) {

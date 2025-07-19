@@ -413,7 +413,7 @@ export type ARTICLE_QUERYResult = Array<{
   } | null;
 }>;
 // Variable: ARTICLE_SLUG_QUERY
-// Query: *[_type == "article"][slug.current == $slug][0] {  _id,  title[_key == $language][0]{value},  image,  body[_key == $language][0]{value},}
+// Query: *[_type == "article"][slug.current == $slug][0] {  _id,  title[_key == $language][0]{value},  image,  body[_key == $language][0]{value},  "plainContent":pt::text(body[_key == $language].value)}
 export type ARTICLE_SLUG_QUERYResult = {
   _id: string;
   title: {
@@ -435,6 +435,7 @@ export type ARTICLE_SLUG_QUERYResult = {
   body: {
     value: BlockContent | null;
   } | null;
+  plainContent: string;
 } | null;
 // Variable: TREATMENT_QUERY
 // Query: *[_type == "treatmentGroup"] | order(order asc) {  _id,  name[_key == $language][0]{value},  order,  slug,  "treatments": *[_type == "treatment" && references(^._id)]    | order(name[_key == $language][0].value asc) {      _id,      name[_key == $language][0]{value},      price,      slug    }}
@@ -463,7 +464,7 @@ declare module "@sanity/client" {
     "*[_type == \"gallery\"]{\n  _id,\n  title,\n  image\n}": GALLERY_QUERYResult;
     "*[_type == \"siteInfo\"][0]{\n  _id,\n  motto[_key == $language][0]{value},\n  stageImage->{\n    image\n  },\n  name,\n  profession[_key == $language][0]{value}\n}": STAGE_QUERYResult;
     "*[_type == \"article\"]{\n  _id,\n  title[_key == $language][0]{value},\n  image,\n  body[_key == $language][0]{value},\n}": ARTICLE_QUERYResult;
-    "*[_type == \"article\"][slug.current == $slug][0] {\n  _id,\n  title[_key == $language][0]{value},\n  image,\n  body[_key == $language][0]{value},\n}": ARTICLE_SLUG_QUERYResult;
+    "*[_type == \"article\"][slug.current == $slug][0] {\n  _id,\n  title[_key == $language][0]{value},\n  image,\n  body[_key == $language][0]{value},\n  \"plainContent\":pt::text(body[_key == $language].value)\n}": ARTICLE_SLUG_QUERYResult;
     "*[_type == \"treatmentGroup\"] | order(order asc) {\n  _id,\n  name[_key == $language][0]{value},\n  order,\n  slug,\n  \"treatments\": *[_type == \"treatment\" && references(^._id)]\n    | order(name[_key == $language][0].value asc) {\n      _id,\n      name[_key == $language][0]{value},\n      price,\n      slug\n    }\n}\n": TREATMENT_QUERYResult;
   }
 }

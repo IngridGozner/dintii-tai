@@ -20,13 +20,10 @@ export function Header(props: NonNullable<SITEINFO_QUERYResult>) {
 
     if (!props) return undefined;
 
-    const { title, subtitle, logo, phone, name } = props;
-
-    const browserTitle = `${title} | ${name}`
+    const { title, subtitle, logo, phone } = props;
 
     return (
         <header className="border-b-2 border-base-dark sticky top-0 bg-white shadow-lg z-50">
-            <title>{browserTitle}</title>
             <Container contentClass='md:!pt-4 !py-0 !mt-0'>
                 <GridContainer>
                     <div className="col-span-5 md:col-span-6">
