@@ -22,7 +22,7 @@ export default function LineCard(props: LineCardProps) {
                 </div>
                 <div className="flex flex-col text-white ml-8 lg:ml-18">
                     <Headline headline={title} />
-                    <div className="text-base md:text-2xl">
+                    <div className="text-base md:text-2xl lg:leading-8">
                         <PortableText value={text} components={components} />
                     </div>
                 </div>

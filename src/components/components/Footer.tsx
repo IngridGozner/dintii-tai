@@ -19,7 +19,7 @@ export function Footer(props: NonNullable<SITEINFO_QUERYResult>) {
                         {email && <Link href={`mailto:${email}`} label={email} iconName="email" darkBackground />}
                         {address && <Link href="https://maps.app.goo.gl/EMPERD71bPH24zmu8" label={address} iconName="fmd_good" darkBackground />}
                     </div>
-                    {timetable && timetable.value && <div className="col-span-6 text-white text-base md:text-xl">
+                    {timetable && timetable.value && <div className="col-span-6 text-white text-base md:text-xl lg:leading-8 flex lg:items-center lg:justify-center">
                         <PortableText value={timetable.value} components={components} />
                     </div>}
                 </GridContainer>
