@@ -48,7 +48,7 @@ export function Header(props: NonNullable<SITEINFO_QUERYResult>) {
                         </NextLink>
                     </div>
 
-                    <div className="col-span-1 col-start-6 items-end justify-end md:col-span-6 flex md:items-end lg:mb-3">
+                    <div className="col-span-1 col-start-6 items-center justify-end md:col-span-6 flex md:items-end lg:mb-3">
                         <BurgerMenu isOpen={menuOpen} toggle={() => setMenuOpen(!menuOpen)} />
                         <nav className={`absolute top-full left-0 flex justify-center items-center w-full h-96 border-b-2 border-link shadow-2xl bg-background/95 ${menuOpen ? 'block' : 'hidden'} ` +
                             'md:block md:top-0 md:relative md:h-auto md:bg-transparent md:border-none md:shadow-none'}>

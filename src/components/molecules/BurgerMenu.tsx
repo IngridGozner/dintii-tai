@@ -4,7 +4,7 @@ export default function BurgerMenu({ isOpen, toggle }: { isOpen: boolean, toggle
     return (
         <button
             onClick={toggle}
-            className="flex flex-col w-8 h-8 space-y-1.5 md:hidden cursor-pointer"
+            className="flex flex-col w-8 h-8 space-y-1.5 md:hidden cursor-pointer mt-7"
             aria-label="Toggle menu"
         >
             <span
