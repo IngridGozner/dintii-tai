@@ -22,7 +22,7 @@ export default function Contact(props: NonNullable<SITEINFO_QUERYResult>) {
                     </div>
                 </div>
                 <div className="col-span-6 lg:col-start-8 lg:col-span-4 lg:pb-16 md:col-start-7 text-font">
-                    <Headline headline={t('contactUs')} anchor="contact" />
+                    <Headline headline={t('contact')} anchor="contact" />
                     <div className="flex flex-col gap-y-4 md:gap-y-4 text-base md:text-2xl">
                         {name && <div>{name} | {profession?.value}</div>}
                         {phone && <Link href={`tel:${phone}`} label={phone} iconName="phone" iconClassName="lg:!text-3xl" />}

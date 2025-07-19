@@ -15,7 +15,7 @@ import BurgerMenu from '../molecules/BurgerMenu';
 
 export function Header(props: NonNullable<SITEINFO_QUERYResult>) {
     const t = useTranslations('HomePage');
-    const navgationLinks = [{ name: t('rates'), href: '#rates' }, { name: t('aboutUs'), href: '#aboutus' }, { name: 'Contact', href: '#contact' }];
+    const navgationLinks = [{ name: t('rates'), href: '#rates' }, { name: t('aboutUs'), href: '#aboutus' }, { name: t('contact'), href: '#contact' }];
     const [menuOpen, setMenuOpen] = useState(false);
 
     if (!props) return undefined;
