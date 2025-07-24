@@ -16,8 +16,6 @@ export default function Head(props: HeadInfoProps) {
   const browserTitle = siteInfo ? `${title} | ${name}` : ''
   const description = plainContent ? plainContent.substring(0, plainContent.indexOf(' ', 145)) + '...' : '';
 
-  console.log('description', description)
-
   return (
     <head>
       <title>{browserTitle}</title>
