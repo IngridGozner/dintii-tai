@@ -1,17 +1,21 @@
-import { SITEINFO_QUERYResult } from "@/sanity/types";
+import { DICTIONARY_QUERYResult, SITEINFO_QUERYResult } from "@/sanity/types";
 import { Headline } from "../atoms/Headline";
-import { useTranslations } from "next-intl";
 import { Container } from "../molecules/Container";
 import { GridContainer } from "../molecules/GridContainer";
 import { Link } from "../atoms/Link";
 import Image from "next/image";
 
-export default function Contact(props: NonNullable<SITEINFO_QUERYResult>) {
-    const t = useTranslations('HomePage');
+type ContactProps = {
+    siteInfo: NonNullable<SITEINFO_QUERYResult>
+    dictionaryEntries: NonNullable<DICTIONARY_QUERYResult>
+}
 
+export default function Contact(props: ContactProps) {
     if (!props) return undefined;
 
-    const { phone, address, email, name, profession } = props;
+    const { siteInfo, dictionaryEntries } = props;
+    const { phone, address, email, name, profession } = siteInfo;
+    const { contact } = dictionaryEntries;
 
     return (
         <Container darkBackground>
@@ -22,7 +26,7 @@ export default function Contact(props: NonNullable<SITEINFO_QUERYResult>) {
                     </div>
                 </div>
                 <div className="col-span-6 lg:col-start-8 lg:col-span-4 lg:pb-16 md:col-start-7 text-font">
-                    <Headline headline={t('contact')} anchor="contact" />
+                    <Headline headline={contact || ''} anchor="contact" />
                     <div className="flex flex-col gap-y-4 md:gap-y-4 text-base md:text-2xl">
                         {name && <div>{name} | {profession?.value}</div>}
                         {phone && <Link href={`tel:${phone}`} label={phone} iconName="phone" iconClassName="lg:!text-3xl" />}

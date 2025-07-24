@@ -3,7 +3,7 @@ import NextLink from 'next/link';
 
 type LinkProps = Partial<GoogleIconProps> & {
     className?: string;
-    label?: string;
+    label?: string | null;
     onClick?: () => void;
     href: string;
     darkBackground?: boolean;

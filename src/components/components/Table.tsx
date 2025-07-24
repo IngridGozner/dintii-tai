@@ -1,13 +1,19 @@
-import { TREATMENT_QUERYResult } from "@/sanity/types";
+import { DICTIONARY_QUERYResult, TREATMENT_QUERYResult } from "@/sanity/types";
 import { Container } from "../molecules/Container";
 import { GridContainer } from "../molecules/GridContainer";
 import { Headline } from "../atoms/Headline";
 import { Fragment } from "react";
-import { useTranslations } from "next-intl";
 
-export default function Table(props: NonNullable<TREATMENT_QUERYResult>) {
-    const treatmentGroups = Object.values(props);
-    const t = useTranslations('HomePage');
+type ScheduleProps = {
+    treatments: NonNullable<TREATMENT_QUERYResult>
+    dictionaryEntries: NonNullable<DICTIONARY_QUERYResult>
+}
+
+export default function Table(props: ScheduleProps) {
+    const { treatments, dictionaryEntries } = props;
+
+    const treatmentGroups = Object.values(treatments);
+    const { treatmentTableTitle, pricesTableTitle, prices } = dictionaryEntries;
 
     if (!treatmentGroups || !treatmentGroups.length) return null;
 
@@ -18,14 +24,14 @@ export default function Table(props: NonNullable<TREATMENT_QUERYResult>) {
         <Container>
             <GridContainer>
                 <div className="col-span-6 md:col-span-12">
-                    <Headline headline={t('rates')} anchor="rates" />
+                    <Headline headline={prices || ''} anchor="rates" />
 
                     <table className="w-full text-left">
                         <colgroup><col /><col /></colgroup>
                         <thead>
                             <tr>
-                                <th className={headClasses}>{t('treatmentTitle')}</th>
-                                <th className={headClasses}>{t('ratesTitle')}</th>
+                                <th className={headClasses}>{treatmentTableTitle}</th>
+                                <th className={headClasses}>{pricesTableTitle}</th>
                             </tr>
                         </thead>
                         <tbody>

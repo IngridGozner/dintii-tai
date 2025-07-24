@@ -9,13 +9,13 @@ import { LanguageSelector } from '../molecules/LanguageSelector';
 import { Container } from '../molecules/Container';
 import { Button } from '../atoms/Button';
 import { Link } from '../atoms/Link';
-import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import BurgerMenu from '../molecules/BurgerMenu';
+import { DictionaryContext } from '../providers/DictionaryProvider';
 
 export function Header(props: NonNullable<SITEINFO_QUERYResult>) {
-    const t = useTranslations('HomePage');
-    const navgationLinks = [{ name: t('rates'), href: '#rates' }, { name: t('aboutUs'), href: '#aboutus' }, { name: t('contact'), href: '#contact' }];
+    const t = useContext(DictionaryContext);
+    const navgationLinks = [{ name: t?.prices, href: '#rates' }, { name: t?.aboutUs, href: '#aboutus' }, { name: t?.contact, href: '#contact' }];
     const [menuOpen, setMenuOpen] = useState(false);
 
     if (!props) return undefined;
@@ -53,14 +53,16 @@ export function Header(props: NonNullable<SITEINFO_QUERYResult>) {
                         <nav className={`absolute top-full left-0 flex justify-center items-center w-full h-96 border-b-2 border-link shadow-2xl bg-background/95 ${menuOpen ? 'block' : 'hidden'} ` +
                             'md:block md:top-0 md:relative md:h-auto md:bg-transparent md:border-none md:shadow-none'}>
                             <ul className="flex gap-y-8 md:gap-x-8 lg:gap-x-18 flex-col md:flex-row md:justify-end text-2xl md:text-xl">
-                                {navgationLinks.map((link, index) => <li key={link.href + index}>
-                                    <Link
-                                        className="!text-font"
-                                        href={link.href}
-                                        label={link.name}
-                                        onClick={() => setMenuOpen(false)}
-                                    />
-                                </li>)}
+                                {navgationLinks.map((link, index) => {
+                                    return link.name ? <li key={link.href + index}>
+                                        <Link
+                                            className="!text-font"
+                                            href={link.href}
+                                            label={link.name}
+                                            onClick={() => setMenuOpen(false)}
+                                        />
+                                    </li> : undefined
+                                })}
                             </ul>
                         </nav>
                     </div>

@@ -4,8 +4,9 @@ import ScheduleCard from "@/components/components/ScheduleCard";
 import Stage from "@/components/components/Stage";
 import Table from "@/components/components/Table";
 import TextImage from "@/components/components/TextImage";
+import { defaultDictionaryEntries } from "@/components/providers/DictionaryProvider";
 import { sanityFetch } from "@/sanity/lib/live";
-import { ARTICLE_SLUG_QUERY, SITEINFO_QUERY, GALLERY_QUERY, STAGE_QUERY, TREATMENT_QUERY } from "@/sanity/lib/queries";
+import { ARTICLE_SLUG_QUERY, SITEINFO_QUERY, GALLERY_QUERY, STAGE_QUERY, TREATMENT_QUERY, DICTIONARY_QUERY } from "@/sanity/lib/queries";
 
 export default async function Page({
   params
@@ -20,17 +21,18 @@ export default async function Page({
   const { data: images } = await sanityFetch({ query: GALLERY_QUERY })
   const { data: treatmentGroups } = await sanityFetch({ query: TREATMENT_QUERY, params: { language: lang } });
   const { data: footerData } = await sanityFetch({ query: SITEINFO_QUERY, params: { language: lang } })
+  const { data: dictionaryEntries } = await sanityFetch({ query: DICTIONARY_QUERY, params: { language: lang } })
 
   return (
-    <section>
+    <main>
       {stageData && <Stage {...stageData} />}
       {mottoData && <TextImage article={mottoData} darkBackground contentClass="!mt-0" />}
-      {treatmentGroups && <Table {...treatmentGroups} />}
+      {treatmentGroups && <Table treatments={treatmentGroups} dictionaryEntries={dictionaryEntries || defaultDictionaryEntries} />}
       {aboutUsData && <TextImage darkBackground article={aboutUsData} anchor="aboutus" />}
       {images && <ImageSlider images={images} />}
-      {footerData && <ScheduleCard {...footerData} />}
-      {footerData && <Contact {...footerData} />}
-    </section>
+      {footerData && <ScheduleCard siteInfo={footerData} dictionaryEntries={dictionaryEntries || defaultDictionaryEntries} />}
+      {footerData && <Contact siteInfo={footerData} dictionaryEntries={dictionaryEntries || defaultDictionaryEntries} />}
+    </main>
   );
 }
 
