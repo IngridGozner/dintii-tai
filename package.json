@@ -18,7 +18,6 @@
     "dayjs": "^1.11.13",
     "embla-carousel-react": "^8.6.0",
     "next": "^15.3.5",
-    "next-intl": "^4.3.4",
     "next-sanity": "^9.12.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",

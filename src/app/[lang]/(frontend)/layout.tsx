@@ -4,8 +4,6 @@ import DictionaryProvider from "@/components/providers/DictionaryProvider";
 import LanguageProvider from "@/components/providers/LanguageProvider";
 import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 import { DICTIONARY_QUERY, SITEINFO_QUERY } from "@/sanity/lib/queries";
-import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
 
 export default async function FrontendLayout({
     children,
@@ -19,20 +17,16 @@ export default async function FrontendLayout({
     const { data: footerSiteInfo } = await sanityFetch({ query: SITEINFO_QUERY, params: { language: lang } })
     const { data: dictionaryEntries } = await sanityFetch({ query: DICTIONARY_QUERY, params: { language: lang } })
 
-    const messages = await getMessages();
-
     return (
         <section className="min-h-screen">
-            <NextIntlClientProvider messages={messages}>
-                <DictionaryProvider dictionaryEntries={dictionaryEntries}>
-                    <LanguageProvider language={lang}>
-                        {headerSiteInfo && <Header {...headerSiteInfo} />}
-                        {children}
-                        {footerSiteInfo && <Footer {...footerSiteInfo} />}
-                        <SanityLive />
-                    </LanguageProvider>
-                </DictionaryProvider>
-            </NextIntlClientProvider>
+            <DictionaryProvider dictionaryEntries={dictionaryEntries}>
+                <LanguageProvider language={lang}>
+                    {headerSiteInfo && <Header {...headerSiteInfo} />}
+                    {children}
+                    {footerSiteInfo && <Footer {...footerSiteInfo} />}
+                    <SanityLive />
+                </LanguageProvider>
+            </DictionaryProvider>
         </section >
     );
 }
