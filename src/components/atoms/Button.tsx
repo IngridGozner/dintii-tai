@@ -14,7 +14,7 @@ export function Button({ className, label, onClick, href, iconName, iconClassNam
     const buttonContent = <>{iconName && <GoogleIcon iconName={iconName} iconClassName={iconClassName} />}<span className={iconName && "ml-2"}>{label ? label : ''}</span></>
 
     return href ?
-        <a href={href} className={buttonClasses}>
+        <a href={href} className={buttonClasses} onClick={onClick}>
             {buttonContent}
         </a> :
         <button className={buttonClasses} onClick={onClick}>
