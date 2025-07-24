@@ -23,7 +23,7 @@ export function LanguageSelector({ className }: LanguageProps) {
                     label={locale.toUpperCase()}
                     className="flex justify-center mt-2 rounded-lg"
                     href={`/${locale}`}
-                    onClick={() => cookieStore.set('NEXT_LOCALE', locale)}
+                    onClick={() => document.cookie = `NEXT_LOCALE=${locale}; `}
                 />
             )}
         </div>
