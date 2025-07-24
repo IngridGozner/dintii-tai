@@ -61,5 +61,14 @@ export const TREATMENT_QUERY = defineQuery(`*[_type == "treatmentGroup"] | order
       price,
       slug
     }
-}
-`)
+}`)
+
+export const DICTIONARY_QUERY =
+  defineQuery(`*[_type == "dictionary"][0]{
+  "prices": prices[_key == $language][0].value,
+  "aboutUs":aboutUs[_key == $language][0].value,
+  "pricesTableTitle":pricesTableTitle[_key == $language][0].value,
+  "treatmentTableTitle":treatmentTableTitle[_key == $language][0].value,
+  "contact":contact[_key == $language][0].value,
+  "schedule":schedule[_key == $language][0].value,
+}`)

@@ -13,6 +13,33 @@
  */
 
 // Source: schema.json
+export type Dictionary = {
+  _id: string;
+  _type: "dictionary";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  prices?: Array<{
+    _key: string;
+  } & InternationalizedArrayStringValue>;
+  aboutUs?: Array<{
+    _key: string;
+  } & InternationalizedArrayStringValue>;
+  pricesTableTitle?: Array<{
+    _key: string;
+  } & InternationalizedArrayStringValue>;
+  treatmentTableTitle?: Array<{
+    _key: string;
+  } & InternationalizedArrayStringValue>;
+  contact?: Array<{
+    _key: string;
+  } & InternationalizedArrayStringValue>;
+  schedule?: Array<{
+    _key: string;
+  } & InternationalizedArrayStringValue>;
+  slug?: Slug;
+};
+
 export type Article = {
   _id: string;
   _type: "article";
@@ -308,7 +335,7 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes = Article | Treatment | TreatmentGroup | SiteInfo | Gallery | BlockContent | InternationalizedArrayBlockContentValue | InternationalizedArrayStringValue | InternationalizedArrayBlockContent | InternationalizedArrayString | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes = Dictionary | Article | Treatment | TreatmentGroup | SiteInfo | Gallery | BlockContent | InternationalizedArrayBlockContentValue | InternationalizedArrayStringValue | InternationalizedArrayBlockContent | InternationalizedArrayString | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: SITEINFO_QUERY
@@ -455,6 +482,16 @@ export type TREATMENT_QUERYResult = Array<{
     slug: Slug | null;
   }>;
 }>;
+// Variable: DICTIONARY_QUERY
+// Query: *[_type == "dictionary"][0]{  "prices": prices[_key == $language][0].value,  "aboutUs":aboutUs[_key == $language][0].value,  "pricesTableTitle":pricesTableTitle[_key == $language][0].value,  "treatmentTableTitle":treatmentTableTitle[_key == $language][0].value,  "contact":contact[_key == $language][0].value,  "schedule":schedule[_key == $language][0].value,}
+export type DICTIONARY_QUERYResult = {
+  prices: string | null;
+  aboutUs: string | null;
+  pricesTableTitle: string | null;
+  treatmentTableTitle: string | null;
+  contact: string | null;
+  schedule: string | null;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
@@ -465,6 +502,7 @@ declare module "@sanity/client" {
     "*[_type == \"siteInfo\"][0]{\n  _id,\n  motto[_key == $language][0]{value},\n  stageImage->{\n    image\n  },\n  name,\n  profession[_key == $language][0]{value}\n}": STAGE_QUERYResult;
     "*[_type == \"article\"]{\n  _id,\n  title[_key == $language][0]{value},\n  image,\n  body[_key == $language][0]{value},\n}": ARTICLE_QUERYResult;
     "*[_type == \"article\"][slug.current == $slug][0] {\n  _id,\n  title[_key == $language][0]{value},\n  image,\n  body[_key == $language][0]{value},\n  \"plainContent\":pt::text(body[_key == $language].value)\n}": ARTICLE_SLUG_QUERYResult;
-    "*[_type == \"treatmentGroup\"] | order(order asc) {\n  _id,\n  name[_key == $language][0]{value},\n  order,\n  slug,\n  \"treatments\": *[_type == \"treatment\" && references(^._id)]\n    | order(name[_key == $language][0].value asc) {\n      _id,\n      name[_key == $language][0]{value},\n      price,\n      slug\n    }\n}\n": TREATMENT_QUERYResult;
+    "*[_type == \"treatmentGroup\"] | order(order asc) {\n  _id,\n  name[_key == $language][0]{value},\n  order,\n  slug,\n  \"treatments\": *[_type == \"treatment\" && references(^._id)]\n    | order(name[_key == $language][0].value asc) {\n      _id,\n      name[_key == $language][0]{value},\n      price,\n      slug\n    }\n}": TREATMENT_QUERYResult;
+    "*[_type == \"dictionary\"][0]{\n  \"prices\": prices[_key == $language][0].value,\n  \"aboutUs\":aboutUs[_key == $language][0].value,\n  \"pricesTableTitle\":pricesTableTitle[_key == $language][0].value,\n  \"treatmentTableTitle\":treatmentTableTitle[_key == $language][0].value,\n  \"contact\":contact[_key == $language][0].value,\n  \"schedule\":schedule[_key == $language][0].value,\n}": DICTIONARY_QUERYResult;
   }
 }
