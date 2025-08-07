@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { updateSession } from "./supabase/middleware";
 
 export const locales = ['en', 'de', 'ro']
 const defaultLocale = 'ro'
@@ -10,14 +11,14 @@ export function middleware(request: NextRequest) {
         (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
     )
 
-    if (pathnameHasLocale) return
+    if (pathnameHasLocale) return updateSession(request);
 
     // Redirect if there is no locale
     const locale = request.cookies.get('NEXT_LOCALE')?.value || defaultLocale;
     request.nextUrl.pathname = `/${locale}${pathname}`
     // e.g. incoming request is /products
     // The new URL is now /en-US/products
-    return NextResponse.redirect(request.nextUrl)
+    return updateSession(request, NextResponse.redirect(request.nextUrl))
 }
 
 export const config = {
