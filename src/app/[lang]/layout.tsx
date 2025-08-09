@@ -1,5 +1,6 @@
 import "@/app/globals.css";
 import Head from "@/components/components/Head";
+import { Providers } from "@/components/providers/providers";
 import { sanityFetch } from "@/sanity/lib/live";
 import { ARTICLE_SLUG_QUERY, SITEINFO_QUERY } from "@/sanity/lib/queries";
 
@@ -18,7 +19,11 @@ export default async function RootLayout({
   return (
     <html lang={lang}>
       <Head siteInfo={siteInfo || undefined} article={aboutUsData || undefined} />
-      <body>{children}</body>
+      <body>
+        <Providers>
+          {children}
+        </Providers>
+      </body>
     </html>
   );
 }
