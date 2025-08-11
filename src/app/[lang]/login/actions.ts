@@ -26,3 +26,11 @@ export async function login(formData: FormData) {
     revalidatePath('/', 'layout')
     redirect('/dashboard')
 }
+
+export async function signOut() {
+    const supabase = await createClient()
+
+    const { error } = await supabase.auth.signOut()
+
+    return error;
+}
