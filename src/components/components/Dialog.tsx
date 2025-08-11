@@ -12,8 +12,8 @@ export default function Dialog(props: DialogProps) {
       <div className="fixed inset-0 bg-black/25" />
       <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
         <div className="flex min-h-full items-center justify-center p-6 text-center">
-          <div className="relative overflow-hidden rounded-lg bg-white shadow-xl">
-            <div className="bg-base-dark px-28 py-14">
+          <div className="relative overflow-hidden rounded-lg shadow-xl">
+            <div className="bg-base-dark/75 px-28 py-14">
               <div className="flex items-center justify-center">
                 <div className="text-center mt-0">
                   <div className="text-5xl font-semibold text-white">
