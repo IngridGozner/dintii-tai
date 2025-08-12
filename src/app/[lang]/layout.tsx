@@ -21,6 +21,7 @@ export default async function RootLayout({
     query: SITEINFO_QUERY,
     params: { language: lang },
   });
+
   const { data: aboutUsData } = await sanityFetch({
     query: ARTICLE_SLUG_QUERY,
     params: { language: lang, slug: 'about-us' },
@@ -38,7 +39,11 @@ export default async function RootLayout({
         article={aboutUsData || undefined}
       />
       <body>
-        <Providers language={lang} dictionaryEntries={dictionaryEntries}>
+        <Providers
+          language={lang}
+          dictionaryEntries={dictionaryEntries}
+          siteInfo={siteInfo}
+        >
           {children}
         </Providers>
       </body>

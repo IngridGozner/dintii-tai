@@ -11,10 +11,7 @@ export default async function FrontendLayout({
   params: Promise<{ lang: string }>;
 }>) {
   const { lang } = await params;
-  const { data: headerSiteInfo } = await sanityFetch({
-    query: SITEINFO_QUERY,
-    params: { language: lang },
-  });
+
   const { data: footerSiteInfo } = await sanityFetch({
     query: SITEINFO_QUERY,
     params: { language: lang },
@@ -22,7 +19,7 @@ export default async function FrontendLayout({
 
   return (
     <section className='min-h-screen'>
-      {headerSiteInfo && <Header {...headerSiteInfo} />}
+      <Header />
       {children}
       {footerSiteInfo && <Footer {...footerSiteInfo} />}
       <SanityLive />

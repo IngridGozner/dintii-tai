@@ -2,7 +2,6 @@
 
 import NextLink from 'next/link';
 import { GridContainer } from '../molecules/GridContainer';
-import { SITEINFO_QUERYResult } from '@/sanity/types';
 import Image from 'next/image';
 import { urlFor } from '@/sanity/lib/image';
 import { LanguageSelector } from '../molecules/LanguageSelector';
@@ -12,8 +11,9 @@ import { Link } from '../atoms/Link';
 import { useContext, useState } from 'react';
 import BurgerMenu from '../molecules/BurgerMenu';
 import { DictionaryContext } from '../providers/DictionaryProvider';
+import { SiteInfoContext } from '../providers/SiteInfoProvider';
 
-export function Header(props: NonNullable<SITEINFO_QUERYResult>) {
+export function Header() {
   const t = useContext(DictionaryContext);
   const navigationLinks = [
     { name: t?.prices, href: '#rates' },
@@ -21,10 +21,11 @@ export function Header(props: NonNullable<SITEINFO_QUERYResult>) {
     { name: t?.contact, href: '#contact' },
   ];
   const [menuOpen, setMenuOpen] = useState(false);
+  const siteInfo = useContext(SiteInfoContext);
 
-  if (!props) return undefined;
+  if (!siteInfo) return undefined;
 
-  const { title, subtitle, logo, phone } = props;
+  const { title, subtitle, logo, phone } = siteInfo;
 
   return (
     <header className='border-base-dark sticky top-0 z-50 border-b-2 bg-white shadow-lg'>
