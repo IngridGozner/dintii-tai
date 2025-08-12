@@ -1,25 +1,30 @@
-import { SanityDocument } from "next-sanity";
+import { SanityDocument } from 'next-sanity';
 
-export function getEnglishNameFromInternationalizedField(document: SanityDocument, element: string): string {
-    const array = document?.[element];
+export function getEnglishNameFromInternationalizedField(
+  document: SanityDocument,
+  element: string
+): string {
+  const array = document?.[element];
 
-    if (Array.isArray(array)) {
-        const roTitle = array.find((item) => item._key === 'ro')?.value;
-        return roTitle;
-    }
+  if (Array.isArray(array)) {
+    const roTitle = array.find((item) => item._key === 'ro')?.value;
+    return roTitle;
+  }
 
-    return 'untitled';
+  return 'untitled';
 }
 
-export function getInternationalizedPreviewTitle(selection: Record<"title", string>): { title: string } {
-    const { title, ...rest } = selection;
+export function getInternationalizedPreviewTitle(
+  selection: Record<'title', string>
+): { title: string } {
+  const { title, ...rest } = selection;
 
-    const roTitle = Array.isArray(title)
-        ? title.find(item => item._key === 'ro')?.value || 'No title'
-        : 'No title';
+  const roTitle = Array.isArray(title)
+    ? title.find((item) => item._key === 'ro')?.value || 'No title'
+    : 'No title';
 
-    return {
-        title: roTitle,
-        ...rest
-    };
+  return {
+    title: roTitle,
+    ...rest,
+  };
 }

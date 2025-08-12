@@ -1,25 +1,34 @@
-'use client'
+'use client';
 
-import { DICTIONARY_QUERYResult } from '@/sanity/types'
-import { createContext } from 'react'
+import { DICTIONARY_QUERYResult } from '@/sanity/types';
+import { createContext } from 'react';
 
 export const defaultDictionaryEntries = {
-    prices: null,
-    aboutUs: null,
-    pricesTableTitle: null,
-    treatmentTableTitle: null,
-    contact: null,
-    schedule: null,
-}
+  prices: null,
+  aboutUs: null,
+  pricesTableTitle: null,
+  treatmentTableTitle: null,
+  contact: null,
+  schedule: null,
+};
 
-export const DictionaryContext = createContext<NonNullable<DICTIONARY_QUERYResult> | null>(defaultDictionaryEntries)
+export const DictionaryContext =
+  createContext<NonNullable<DICTIONARY_QUERYResult> | null>(
+    defaultDictionaryEntries
+  );
 
 export default function DictionaryProvider({
-    children,
-    dictionaryEntries
+  children,
+  dictionaryEntries,
 }: {
-    children: React.ReactNode
-    dictionaryEntries: NonNullable<DICTIONARY_QUERYResult> | null;
+  children: React.ReactNode;
+  dictionaryEntries: NonNullable<DICTIONARY_QUERYResult> | null;
 }) {
-    return <DictionaryContext.Provider value={dictionaryEntries || defaultDictionaryEntries}>{children}</DictionaryContext.Provider>
+  return (
+    <DictionaryContext.Provider
+      value={dictionaryEntries || defaultDictionaryEntries}
+    >
+      {children}
+    </DictionaryContext.Provider>
+  );
 }

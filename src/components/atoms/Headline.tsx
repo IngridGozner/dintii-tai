@@ -1,13 +1,18 @@
 export type HeadlineProps = {
-    headline: string;
-    className?: string;
-    anchor?: string;
-}
+  headline: string;
+  className?: string;
+  anchor?: string;
+};
 
 export function Headline(props: HeadlineProps) {
-    const { headline, className, anchor } = props;
+  const { headline, className, anchor } = props;
 
-    return (
-        <h2 id={anchor || undefined} className={`text-3xl md:text-4xl mb-3 scroll-mt-[130px] md:scroll-mt-[180px] ${className ? className : ''}`}>{headline}</h2>
-    )
+  return (
+    <h2
+      id={anchor || undefined}
+      className={`mb-3 scroll-mt-[130px] text-3xl md:scroll-mt-[180px] md:text-4xl ${className ? className : ''}`}
+    >
+      {headline}
+    </h2>
+  );
 }

@@ -1,32 +1,31 @@
-import { Footer } from "@/components/components/Footer";
-import { Header } from "@/components/components/Header";
-import DictionaryProvider from "@/components/providers/DictionaryProvider";
-import LanguageProvider from "@/components/providers/LanguageProvider";
-import { sanityFetch, SanityLive } from "@/sanity/lib/live";
-import { DICTIONARY_QUERY, SITEINFO_QUERY } from "@/sanity/lib/queries";
+import { Footer } from '@/components/components/Footer';
+import { Header } from '@/components/components/Header';
+import { sanityFetch, SanityLive } from '@/sanity/lib/live';
+import { SITEINFO_QUERY } from '@/sanity/lib/queries';
 
 export default async function FrontendLayout({
-    children,
-    params
+  children,
+  params,
 }: Readonly<{
-    children: React.ReactNode;
-    params: Promise<{ lang: string }>
+  children: React.ReactNode;
+  params: Promise<{ lang: string }>;
 }>) {
-    const { lang } = await params
-    const { data: headerSiteInfo } = await sanityFetch({ query: SITEINFO_QUERY, params: { language: lang } })
-    const { data: footerSiteInfo } = await sanityFetch({ query: SITEINFO_QUERY, params: { language: lang } })
-    const { data: dictionaryEntries } = await sanityFetch({ query: DICTIONARY_QUERY, params: { language: lang } })
+  const { lang } = await params;
+  const { data: headerSiteInfo } = await sanityFetch({
+    query: SITEINFO_QUERY,
+    params: { language: lang },
+  });
+  const { data: footerSiteInfo } = await sanityFetch({
+    query: SITEINFO_QUERY,
+    params: { language: lang },
+  });
 
-    return (
-        <section className="min-h-screen">
-            <DictionaryProvider dictionaryEntries={dictionaryEntries}>
-                <LanguageProvider language={lang}>
-                    {headerSiteInfo && <Header {...headerSiteInfo} />}
-                    {children}
-                    {footerSiteInfo && <Footer {...footerSiteInfo} />}
-                    <SanityLive />
-                </LanguageProvider>
-            </DictionaryProvider>
-        </section >
-    );
+  return (
+    <section className='min-h-screen'>
+      {headerSiteInfo && <Header {...headerSiteInfo} />}
+      {children}
+      {footerSiteInfo && <Footer {...footerSiteInfo} />}
+      <SanityLive />
+    </section>
+  );
 }
