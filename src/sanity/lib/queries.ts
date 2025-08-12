@@ -10,7 +10,10 @@ export const SITEINFO_QUERY = defineQuery(`*[_type == "siteInfo"][0]{
   phone,
   address,
   email, 
-  timetable[_key == $language][0]{value}
+  timetable[_key == $language][0]{value},
+  loginImage->{
+    image
+  },
 }`);
 
 export const GALLERY_QUERY = defineQuery(`*[_type == "gallery"]{
@@ -67,4 +70,12 @@ export const DICTIONARY_QUERY = defineQuery(`*[_type == "dictionary"][0]{
   "treatmentTableTitle":treatmentTableTitle[_key == $language][0].value,
   "contact":contact[_key == $language][0].value,
   "schedule":schedule[_key == $language][0].value,
+  "login":login[_key == $language][0].value,
+  "email":email[_key == $language][0].value,
+  "password":password[_key == $language][0].value,
+  "dashboard":dashboard[_key == $language][0].value,
+  "patients":patients[_key == $language][0].value,
+  "menu":menu[_key == $language][0].value,
+  "general":general[_key == $language][0].value,
+  "logout":logout[_key == $language][0].value
 }`);

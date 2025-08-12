@@ -3,26 +3,48 @@ import { login } from './actions';
 import { Button } from '@/components/atoms/Button';
 import { Input } from '@/components/atoms/Input';
 import { sanityFetch } from '@/sanity/lib/live';
-import { STAGE_QUERY } from '@/sanity/lib/queries';
+import { DICTIONARY_QUERY, SITEINFO_QUERY } from '@/sanity/lib/queries';
 import Image from 'next/image';
 import { urlFor } from '@/sanity/lib/image';
+import { defaultDictionaryEntries } from '@/components/providers/DictionaryProvider';
 
-export default async function LoginPage() {
-  const { data: loginData } = await sanityFetch({
-    query: STAGE_QUERY,
-    params: { language: 'en' },
+export default async function LoginPage({
+  params,
+}: Readonly<{
+  params: Promise<{ lang: string }>;
+}>) {
+  const { lang } = await params;
+
+  const { data: siteInfo } = await sanityFetch({
+    query: SITEINFO_QUERY,
+    params: { language: lang },
   });
-  const backgroundImage = loginData?.stageImage?.image;
+
+  const { data: dictionaryEntries } = await sanityFetch({
+    query: DICTIONARY_QUERY,
+    params: { language: lang },
+  });
+
+  const {
+    login: loginEntry,
+    email,
+    password,
+  } = dictionaryEntries || defaultDictionaryEntries;
+  const backgroundImage = siteInfo?.loginImage?.image;
 
   return (
     <>
-      <Dialog headline='Login'>
+      <Dialog headline={loginEntry ?? 'Login'}>
         <form className='flex flex-col gap-y-7'>
-          <Input label={'Email'} element={'email'} type={'email'} />
-          <Input label={'Password'} element={'password'} type={'password'} />
+          <Input label={email ?? 'Email'} element='email' type='email' />
+          <Input
+            label={password ?? 'Password'}
+            element='password'
+            type='password'
+          />
           <Button
             formAction={login}
-            label='Login'
+            label={loginEntry ?? 'Login'}
             className='justify-center rounded-full text-center'
           />
         </form>

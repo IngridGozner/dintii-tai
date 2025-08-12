@@ -49,6 +49,46 @@ export type Dictionary = {
       _key: string;
     } & InternationalizedArrayStringValue
   >;
+  login?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  email?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  password?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  dashboard?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  patients?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  menu?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  general?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  logout?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
   slug?: Slug;
 };
 
@@ -170,6 +210,12 @@ export type SiteInfo = {
       _key: string;
     } & InternationalizedArrayBlockContentValue
   >;
+  loginImage?: {
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: 'gallery';
+  };
 };
 
 export type Gallery = {
@@ -396,7 +442,7 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: SITEINFO_QUERY
-// Query: *[_type == "siteInfo"][0]{  _id,  title,  subtitle[_key == $language][0]{value},  name,  profession[_key == $language][0]{value},  logo,  phone,  address,  email,   timetable[_key == $language][0]{value}}
+// Query: *[_type == "siteInfo"][0]{  _id,  title,  subtitle[_key == $language][0]{value},  name,  profession[_key == $language][0]{value},  logo,  phone,  address,  email,   timetable[_key == $language][0]{value},  loginImage->{    image  },}
 export type SITEINFO_QUERYResult = {
   _id: string;
   title: string | null;
@@ -424,6 +470,21 @@ export type SITEINFO_QUERYResult = {
   email: string | null;
   timetable: {
     value: BlockContent | null;
+  } | null;
+  loginImage: {
+    image: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: 'image';
+    } | null;
   } | null;
 } | null;
 // Variable: GALLERY_QUERY
@@ -540,7 +601,7 @@ export type TREATMENT_QUERYResult = Array<{
   }>;
 }>;
 // Variable: DICTIONARY_QUERY
-// Query: *[_type == "dictionary"][0]{  "prices": prices[_key == $language][0].value,  "aboutUs":aboutUs[_key == $language][0].value,  "pricesTableTitle":pricesTableTitle[_key == $language][0].value,  "treatmentTableTitle":treatmentTableTitle[_key == $language][0].value,  "contact":contact[_key == $language][0].value,  "schedule":schedule[_key == $language][0].value,}
+// Query: *[_type == "dictionary"][0]{  "prices": prices[_key == $language][0].value,  "aboutUs":aboutUs[_key == $language][0].value,  "pricesTableTitle":pricesTableTitle[_key == $language][0].value,  "treatmentTableTitle":treatmentTableTitle[_key == $language][0].value,  "contact":contact[_key == $language][0].value,  "schedule":schedule[_key == $language][0].value,  "login":login[_key == $language][0].value,  "email":email[_key == $language][0].value,  "password":password[_key == $language][0].value,  "dashboard":dashboard[_key == $language][0].value,  "patients":patients[_key == $language][0].value,  "menu":menu[_key == $language][0].value,  "general":general[_key == $language][0].value,  "logout":logout[_key == $language][0].value}
 export type DICTIONARY_QUERYResult = {
   prices: string | null;
   aboutUs: string | null;
@@ -548,18 +609,26 @@ export type DICTIONARY_QUERYResult = {
   treatmentTableTitle: string | null;
   contact: string | null;
   schedule: string | null;
+  login: string | null;
+  email: string | null;
+  password: string | null;
+  dashboard: string | null;
+  patients: string | null;
+  menu: string | null;
+  general: string | null;
+  logout: string | null;
 } | null;
 
 // Query TypeMap
 import '@sanity/client';
 declare module '@sanity/client' {
   interface SanityQueries {
-    '*[_type == "siteInfo"][0]{\n  _id,\n  title,\n  subtitle[_key == $language][0]{value},\n  name,\n  profession[_key == $language][0]{value},\n  logo,\n  phone,\n  address,\n  email, \n  timetable[_key == $language][0]{value}\n}': SITEINFO_QUERYResult;
+    '*[_type == "siteInfo"][0]{\n  _id,\n  title,\n  subtitle[_key == $language][0]{value},\n  name,\n  profession[_key == $language][0]{value},\n  logo,\n  phone,\n  address,\n  email, \n  timetable[_key == $language][0]{value},\n  loginImage->{\n    image\n  },\n}': SITEINFO_QUERYResult;
     '*[_type == "gallery"]{\n  _id,\n  title,\n  image\n}': GALLERY_QUERYResult;
     '*[_type == "siteInfo"][0]{\n  _id,\n  motto[_key == $language][0]{value},\n  stageImage->{\n    image\n  },\n  name,\n  profession[_key == $language][0]{value}\n}': STAGE_QUERYResult;
     '*[_type == "article"]{\n  _id,\n  title[_key == $language][0]{value},\n  image,\n  body[_key == $language][0]{value},\n}': ARTICLE_QUERYResult;
     '*[_type == "article"][slug.current == $slug][0] {\n  _id,\n  title[_key == $language][0]{value},\n  image,\n  body[_key == $language][0]{value},\n  "plainContent":pt::text(body[_key == $language].value)\n}': ARTICLE_SLUG_QUERYResult;
     '*[_type == "treatmentGroup"] | order(order asc) {\n  _id,\n  name[_key == $language][0]{value},\n  order,\n  slug,\n  "treatments": *[_type == "treatment" && references(^._id)]\n    | order(name[_key == $language][0].value asc) {\n      _id,\n      name[_key == $language][0]{value},\n      price,\n      slug\n    }\n}': TREATMENT_QUERYResult;
-    '*[_type == "dictionary"][0]{\n  "prices": prices[_key == $language][0].value,\n  "aboutUs":aboutUs[_key == $language][0].value,\n  "pricesTableTitle":pricesTableTitle[_key == $language][0].value,\n  "treatmentTableTitle":treatmentTableTitle[_key == $language][0].value,\n  "contact":contact[_key == $language][0].value,\n  "schedule":schedule[_key == $language][0].value,\n}': DICTIONARY_QUERYResult;
+    '*[_type == "dictionary"][0]{\n  "prices": prices[_key == $language][0].value,\n  "aboutUs":aboutUs[_key == $language][0].value,\n  "pricesTableTitle":pricesTableTitle[_key == $language][0].value,\n  "treatmentTableTitle":treatmentTableTitle[_key == $language][0].value,\n  "contact":contact[_key == $language][0].value,\n  "schedule":schedule[_key == $language][0].value,\n  "login":login[_key == $language][0].value,\n  "email":email[_key == $language][0].value,\n  "password":password[_key == $language][0].value,\n  "dashboard":dashboard[_key == $language][0].value,\n  "patients":patients[_key == $language][0].value,\n  "menu":menu[_key == $language][0].value,\n  "general":general[_key == $language][0].value,\n  "logout":logout[_key == $language][0].value\n}': DICTIONARY_QUERYResult;
   }
 }

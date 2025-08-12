@@ -32,6 +32,38 @@ export const dictionaryType = defineType({
       type: 'internationalizedArrayString',
     }),
     defineField({
+      name: 'login',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'email',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'password',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'dashboard',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'patients',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'menu',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'general',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'logout',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
       name: 'slug',
       type: 'slug',
     }),

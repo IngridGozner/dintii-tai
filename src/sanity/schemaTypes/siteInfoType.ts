@@ -59,5 +59,10 @@ export const siteInfoType = defineType({
       name: 'timetable',
       type: 'internationalizedArrayBlockContent',
     }),
+    defineField({
+      name: 'loginImage',
+      type: 'reference',
+      to: { type: 'gallery' },
+    }),
   ],
 });

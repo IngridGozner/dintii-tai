@@ -4,12 +4,20 @@ import { DICTIONARY_QUERYResult } from '@/sanity/types';
 import { createContext } from 'react';
 
 export const defaultDictionaryEntries = {
-  prices: null,
-  aboutUs: null,
-  pricesTableTitle: null,
-  treatmentTableTitle: null,
-  contact: null,
-  schedule: null,
+  prices: 'Prices',
+  aboutUs: 'About Us',
+  pricesTableTitle: 'Prices',
+  treatmentTableTitle: 'Treatment',
+  contact: 'Contact',
+  schedule: 'Schedule',
+  login: 'Login',
+  email: 'Email',
+  logout: 'Logout',
+  patients: 'Patients',
+  password: 'Password',
+  dashboard: 'Dashboard',
+  menu: 'Menu',
+  general: 'General',
 };
 
 export const DictionaryContext =
