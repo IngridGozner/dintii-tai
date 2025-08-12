@@ -19,11 +19,11 @@ export default async function DashboardLayout({
   }
 
   return (
-    <div className='flex min-h-screen'>
+    <div className='min-h-screen'>
       <Sidebar />
       <div className='flex flex-1 flex-col'>
         <DashboardHeader />
-        <div className='mt-16 p-4 sm:ml-64'>{children}</div>
+        <div className='mt-16 sm:ml-64'>{children}</div>
       </div>
     </div>
   );

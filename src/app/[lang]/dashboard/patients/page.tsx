@@ -1,9 +1,14 @@
+import EditableTable from '@/components/components/EditableTable';
 import { createClient } from '@/supabase/server';
 
 export default async function Patients() {
   const supabase = await createClient();
 
-  const { data: patients } = await supabase.from('patient').select();
+  const { data: patients } = await supabase
+    .from('patient')
+    .select('first_name, last_name, phone_number');
 
-  return <pre>{JSON.stringify(patients, null, 2)}</pre>;
+  console.log('patients', patients);
+
+  return <EditableTable data={patients} />;
 }
