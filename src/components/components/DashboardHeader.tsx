@@ -1,12 +1,16 @@
 'use client';
 
 import BurgerMenu from '../molecules/BurgerMenu';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from '../atoms/Link';
 import { LanguageSelector } from '../molecules/LanguageSelector';
+import { SiteInfoContext } from '../providers/SiteInfoProvider';
 
 export default function DashboardHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const siteInfo = useContext(SiteInfoContext);
+
+  const { logo, title } = siteInfo || {};
 
   return (
     <header className='bg-base-dark border-background fixed top-0 z-50 w-full border-b-2 shadow'>
@@ -21,8 +25,9 @@ export default function DashboardHeader() {
             />
             <Link
               href='/dashboard'
-              label='DintiiTai'
-              className='text-xl text-white'
+              label={title}
+              className='font-[Architects_Daughter] text-2xl text-white hover:!text-white'
+              logo={logo ? { image: logo } : undefined}
             />
           </div>
           <LanguageSelector buttonClassNames='!text-white' />

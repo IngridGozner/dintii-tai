@@ -30,6 +30,8 @@ export function Link({
       {logo?.image && (
         <Image
           src={urlFor(logo?.image).width(32).height(32).url()}
+          width={32}
+          height={32}
           alt={logo?.image?.alt || ''}
           className='h-full w-full object-cover'
         />
@@ -38,7 +40,7 @@ export function Link({
         <GoogleIcon iconName={iconName} iconClassName={iconClassName} />
       )}
       <span
-        className={`hover:underline hover:underline-offset-4 ${iconName && 'ml-2'}`}
+        className={`hover:underline hover:underline-offset-4 ${(iconName || logo) && 'ml-2'}`}
       >
         {label ? label : ''}
       </span>
