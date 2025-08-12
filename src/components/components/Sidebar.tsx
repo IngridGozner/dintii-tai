@@ -6,11 +6,22 @@ import {
   defaultDictionaryEntries,
   DictionaryContext,
 } from '../providers/DictionaryProvider';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { subscribeToEvent } from '@/helpers';
 
 export default function Sidebar() {
   const dictionary = useContext(DictionaryContext);
+  const [menuOpen, setMenuOpen] = useState(false);
+
   const { menu, general } = dictionary || defaultDictionaryEntries;
+
+  useEffect(() => {
+    subscribeToEvent('toggleMenu', (e) => {
+      setMenuOpen(e.detail);
+    });
+
+    return () => document.removeEventListener('toggleMenu', () => {});
+  }, []);
 
   const menuLinks = [
     {
@@ -37,7 +48,7 @@ export default function Sidebar() {
   return (
     <aside
       id='logo-sidebar'
-      className='bg-base-dark border-background fixed left-0 z-40 h-screen w-64 -translate-x-full border-r pt-20 transition-transform sm:translate-x-0'
+      className={`bg-base-dark border-background fixed left-0 z-40 h-screen w-64 -translate-x-full border-r pt-20 transition-transform sm:translate-x-0 ${menuOpen ? 'translate-x-0' : ''}`}
       aria-label='Sidebar'
     >
       <nav className='bg-base-dark h-full space-y-8 overflow-y-auto px-3 pb-4'>

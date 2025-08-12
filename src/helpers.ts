@@ -28,3 +28,17 @@ export function getInternationalizedPreviewTitle(
     ...rest,
   };
 }
+
+export function triggerEvent(eventName: string, data: string | boolean) {
+  const event = new CustomEvent(eventName, { detail: data });
+  document.dispatchEvent(event);
+}
+
+export function subscribeToEvent(
+  eventName: string,
+  customFunction: (e: CustomEvent) => void
+) {
+  document.addEventListener(eventName, (e: Event) => {
+    customFunction(e as CustomEvent);
+  });
+}

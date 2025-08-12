@@ -5,6 +5,7 @@ import { useContext, useState } from 'react';
 import { Link } from '../atoms/Link';
 import { LanguageSelector } from '../molecules/LanguageSelector';
 import { SiteInfoContext } from '../providers/SiteInfoProvider';
+import { triggerEvent } from '@/helpers';
 
 export default function DashboardHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -19,7 +20,10 @@ export default function DashboardHeader() {
           <div className='flex items-center justify-start space-x-6 text-white'>
             <BurgerMenu
               isOpen={menuOpen}
-              toggle={() => setMenuOpen(!menuOpen)}
+              toggle={() => {
+                setMenuOpen(!menuOpen);
+                triggerEvent('toggleMenu', !menuOpen);
+              }}
               variant='dark'
               className='!mt-0 justify-center'
             />

@@ -29,7 +29,7 @@ export function Link({
     <>
       {logo?.image && (
         <Image
-          src={urlFor(logo?.image).width(32).height(32).url()}
+          src={urlFor(logo?.image).width(64).height(64).url()}
           width={32}
           height={32}
           alt={logo?.image?.alt || ''}
