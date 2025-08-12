@@ -2,15 +2,31 @@
 
 import { signOut } from '@/app/[lang]/login/actions';
 import NavigationGroup from '../molecules/NavigationGroup';
+import {
+  defaultDictionaryEntries,
+  DictionaryContext,
+} from '../providers/DictionaryProvider';
+import { useContext } from 'react';
 
 export default function Sidebar() {
+  const dictionary = useContext(DictionaryContext);
+  const { menu, general } = dictionary || defaultDictionaryEntries;
+
   const menuLinks = [
-    { name: 'Overview', href: '/dashboard', icon: 'dashboard' },
-    { name: 'Patients', href: '/dashboard/patients', icon: 'perm_identity' },
+    {
+      name: dictionary?.dashboard || '',
+      href: '/dashboard',
+      icon: 'dashboard',
+    },
+    {
+      name: dictionary?.patients || '',
+      href: '/dashboard/patients',
+      icon: 'perm_identity',
+    },
   ];
   const generalLinks = [
     {
-      name: 'Logout',
+      name: dictionary?.logout || '',
       onClick: () => {
         signOut();
       },
@@ -25,9 +41,9 @@ export default function Sidebar() {
       aria-label='Sidebar'
     >
       <nav className='bg-base-dark h-full space-y-8 overflow-y-auto px-3 pb-4'>
-        <NavigationGroup groupTitle={'Menu'} navigationLinks={menuLinks} />
+        <NavigationGroup groupTitle={menu ?? ''} navigationLinks={menuLinks} />
         <NavigationGroup
-          groupTitle={'General'}
+          groupTitle={general ?? ''}
           navigationLinks={generalLinks}
         />
       </nav>
