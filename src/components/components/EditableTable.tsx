@@ -22,7 +22,7 @@ export default function EditableTable(props: EditableTableProps) {
     ? Object.keys(data[0]).filter((key) => !excludedHeaders.includes(key))
     : Object.keys(data[0]);
 
-  const cellClasses = 'p-4 text-font text-base border-b border-font/20';
+  const cellClasses = 'p-3 text-font text-base border-b border-font/20';
   const headClasses = `bg-background text-base ${cellClasses}`;
 
   return (
@@ -60,7 +60,11 @@ export default function EditableTable(props: EditableTableProps) {
                         key={index}
                         className={`${cellClasses} ${clickableCellHeader === header ? 'text-link hover:text-link-hover font-semibold' : ''}`}
                         onClick={(e) => {
-                          if (clickableCell && clickableCellHeader === header) {
+                          if (
+                            clickableCell &&
+                            clickableCellHeader === header &&
+                            entry[header] !== ''
+                          ) {
                             e.stopPropagation();
                             clickableCellFunction?.(entry);
                           }
