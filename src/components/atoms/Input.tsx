@@ -1,11 +1,12 @@
 export type InputProps = {
   label: string;
   element: string;
-  type: string;
+  type?: string;
+  required?: boolean;
 };
 
 export function Input(props: InputProps) {
-  const { label, element, type } = props;
+  const { label, element, type = 'text', required = false } = props;
 
   return (
     <div className='relative'>
@@ -15,6 +16,7 @@ export function Input(props: InputProps) {
         name={element}
         className='peer w-full min-w-72 rounded-lg border-b bg-white p-3 placeholder:text-transparent'
         placeholder='name'
+        required={required}
       />
       <label
         htmlFor={element}

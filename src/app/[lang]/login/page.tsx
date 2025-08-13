@@ -1,5 +1,4 @@
 import Dialog from '@/components/components/Dialog';
-import { login } from './actions';
 import { Button } from '@/components/atoms/Button';
 import { Input } from '@/components/atoms/Input';
 import { sanityFetch } from '@/sanity/lib/live';
@@ -7,6 +6,7 @@ import { DICTIONARY_QUERY, SITEINFO_QUERY } from '@/sanity/lib/queries';
 import Image from 'next/image';
 import { urlFor } from '@/sanity/lib/image';
 import { defaultDictionaryEntries } from '@/components/providers/DictionaryProvider';
+import { login } from '@/supabase/actions/userActions';
 
 export default async function LoginPage({
   params,
@@ -34,13 +34,19 @@ export default async function LoginPage({
 
   return (
     <>
-      <Dialog headline={loginEntry ?? 'Login'}>
+      <Dialog headline={loginEntry ?? 'Login'} closeButton={false}>
         <form className='flex flex-col gap-y-7'>
-          <Input label={email ?? 'Email'} element='email' type='email' />
+          <Input
+            label={email ?? 'Email'}
+            element='email'
+            type='email'
+            required
+          />
           <Input
             label={password ?? 'Password'}
             element='password'
             type='password'
+            required
           />
           <Button
             formAction={login}

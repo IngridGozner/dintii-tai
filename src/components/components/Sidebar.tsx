@@ -1,6 +1,5 @@
 'use client';
 
-import { signOut } from '@/app/[lang]/login/actions';
 import NavigationGroup from '../molecules/NavigationGroup';
 import {
   defaultDictionaryEntries,
@@ -8,6 +7,7 @@ import {
 } from '../providers/DictionaryProvider';
 import { useEffect, useState } from 'react';
 import { subscribeToEvent } from '@/helpers';
+import { signOut } from '@/supabase/actions/userActions';
 
 export default function Sidebar() {
   const dictionary = useDictionary();
