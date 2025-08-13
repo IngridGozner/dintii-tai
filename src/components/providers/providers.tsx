@@ -5,6 +5,7 @@ import LanguageProvider from './LanguageProvider';
 import DictionaryProvider from './DictionaryProvider';
 import { DICTIONARY_QUERYResult, SITEINFO_QUERYResult } from '@/sanity/types';
 import SiteInfoProvider from './SiteInfoProvider';
+import DialogProvider from './DialogProvider';
 
 type ProviderProps = PropsWithChildren & {
   language: string;
@@ -17,7 +18,9 @@ export function Providers(props: ProviderProps) {
   return (
     <LanguageProvider language={language}>
       <DictionaryProvider dictionaryEntries={dictionaryEntries}>
-        <SiteInfoProvider siteInfo={siteInfo}>{children}</SiteInfoProvider>
+        <SiteInfoProvider siteInfo={siteInfo}>
+          <DialogProvider>{children}</DialogProvider>
+        </SiteInfoProvider>
       </DictionaryProvider>
     </LanguageProvider>
   );
