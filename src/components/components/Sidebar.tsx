@@ -4,13 +4,13 @@ import { signOut } from '@/app/[lang]/login/actions';
 import NavigationGroup from '../molecules/NavigationGroup';
 import {
   defaultDictionaryEntries,
-  DictionaryContext,
+  useDictionary,
 } from '../providers/DictionaryProvider';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { subscribeToEvent } from '@/helpers';
 
 export default function Sidebar() {
-  const dictionary = useContext(DictionaryContext);
+  const dictionary = useDictionary();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const { menu, general } = dictionary || defaultDictionaryEntries;

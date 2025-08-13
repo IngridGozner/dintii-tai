@@ -8,20 +8,20 @@ import { LanguageSelector } from '../molecules/LanguageSelector';
 import { Container } from '../molecules/Container';
 import { Button } from '../atoms/Button';
 import { Link } from '../atoms/Link';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import BurgerMenu from '../molecules/BurgerMenu';
-import { DictionaryContext } from '../providers/DictionaryProvider';
-import { SiteInfoContext } from '../providers/SiteInfoProvider';
+import { useDictionary } from '../providers/DictionaryProvider';
+import { useSiteInfo } from '../providers/SiteInfoProvider';
 
 export function Header() {
-  const t = useContext(DictionaryContext);
+  const t = useDictionary();
   const navigationLinks = [
     { name: t?.prices, href: '#rates' },
     { name: t?.aboutUs, href: '#aboutus' },
     { name: t?.contact, href: '#contact' },
   ];
   const [menuOpen, setMenuOpen] = useState(false);
-  const siteInfo = useContext(SiteInfoContext);
+  const siteInfo = useSiteInfo();
 
   if (!siteInfo) return undefined;
 

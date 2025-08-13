@@ -1,8 +1,8 @@
 'use client';
 
 import { Button } from '../atoms/Button';
-import { useContext, useState } from 'react';
-import { LanguageContext } from '../providers/LanguageProvider';
+import { useState } from 'react';
+import { useLanguage } from '../providers/LanguageProvider';
 import { locales } from '@/middleware';
 import { usePathname } from 'next/navigation';
 
@@ -15,7 +15,7 @@ export function LanguageSelector({
   className,
   buttonClassNames,
 }: LanguageProps) {
-  const currentLocale = useContext(LanguageContext);
+  const currentLocale = useLanguage();
 
   const [isOpen, setIsOpen] = useState(false);
 

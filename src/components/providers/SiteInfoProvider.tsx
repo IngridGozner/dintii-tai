@@ -1,7 +1,7 @@
 'use client';
 
 import { SITEINFO_QUERYResult } from '@/sanity/types';
-import { createContext } from 'react';
+import { createContext, useContext } from 'react';
 
 export const defaultSiteInfo = {
   _id: '',
@@ -32,4 +32,14 @@ export default function SiteInfoProvider({
       {children}
     </SiteInfoContext.Provider>
   );
+}
+
+export function useSiteInfo() {
+  const context = useContext(SiteInfoContext);
+
+  if (!context) {
+    throw new Error('useSiteInfo must be used within a SiteInfoProvider');
+  }
+
+  return context;
 }

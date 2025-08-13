@@ -1,15 +1,15 @@
 'use client';
 
 import BurgerMenu from '../molecules/BurgerMenu';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { Link } from '../atoms/Link';
 import { LanguageSelector } from '../molecules/LanguageSelector';
-import { SiteInfoContext } from '../providers/SiteInfoProvider';
+import { useSiteInfo } from '../providers/SiteInfoProvider';
 import { triggerEvent } from '@/helpers';
 
 export default function DashboardHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const siteInfo = useContext(SiteInfoContext);
+  const siteInfo = useSiteInfo();
 
   const { logo, title } = siteInfo || {};
 

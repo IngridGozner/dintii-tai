@@ -1,7 +1,7 @@
 'use client';
 
 import { DICTIONARY_QUERYResult } from '@/sanity/types';
-import { createContext } from 'react';
+import { createContext, useContext } from 'react';
 
 export const defaultDictionaryEntries = {
   prices: 'Prices',
@@ -39,4 +39,14 @@ export default function DictionaryProvider({
       {children}
     </DictionaryContext.Provider>
   );
+}
+
+export function useDictionary() {
+  const context = useContext(DictionaryContext);
+
+  if (!context) {
+    throw new Error('useDictionary must be used within a DictionaryProvider');
+  }
+
+  return context;
 }
