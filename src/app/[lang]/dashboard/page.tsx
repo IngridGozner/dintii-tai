@@ -1,9 +1,15 @@
-// app/dashboard/page.tsx
+import { Container } from '@/components/molecules/Container';
+import { GridContainer } from '@/components/molecules/GridContainer';
+
 export default function Dashboard() {
   return (
-    <div>
-      <h1 className='text-2xl font-semibold'>Welcome to the Dashboard</h1>
-      <p className='text-font mt-2'>Select a section from the sidebar.</p>
-    </div>
+    <Container>
+      <GridContainer>
+        <div className='col-span-6 md:col-span-12'>
+          <h1 className='text-2xl font-semibold'>Dashboard</h1>
+          <p className='text-font mt-2'>Select a section from the sidebar.</p>
+        </div>
+      </GridContainer>
+    </Container>
   );
 }

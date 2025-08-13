@@ -23,7 +23,7 @@ export default async function DashboardLayout({
       <Sidebar />
       <div className='flex flex-1 flex-col'>
         <DashboardHeader />
-        <div className='mt-16 sm:ml-64'>{children}</div>
+        <div className='sm:ml-64'>{children}</div>
       </div>
     </div>
   );
