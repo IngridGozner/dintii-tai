@@ -3,7 +3,7 @@
 import { DICTIONARY_QUERYResult } from '@/sanity/types';
 import { createContext, useContext } from 'react';
 
-export const defaultDictionaryEntries = {
+export const defaultDictionaryEntries: DICTIONARY_QUERYResult = {
   prices: 'Prices',
   aboutUs: 'About Us',
   pricesTableTitle: 'Prices',
@@ -18,6 +18,24 @@ export const defaultDictionaryEntries = {
   dashboard: 'Dashboard',
   menu: 'Menu',
   general: 'General',
+  firstName: null,
+  lastName: null,
+  phone: null,
+  city: null,
+  country: null,
+  patientFile: null,
+  birthdate: null,
+  date: null,
+  price: null,
+  gdpr: null,
+  consent: null,
+  editPatient: null,
+  addPatient: null,
+  deletePatient: null,
+  profile: null,
+  save: null,
+  cancel: null,
+  cnp: null,
 };
 
 export const DictionaryContext =

@@ -7,7 +7,7 @@ export default async function Patients() {
 
   const { data: patients } = await supabase
     .from('patient')
-    .select('id, first_name, last_name, phone_number');
+    .select('id, first_name, last_name, phone');
 
   return (
     <>

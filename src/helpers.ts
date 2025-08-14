@@ -42,3 +42,15 @@ export function subscribeToEvent(
     customFunction(e as CustomEvent);
   });
 }
+
+export function unsubscribeFromEvent(eventName: string) {
+  document.removeEventListener(eventName, () => {});
+}
+
+export function convertSnakeToCamelCase(snakeCaseString: string): string {
+  return snakeCaseString
+    .toLowerCase()
+    .replace(/([-_][a-z])/g, (group) =>
+      group.toUpperCase().replace('-', '').replace('_', '')
+    );
+}

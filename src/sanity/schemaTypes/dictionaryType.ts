@@ -64,6 +64,78 @@ export const dictionaryType = defineType({
       type: 'internationalizedArrayString',
     }),
     defineField({
+      name: 'firstName',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'lastName',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'phone',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'cnp',
+      type: 'string',
+    }),
+    defineField({
+      name: 'city',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'country',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'patientFile',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'birthdate',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'date',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'price',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'gdpr',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'consent',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'editPatient',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'addPatient',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'deletePatient',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'profile',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'save',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'cancel',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
       name: 'slug',
       type: 'slug',
     }),

@@ -1,12 +1,12 @@
 export type InputProps = {
-  label: string;
+  label: string | null;
   element: string;
   type?: string;
   required?: boolean;
 };
 
 export function Input(props: InputProps) {
-  const { label, element, type = 'text', required = false } = props;
+  const { label = '', element, type = 'text', required = false } = props;
 
   return (
     <div className='relative'>

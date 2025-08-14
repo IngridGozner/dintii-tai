@@ -1,7 +1,10 @@
 'use client';
 
+import { ReactNode } from 'react';
 import { Container } from '../molecules/Container';
 import { GridContainer } from '../molecules/GridContainer';
+import { useDictionary } from '../providers/DictionaryProvider';
+import { convertSnakeToCamelCase } from '@/helpers';
 
 type EditableTableProps = {
   data: { [key: string]: string }[] | null;
@@ -11,10 +14,14 @@ type EditableTableProps = {
     clickableCellHeader: string;
     clickableCellFunction: (rowData: { [key: string]: string }) => void;
   };
+  tableHeader?: ReactNode;
 };
 
 export default function EditableTable(props: EditableTableProps) {
-  const { data, excludedHeaders, onClickRow, clickableCell } = props;
+  const { data, excludedHeaders, onClickRow, clickableCell, tableHeader } =
+    props;
+
+  const t = useDictionary();
 
   if (!data) return;
 
@@ -28,6 +35,8 @@ export default function EditableTable(props: EditableTableProps) {
   return (
     <Container>
       <GridContainer>
+        {tableHeader}
+
         <div className='col-span-6 overflow-x-auto md:col-span-12'>
           <table className='w-full text-left'>
             <colgroup>
@@ -39,7 +48,7 @@ export default function EditableTable(props: EditableTableProps) {
               <tr>
                 {headers.map((header, index) => (
                   <th key={index} className={headClasses}>
-                    {header}
+                    {t?.[convertSnakeToCamelCase(header) as keyof typeof t]}
                   </th>
                 ))}
               </tr>
