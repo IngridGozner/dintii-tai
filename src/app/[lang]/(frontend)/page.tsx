@@ -12,8 +12,8 @@ import {
   GALLERY_QUERY,
   STAGE_QUERY,
   TREATMENT_QUERY,
-  DICTIONARY_QUERY,
 } from '@/sanity/lib/queries';
+import { getDictionaryEntries } from '../layout';
 
 export default async function Page({
   params,
@@ -43,10 +43,8 @@ export default async function Page({
     query: SITEINFO_QUERY,
     params: { language: lang },
   });
-  const { data: dictionaryEntries } = await sanityFetch({
-    query: DICTIONARY_QUERY,
-    params: { language: lang },
-  });
+
+  const dictionaryEntries = await getDictionaryEntries(lang);
 
   return (
     <main>

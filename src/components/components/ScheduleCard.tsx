@@ -1,7 +1,8 @@
-import { DICTIONARY_QUERYResult, SITEINFO_QUERYResult } from '@/sanity/types';
+import { SITEINFO_QUERYResult } from '@/sanity/types';
 import LineCard from '../molecules/LineCard';
 import { Container } from '../molecules/Container';
 import { GridContainer } from '../molecules/GridContainer';
+import { DICTIONARY_QUERYResult } from '@/types/GeneralTypes';
 
 type ScheduleProps = {
   siteInfo: NonNullable<SITEINFO_QUERYResult>;

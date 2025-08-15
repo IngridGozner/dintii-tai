@@ -10,7 +10,15 @@ export const structure: StructureResolver = (S) =>
       S.documentTypeListItem('treatment').title('Treatments'),
       S.documentTypeListItem('gallery').title('Gallery'),
       S.documentTypeListItem('article').title('Posts'),
-      S.documentTypeListItem('dictionary').title('Dictionary'),
+      S.documentTypeListItem('dictionaryGeneral').title('Dictionary General'),
+      S.documentTypeListItem('dictionaryNavigation').title(
+        'Dictionary Navigation'
+      ),
+      S.documentTypeListItem('dictionaryEdit').title('Dictionary Edit'),
+      S.documentTypeListItem('dictionaryPatient').title('Dictionary Patient'),
+      S.documentTypeListItem('dictionaryTreatment').title(
+        'Dictionary Treatment'
+      ),
 
       S.divider(),
       ...S.documentTypeListItems().filter(
@@ -22,7 +30,11 @@ export const structure: StructureResolver = (S) =>
             'treatment',
             'gallery',
             'article',
-            'dictionary',
+            'dictionaryGeneral',
+            'dictionaryNavigation',
+            'dictionaryEdit',
+            'dictionaryPatient',
+            'dictionaryTreatment',
           ].includes(item.getId()!)
       ),
     ]);

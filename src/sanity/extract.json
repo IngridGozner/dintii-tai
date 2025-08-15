@@ -1,6 +1,6 @@
 [
   {
-    "name": "dictionary",
+    "name": "dictionaryGeneral",
     "type": "document",
     "attributes": {
       "_id": {
@@ -13,7 +13,7 @@
         "type": "objectAttribute",
         "value": {
           "type": "string",
-          "value": "dictionary"
+          "value": "dictionaryGeneral"
         }
       },
       "_createdAt": {
@@ -34,73 +34,7 @@
           "type": "string"
         }
       },
-      "prices": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "array",
-          "of": {
-            "type": "object",
-            "attributes": {
-              "_key": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "string"
-                }
-              }
-            },
-            "rest": {
-              "type": "inline",
-              "name": "internationalizedArrayStringValue"
-            }
-          }
-        },
-        "optional": true
-      },
       "aboutUs": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "array",
-          "of": {
-            "type": "object",
-            "attributes": {
-              "_key": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "string"
-                }
-              }
-            },
-            "rest": {
-              "type": "inline",
-              "name": "internationalizedArrayStringValue"
-            }
-          }
-        },
-        "optional": true
-      },
-      "pricesTableTitle": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "array",
-          "of": {
-            "type": "object",
-            "attributes": {
-              "_key": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "string"
-                }
-              }
-            },
-            "rest": {
-              "type": "inline",
-              "name": "internationalizedArrayStringValue"
-            }
-          }
-        },
-        "optional": true
-      },
-      "treatmentTableTitle": {
         "type": "objectAttribute",
         "value": {
           "type": "array",
@@ -144,7 +78,29 @@
         },
         "optional": true
       },
-      "schedule": {
+      "prices": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "array",
+          "of": {
+            "type": "object",
+            "attributes": {
+              "_key": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string"
+                }
+              }
+            },
+            "rest": {
+              "type": "inline",
+              "name": "internationalizedArrayStringValue"
+            }
+          }
+        },
+        "optional": true
+      },
+      "pricesTableTitle": {
         "type": "objectAttribute",
         "value": {
           "type": "array",
@@ -232,7 +188,229 @@
         },
         "optional": true
       },
-      "dashboard": {
+      "schedule": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "array",
+          "of": {
+            "type": "object",
+            "attributes": {
+              "_key": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string"
+                }
+              }
+            },
+            "rest": {
+              "type": "inline",
+              "name": "internationalizedArrayStringValue"
+            }
+          }
+        },
+        "optional": true
+      },
+      "slug": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "slug"
+        },
+        "optional": true
+      }
+    }
+  },
+  {
+    "name": "dictionaryEdit",
+    "type": "document",
+    "attributes": {
+      "_id": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_type": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string",
+          "value": "dictionaryEdit"
+        }
+      },
+      "_createdAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_updatedAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_rev": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "addPatient": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "array",
+          "of": {
+            "type": "object",
+            "attributes": {
+              "_key": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string"
+                }
+              }
+            },
+            "rest": {
+              "type": "inline",
+              "name": "internationalizedArrayStringValue"
+            }
+          }
+        },
+        "optional": true
+      },
+      "editPatient": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "array",
+          "of": {
+            "type": "object",
+            "attributes": {
+              "_key": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string"
+                }
+              }
+            },
+            "rest": {
+              "type": "inline",
+              "name": "internationalizedArrayStringValue"
+            }
+          }
+        },
+        "optional": true
+      },
+      "deletePatient": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "array",
+          "of": {
+            "type": "object",
+            "attributes": {
+              "_key": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string"
+                }
+              }
+            },
+            "rest": {
+              "type": "inline",
+              "name": "internationalizedArrayStringValue"
+            }
+          }
+        },
+        "optional": true
+      },
+      "save": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "array",
+          "of": {
+            "type": "object",
+            "attributes": {
+              "_key": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string"
+                }
+              }
+            },
+            "rest": {
+              "type": "inline",
+              "name": "internationalizedArrayStringValue"
+            }
+          }
+        },
+        "optional": true
+      },
+      "cancel": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "array",
+          "of": {
+            "type": "object",
+            "attributes": {
+              "_key": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string"
+                }
+              }
+            },
+            "rest": {
+              "type": "inline",
+              "name": "internationalizedArrayStringValue"
+            }
+          }
+        },
+        "optional": true
+      },
+      "slug": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "slug"
+        },
+        "optional": true
+      }
+    }
+  },
+  {
+    "name": "dictionaryNavigation",
+    "type": "document",
+    "attributes": {
+      "_id": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_type": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string",
+          "value": "dictionaryNavigation"
+        }
+      },
+      "_createdAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_updatedAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_rev": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "menu": {
         "type": "objectAttribute",
         "value": {
           "type": "array",
@@ -276,7 +454,7 @@
         },
         "optional": true
       },
-      "menu": {
+      "dashboard": {
         "type": "objectAttribute",
         "value": {
           "type": "array",
@@ -342,7 +520,7 @@
         },
         "optional": true
       },
-      "firstName": {
+      "profile": {
         "type": "objectAttribute",
         "value": {
           "type": "array",
@@ -364,124 +542,52 @@
         },
         "optional": true
       },
-      "lastName": {
+      "slug": {
         "type": "objectAttribute",
         "value": {
-          "type": "array",
-          "of": {
-            "type": "object",
-            "attributes": {
-              "_key": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "string"
-                }
-              }
-            },
-            "rest": {
-              "type": "inline",
-              "name": "internationalizedArrayStringValue"
-            }
-          }
+          "type": "inline",
+          "name": "slug"
         },
         "optional": true
-      },
-      "phone": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "array",
-          "of": {
-            "type": "object",
-            "attributes": {
-              "_key": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "string"
-                }
-              }
-            },
-            "rest": {
-              "type": "inline",
-              "name": "internationalizedArrayStringValue"
-            }
-          }
-        },
-        "optional": true
-      },
-      "cnp": {
+      }
+    }
+  },
+  {
+    "name": "dictionaryTreatment",
+    "type": "document",
+    "attributes": {
+      "_id": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
-        },
-        "optional": true
+        }
       },
-      "city": {
+      "_type": {
         "type": "objectAttribute",
         "value": {
-          "type": "array",
-          "of": {
-            "type": "object",
-            "attributes": {
-              "_key": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "string"
-                }
-              }
-            },
-            "rest": {
-              "type": "inline",
-              "name": "internationalizedArrayStringValue"
-            }
-          }
-        },
-        "optional": true
+          "type": "string",
+          "value": "dictionaryTreatment"
+        }
       },
-      "country": {
+      "_createdAt": {
         "type": "objectAttribute",
         "value": {
-          "type": "array",
-          "of": {
-            "type": "object",
-            "attributes": {
-              "_key": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "string"
-                }
-              }
-            },
-            "rest": {
-              "type": "inline",
-              "name": "internationalizedArrayStringValue"
-            }
-          }
-        },
-        "optional": true
+          "type": "string"
+        }
       },
-      "patientFile": {
+      "_updatedAt": {
         "type": "objectAttribute",
         "value": {
-          "type": "array",
-          "of": {
-            "type": "object",
-            "attributes": {
-              "_key": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "string"
-                }
-              }
-            },
-            "rest": {
-              "type": "inline",
-              "name": "internationalizedArrayStringValue"
-            }
-          }
-        },
-        "optional": true
+          "type": "string"
+        }
       },
-      "birthdate": {
+      "_rev": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "treatmentTableTitle": {
         "type": "objectAttribute",
         "value": {
           "type": "array",
@@ -591,7 +697,52 @@
         },
         "optional": true
       },
-      "editPatient": {
+      "slug": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "slug"
+        },
+        "optional": true
+      }
+    }
+  },
+  {
+    "name": "dictionaryPatient",
+    "type": "document",
+    "attributes": {
+      "_id": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_type": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string",
+          "value": "dictionaryPatient"
+        }
+      },
+      "_createdAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_updatedAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_rev": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "firstName": {
         "type": "objectAttribute",
         "value": {
           "type": "array",
@@ -613,7 +764,7 @@
         },
         "optional": true
       },
-      "addPatient": {
+      "lastName": {
         "type": "objectAttribute",
         "value": {
           "type": "array",
@@ -635,7 +786,7 @@
         },
         "optional": true
       },
-      "deletePatient": {
+      "phone": {
         "type": "objectAttribute",
         "value": {
           "type": "array",
@@ -657,7 +808,7 @@
         },
         "optional": true
       },
-      "profile": {
+      "patientFile": {
         "type": "objectAttribute",
         "value": {
           "type": "array",
@@ -679,7 +830,7 @@
         },
         "optional": true
       },
-      "save": {
+      "birthdate": {
         "type": "objectAttribute",
         "value": {
           "type": "array",
@@ -701,7 +852,7 @@
         },
         "optional": true
       },
-      "cancel": {
+      "city": {
         "type": "objectAttribute",
         "value": {
           "type": "array",
@@ -720,6 +871,35 @@
               "name": "internationalizedArrayStringValue"
             }
           }
+        },
+        "optional": true
+      },
+      "country": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "array",
+          "of": {
+            "type": "object",
+            "attributes": {
+              "_key": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string"
+                }
+              }
+            },
+            "rest": {
+              "type": "inline",
+              "name": "internationalizedArrayStringValue"
+            }
+          }
+        },
+        "optional": true
+      },
+      "cnp": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
         },
         "optional": true
       },

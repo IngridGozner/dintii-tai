@@ -4,9 +4,14 @@ import { Providers } from '@/components/providers/providers';
 import { sanityFetch } from '@/sanity/lib/live';
 import {
   ARTICLE_SLUG_QUERY,
-  DICTIONARY_QUERY,
+  DICTIONARY_EDIT_QUERY,
+  DICTIONARY_GENERAL_QUERY,
+  DICTIONARY_NAVIGATION_QUERY,
+  DICTIONARY_PATIENT_QUERY,
+  DICTIONARY_TREATMENT_QUERY,
   SITEINFO_QUERY,
 } from '@/sanity/lib/queries';
+import { DICTIONARY_QUERYResult } from '@/types/GeneralTypes';
 
 export default async function RootLayout({
   children,
@@ -27,10 +32,42 @@ export default async function RootLayout({
     params: { language: lang, slug: 'about-us' },
   });
 
-  const { data: dictionaryEntries } = await sanityFetch({
-    query: DICTIONARY_QUERY,
-    params: { language: lang },
-  });
+  // const { data: dictionaryNavigation } = await sanityFetch({
+  //   query: DICTIONARY_NAVIGATION_QUERY,
+  //   params: { language: lang },
+  // });
+
+  // const { data: dictionaryGeneral } = await sanityFetch({
+  //   query: DICTIONARY_GENERAL_QUERY,
+  //   params: { language: lang },
+  // });
+
+  // const { data: dictionaryEdit } = await sanityFetch({
+  //   query: DICTIONARY_EDIT_QUERY,
+  //   params: { language: lang },
+  // });
+
+  // const { data: dictionaryPatient } = await sanityFetch({
+  //   query: DICTIONARY_PATIENT_QUERY,
+  //   params: { language: lang },
+  // });
+
+  // const { data: dictionaryTreatment } = await sanityFetch({
+  //   query: DICTIONARY_TREATMENT_QUERY,
+  //   params: { language: lang },
+  // });
+
+  // const dictionaryEntries: DICTIONARY_QUERYResult = {
+  //   ...dictionaryGeneral,
+  //   ...dictionaryNavigation,
+  //   ...dictionaryEdit,
+  //   ...dictionaryPatient,
+  //   ...dictionaryTreatment,
+  // };
+
+  const dictionaryEntries = await getDictionaryEntries(lang);
+
+  console.log('dictionaryEntries', dictionaryEntries);
 
   return (
     <html lang={lang}>
@@ -49,4 +86,51 @@ export default async function RootLayout({
       </body>
     </html>
   );
+}
+
+export async function getDictionaryEntries(
+  lang: string
+): Promise<DICTIONARY_QUERYResult> {
+  const { data: dictionaryNavigation } = await sanityFetch({
+    query: DICTIONARY_NAVIGATION_QUERY,
+    params: { language: lang },
+  });
+
+  const { data: dictionaryGeneral } = await sanityFetch({
+    query: DICTIONARY_GENERAL_QUERY,
+    params: { language: lang },
+  });
+
+  const { data: dictionaryEdit } = await sanityFetch({
+    query: DICTIONARY_EDIT_QUERY,
+    params: { language: lang },
+  });
+
+  const { data: dictionaryPatient } = await sanityFetch({
+    query: DICTIONARY_PATIENT_QUERY,
+    params: { language: lang },
+  });
+
+  const { data: dictionaryTreatment } = await sanityFetch({
+    query: DICTIONARY_TREATMENT_QUERY,
+    params: { language: lang },
+  });
+
+  const mergedEntries = {
+    ...dictionaryGeneral,
+    ...dictionaryNavigation,
+    ...dictionaryEdit,
+    ...dictionaryPatient,
+    ...dictionaryTreatment,
+  };
+
+  // Ensure all values are string or null (never undefined)
+  const dictionaryEntries: DICTIONARY_QUERYResult = Object.fromEntries(
+    Object.entries(mergedEntries).map(([key, value]) => [
+      key,
+      value === undefined ? null : value,
+    ])
+  ) as DICTIONARY_QUERYResult;
+
+  return dictionaryEntries;
 }

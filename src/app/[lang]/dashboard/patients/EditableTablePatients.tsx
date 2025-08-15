@@ -16,16 +16,8 @@ export default function EditableTablePatient({
   formAction?: (formData: FormData) => Promise<void>;
 }) {
   const { handleClick } = useDialog();
-  const {
-    addPatient,
-    firstName,
-    lastName,
-    phone,
-    cnp,
-    birthdate,
-    patientFile,
-    patients,
-  } = useDictionary();
+  const { addPatient, firstName, lastName, phone, patientFile, patients } =
+    useDictionary();
 
   return (
     <EditableTable
@@ -53,8 +45,8 @@ export default function EditableTablePatient({
                     <Input label={lastName} element='lastName' required />
                     <Input label={phone} element='phoneNumber' type='tel' />
                     {/* <Input label='Email' element='email' type='email' /> */}
-                    <Input label={cnp} element='cnp' />
-                    <Input label={birthdate} element='birthdate' type='date' />
+                    {/* <Input label={cnp} element='cnp' /> */}
+                    {/* <Input label={birthdate} element='birthdate' type='date' /> */}
                     {/* <Input label='Country' element='country' /> */}
                     {/* <Input label='City' element='city' /> */}
                     <Input label={patientFile} element='file' type='file' />

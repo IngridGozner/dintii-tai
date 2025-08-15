@@ -13,28 +13,13 @@
  */
 
 // Source: schema.json
-export type Dictionary = {
+export type DictionaryGeneral = {
   _id: string;
-  _type: 'dictionary';
+  _type: 'dictionaryGeneral';
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  prices?: Array<
-    {
-      _key: string;
-    } & InternationalizedArrayStringValue
-  >;
   aboutUs?: Array<
-    {
-      _key: string;
-    } & InternationalizedArrayStringValue
-  >;
-  pricesTableTitle?: Array<
-    {
-      _key: string;
-    } & InternationalizedArrayStringValue
-  >;
-  treatmentTableTitle?: Array<
     {
       _key: string;
     } & InternationalizedArrayStringValue
@@ -44,7 +29,12 @@ export type Dictionary = {
       _key: string;
     } & InternationalizedArrayStringValue
   >;
-  schedule?: Array<
+  prices?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  pricesTableTitle?: Array<
     {
       _key: string;
     } & InternationalizedArrayStringValue
@@ -64,7 +54,55 @@ export type Dictionary = {
       _key: string;
     } & InternationalizedArrayStringValue
   >;
-  dashboard?: Array<
+  schedule?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  slug?: Slug;
+};
+
+export type DictionaryEdit = {
+  _id: string;
+  _type: 'dictionaryEdit';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  addPatient?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  editPatient?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  deletePatient?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  save?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  cancel?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  slug?: Slug;
+};
+
+export type DictionaryNavigation = {
+  _id: string;
+  _type: 'dictionaryNavigation';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  menu?: Array<
     {
       _key: string;
     } & InternationalizedArrayStringValue
@@ -74,7 +112,7 @@ export type Dictionary = {
       _key: string;
     } & InternationalizedArrayStringValue
   >;
-  menu?: Array<
+  dashboard?: Array<
     {
       _key: string;
     } & InternationalizedArrayStringValue
@@ -89,38 +127,21 @@ export type Dictionary = {
       _key: string;
     } & InternationalizedArrayStringValue
   >;
-  firstName?: Array<
+  profile?: Array<
     {
       _key: string;
     } & InternationalizedArrayStringValue
   >;
-  lastName?: Array<
-    {
-      _key: string;
-    } & InternationalizedArrayStringValue
-  >;
-  phone?: Array<
-    {
-      _key: string;
-    } & InternationalizedArrayStringValue
-  >;
-  cnp?: string;
-  city?: Array<
-    {
-      _key: string;
-    } & InternationalizedArrayStringValue
-  >;
-  country?: Array<
-    {
-      _key: string;
-    } & InternationalizedArrayStringValue
-  >;
-  patientFile?: Array<
-    {
-      _key: string;
-    } & InternationalizedArrayStringValue
-  >;
-  birthdate?: Array<
+  slug?: Slug;
+};
+
+export type DictionaryTreatment = {
+  _id: string;
+  _type: 'dictionaryTreatment';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  treatmentTableTitle?: Array<
     {
       _key: string;
     } & InternationalizedArrayStringValue
@@ -145,36 +166,51 @@ export type Dictionary = {
       _key: string;
     } & InternationalizedArrayStringValue
   >;
-  editPatient?: Array<
+  slug?: Slug;
+};
+
+export type DictionaryPatient = {
+  _id: string;
+  _type: 'dictionaryPatient';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  firstName?: Array<
     {
       _key: string;
     } & InternationalizedArrayStringValue
   >;
-  addPatient?: Array<
+  lastName?: Array<
     {
       _key: string;
     } & InternationalizedArrayStringValue
   >;
-  deletePatient?: Array<
+  phone?: Array<
     {
       _key: string;
     } & InternationalizedArrayStringValue
   >;
-  profile?: Array<
+  patientFile?: Array<
     {
       _key: string;
     } & InternationalizedArrayStringValue
   >;
-  save?: Array<
+  birthdate?: Array<
     {
       _key: string;
     } & InternationalizedArrayStringValue
   >;
-  cancel?: Array<
+  city?: Array<
     {
       _key: string;
     } & InternationalizedArrayStringValue
   >;
+  country?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  cnp?: string;
   slug?: Slug;
 };
 
@@ -503,7 +539,11 @@ export type SanityAssetSourceData = {
 };
 
 export type AllSanitySchemaTypes =
-  | Dictionary
+  | DictionaryGeneral
+  | DictionaryEdit
+  | DictionaryNavigation
+  | DictionaryTreatment
+  | DictionaryPatient
   | Article
   | Treatment
   | TreatmentGroup
@@ -686,23 +726,40 @@ export type TREATMENT_QUERYResult = Array<{
     slug: Slug | null;
   }>;
 }>;
-// Variable: DICTIONARY_QUERY
-// Query: *[_type == "dictionary"][0]{  "prices": prices[_key == $language][0].value,  "aboutUs":aboutUs[_key == $language][0].value,  "pricesTableTitle":pricesTableTitle[_key == $language][0].value,  "treatmentTableTitle":treatmentTableTitle[_key == $language][0].value,  "contact":contact[_key == $language][0].value,  "schedule":schedule[_key == $language][0].value,  "login":login[_key == $language][0].value,  "email":email[_key == $language][0].value,  "password":password[_key == $language][0].value,  "dashboard":dashboard[_key == $language][0].value,  "patients":patients[_key == $language][0].value,  "menu":menu[_key == $language][0].value,  "general":general[_key == $language][0].value,  "logout":logout[_key == $language][0].value,  "firstName": firstName[_key == $language][0].value,  "lastName": lastName[_key == $language][0].value,  "phone": phone[_key == $language][0].value,  "city": city[_key == $language][0].value,  "country": country[_key == $language][0].value,  "patientFile": patientFile[_key == $language][0].value,  "birthdate": birthdate[_key == $language][0].value,  "date": date[_key == $language][0].value,  "price": price[_key == $language][0].value,  "gdpr": gdpr[_key == $language][0].value,  "consent": consent[_key == $language][0].value,  "editPatient": editPatient[_key == $language][0].value,  "addPatient": addPatient[_key == $language][0].value,  "deletePatient": deletePatient[_key == $language][0].value,  "profile": profile[_key == $language][0].value,  "save": save[_key == $language][0].value,  "cancel": cancel[_key == $language][0].value,  "cnp": cnp}
-export type DICTIONARY_QUERYResult = {
-  prices: string | null;
+// Variable: DICTIONARY_GENERAL_QUERY
+// Query: *[_type == "dictionaryGeneral"][0]{    "aboutUs":aboutUs[_key == $language][0].value,    "prices": prices[_key == $language][0].value,    "contact":contact[_key == $language][0].value,    "pricesTableTitle":pricesTableTitle[_key == $language][0].value,    "login":login[_key == $language][0].value,    "email":email[_key == $language][0].value,    "password":password[_key == $language][0].value,    "schedule":schedule[_key == $language][0].value,  }
+export type DICTIONARY_GENERAL_QUERYResult = {
   aboutUs: string | null;
-  pricesTableTitle: string | null;
-  treatmentTableTitle: string | null;
+  prices: string | null;
   contact: string | null;
-  schedule: string | null;
+  pricesTableTitle: string | null;
   login: string | null;
   email: string | null;
   password: string | null;
+  schedule: string | null;
+} | null;
+// Variable: DICTIONARY_NAVIGATION_QUERY
+// Query: *[_type == "dictionaryNavigation"][0]{    "dashboard":dashboard[_key == $language][0].value,    "patients":patients[_key == $language][0].value,    "menu":menu[_key == $language][0].value,    "general":general[_key == $language][0].value,    "logout":logout[_key == $language][0].value,    "profile": profile[_key == $language][0].value,  }
+export type DICTIONARY_NAVIGATION_QUERYResult = {
   dashboard: string | null;
   patients: string | null;
   menu: string | null;
   general: string | null;
   logout: string | null;
+  profile: string | null;
+} | null;
+// Variable: DICTIONARY_EDIT_QUERY
+// Query: *[_type == "dictionaryEdit"][0]{    "addPatient": addPatient[_key == $language][0].value,    "editPatient": editPatient[_key == $language][0].value,    "deletePatient": deletePatient[_key == $language][0].value,    "save": save[_key == $language][0].value,    "cancel": cancel[_key == $language][0].value,  }
+export type DICTIONARY_EDIT_QUERYResult = {
+  addPatient: string | null;
+  editPatient: string | null;
+  deletePatient: string | null;
+  save: string | null;
+  cancel: string | null;
+} | null;
+// Variable: DICTIONARY_PATIENT_QUERY
+// Query: *[_type == "dictionaryPatient"][0]{    "firstName": firstName[_key == $language][0].value,    "lastName": lastName[_key == $language][0].value,    "phone": phone[_key == $language][0].value,    "city": city[_key == $language][0].value,    "country": country[_key == $language][0].value,    "patientFile": patientFile[_key == $language][0].value,    "birthdate": birthdate[_key == $language][0].value,    "cnp": cnp  }
+export type DICTIONARY_PATIENT_QUERYResult = {
   firstName: string | null;
   lastName: string | null;
   phone: string | null;
@@ -710,17 +767,16 @@ export type DICTIONARY_QUERYResult = {
   country: string | null;
   patientFile: string | null;
   birthdate: string | null;
-  date: string | null;
+  cnp: string | null;
+} | null;
+// Variable: DICTIONARY_TREATMENT_QUERY
+// Query: *[_type == "dictionaryTreatment"][0]{    "treatmentTableTitle": treatmentTableTitle[_key == $language][0].value,    "price": price[_key == $language][0].value,    "gdpr": gdpr[_key == $language][0].value,    "consent": consent[_key == $language][0].value,    "date": date[_key == $language][0].value,  }
+export type DICTIONARY_TREATMENT_QUERYResult = {
+  treatmentTableTitle: string | null;
   price: string | null;
   gdpr: string | null;
   consent: string | null;
-  editPatient: string | null;
-  addPatient: string | null;
-  deletePatient: string | null;
-  profile: string | null;
-  save: string | null;
-  cancel: string | null;
-  cnp: string | null;
+  date: string | null;
 } | null;
 
 // Query TypeMap
@@ -733,6 +789,10 @@ declare module '@sanity/client' {
     '*[_type == "article"]{\n  _id,\n  title[_key == $language][0]{value},\n  image,\n  body[_key == $language][0]{value},\n}': ARTICLE_QUERYResult;
     '*[_type == "article"][slug.current == $slug][0] {\n  _id,\n  title[_key == $language][0]{value},\n  image,\n  body[_key == $language][0]{value},\n  "plainContent":pt::text(body[_key == $language].value)\n}': ARTICLE_SLUG_QUERYResult;
     '*[_type == "treatmentGroup"] | order(order asc) {\n  _id,\n  name[_key == $language][0]{value},\n  order,\n  slug,\n  "treatments": *[_type == "treatment" && references(^._id)]\n    | order(name[_key == $language][0].value asc) {\n      _id,\n      name[_key == $language][0]{value},\n      price,\n      slug\n    }\n}': TREATMENT_QUERYResult;
-    '*[_type == "dictionary"][0]{\n  "prices": prices[_key == $language][0].value,\n  "aboutUs":aboutUs[_key == $language][0].value,\n  "pricesTableTitle":pricesTableTitle[_key == $language][0].value,\n  "treatmentTableTitle":treatmentTableTitle[_key == $language][0].value,\n  "contact":contact[_key == $language][0].value,\n  "schedule":schedule[_key == $language][0].value,\n  "login":login[_key == $language][0].value,\n  "email":email[_key == $language][0].value,\n  "password":password[_key == $language][0].value,\n  "dashboard":dashboard[_key == $language][0].value,\n  "patients":patients[_key == $language][0].value,\n  "menu":menu[_key == $language][0].value,\n  "general":general[_key == $language][0].value,\n  "logout":logout[_key == $language][0].value,\n  "firstName": firstName[_key == $language][0].value,\n  "lastName": lastName[_key == $language][0].value,\n  "phone": phone[_key == $language][0].value,\n  "city": city[_key == $language][0].value,\n  "country": country[_key == $language][0].value,\n  "patientFile": patientFile[_key == $language][0].value,\n  "birthdate": birthdate[_key == $language][0].value,\n  "date": date[_key == $language][0].value,\n  "price": price[_key == $language][0].value,\n  "gdpr": gdpr[_key == $language][0].value,\n  "consent": consent[_key == $language][0].value,\n  "editPatient": editPatient[_key == $language][0].value,\n  "addPatient": addPatient[_key == $language][0].value,\n  "deletePatient": deletePatient[_key == $language][0].value,\n  "profile": profile[_key == $language][0].value,\n  "save": save[_key == $language][0].value,\n  "cancel": cancel[_key == $language][0].value,\n  "cnp": cnp\n}': DICTIONARY_QUERYResult;
+    '*[_type == "dictionaryGeneral"][0]{\n    "aboutUs":aboutUs[_key == $language][0].value,\n    "prices": prices[_key == $language][0].value,\n    "contact":contact[_key == $language][0].value,\n    "pricesTableTitle":pricesTableTitle[_key == $language][0].value,\n    "login":login[_key == $language][0].value,\n    "email":email[_key == $language][0].value,\n    "password":password[_key == $language][0].value,\n    "schedule":schedule[_key == $language][0].value,\n  }': DICTIONARY_GENERAL_QUERYResult;
+    '*[_type == "dictionaryNavigation"][0]{\n    "dashboard":dashboard[_key == $language][0].value,\n    "patients":patients[_key == $language][0].value,\n    "menu":menu[_key == $language][0].value,\n    "general":general[_key == $language][0].value,\n    "logout":logout[_key == $language][0].value,\n    "profile": profile[_key == $language][0].value,\n  }': DICTIONARY_NAVIGATION_QUERYResult;
+    '*[_type == "dictionaryEdit"][0]{\n    "addPatient": addPatient[_key == $language][0].value,\n    "editPatient": editPatient[_key == $language][0].value,\n    "deletePatient": deletePatient[_key == $language][0].value,\n    "save": save[_key == $language][0].value,\n    "cancel": cancel[_key == $language][0].value,\n  }': DICTIONARY_EDIT_QUERYResult;
+    '*[_type == "dictionaryPatient"][0]{\n    "firstName": firstName[_key == $language][0].value,\n    "lastName": lastName[_key == $language][0].value,\n    "phone": phone[_key == $language][0].value,\n    "city": city[_key == $language][0].value,\n    "country": country[_key == $language][0].value,\n    "patientFile": patientFile[_key == $language][0].value,\n    "birthdate": birthdate[_key == $language][0].value,\n    "cnp": cnp\n  }': DICTIONARY_PATIENT_QUERYResult;
+    '*[_type == "dictionaryTreatment"][0]{\n    "treatmentTableTitle": treatmentTableTitle[_key == $language][0].value,\n    "price": price[_key == $language][0].value,\n    "gdpr": gdpr[_key == $language][0].value,\n    "consent": consent[_key == $language][0].value,\n    "date": date[_key == $language][0].value,\n  }': DICTIONARY_TREATMENT_QUERYResult;
   }
 }

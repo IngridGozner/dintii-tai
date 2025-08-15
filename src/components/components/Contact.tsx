@@ -1,9 +1,10 @@
-import { DICTIONARY_QUERYResult, SITEINFO_QUERYResult } from '@/sanity/types';
+import { SITEINFO_QUERYResult } from '@/sanity/types';
 import { Headline } from '../atoms/Headline';
 import { Container } from '../molecules/Container';
 import { GridContainer } from '../molecules/GridContainer';
 import { Link } from '../atoms/Link';
 import Image from 'next/image';
+import { DICTIONARY_QUERYResult } from '@/types/GeneralTypes';
 
 type ContactProps = {
   siteInfo: NonNullable<SITEINFO_QUERYResult>;

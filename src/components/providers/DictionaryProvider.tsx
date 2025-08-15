@@ -1,6 +1,6 @@
 'use client';
 
-import { DICTIONARY_QUERYResult } from '@/sanity/types';
+import { DICTIONARY_QUERYResult } from '@/types/GeneralTypes';
 import { createContext, useContext } from 'react';
 
 export const defaultDictionaryEntries = {
@@ -38,17 +38,16 @@ export const defaultDictionaryEntries = {
   cnp: 'CNP',
 };
 
-export const DictionaryContext =
-  createContext<NonNullable<DICTIONARY_QUERYResult> | null>(
-    defaultDictionaryEntries
-  );
+export const DictionaryContext = createContext<DICTIONARY_QUERYResult | null>(
+  defaultDictionaryEntries
+);
 
 export default function DictionaryProvider({
   children,
   dictionaryEntries,
 }: {
   children: React.ReactNode;
-  dictionaryEntries: NonNullable<DICTIONARY_QUERYResult> | null;
+  dictionaryEntries: DICTIONARY_QUERYResult | null;
 }) {
   return (
     <DictionaryContext.Provider

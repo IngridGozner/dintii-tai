@@ -28,3 +28,38 @@ export type NavigationLink = {
   icon: string;
   onClick?: () => void;
 };
+
+export type DICTIONARY_QUERYResult = {
+  prices: string | null;
+  aboutUs: string | null;
+  pricesTableTitle: string | null;
+  treatmentTableTitle: string | null;
+  contact: string | null;
+  schedule: string | null;
+  login: string | null;
+  email: string | null;
+  logout: string | null;
+  patients: string | null;
+  password: string | null;
+  dashboard: string | null;
+  menu: string | null;
+  general: string | null;
+  firstName: string | null;
+  lastName: string | null;
+  phone: string | null;
+  city: string | null;
+  country: string | null;
+  patientFile: string | null;
+  birthdate: string | null;
+  date: string | null;
+  price: string | null;
+  gdpr: string | null;
+  consent: string | null;
+  editPatient: string | null;
+  addPatient: string | null;
+  deletePatient: string | null;
+  profile: string | null;
+  save: string | null;
+  cancel: string | null;
+  cnp: string | null;
+};

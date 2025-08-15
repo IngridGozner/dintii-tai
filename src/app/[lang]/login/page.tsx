@@ -2,11 +2,12 @@ import Dialog from '@/components/components/Dialog';
 import { Button } from '@/components/atoms/Button';
 import { Input } from '@/components/atoms/Input';
 import { sanityFetch } from '@/sanity/lib/live';
-import { DICTIONARY_QUERY, SITEINFO_QUERY } from '@/sanity/lib/queries';
+import { SITEINFO_QUERY } from '@/sanity/lib/queries';
 import Image from 'next/image';
 import { urlFor } from '@/sanity/lib/image';
 import { defaultDictionaryEntries } from '@/components/providers/DictionaryProvider';
 import { login } from '@/supabase/actions/userActions';
+import { getDictionaryEntries } from '../layout';
 
 export default async function LoginPage({
   params,
@@ -20,10 +21,7 @@ export default async function LoginPage({
     params: { language: lang },
   });
 
-  const { data: dictionaryEntries } = await sanityFetch({
-    query: DICTIONARY_QUERY,
-    params: { language: lang },
-  });
+  const dictionaryEntries = await getDictionaryEntries(lang);
 
   const {
     login: loginEntry,

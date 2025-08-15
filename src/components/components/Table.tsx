@@ -1,8 +1,9 @@
-import { DICTIONARY_QUERYResult, TREATMENT_QUERYResult } from '@/sanity/types';
+import { TREATMENT_QUERYResult } from '@/sanity/types';
 import { Container } from '../molecules/Container';
 import { GridContainer } from '../molecules/GridContainer';
 import { Headline } from '../atoms/Headline';
 import { Fragment } from 'react';
+import { DICTIONARY_QUERYResult } from '@/types/GeneralTypes';
 
 type TableProps = {
   treatments: NonNullable<TREATMENT_QUERYResult>;
