@@ -13,7 +13,7 @@ export async function addPatient(formData: FormData) {
     first_name: formData.get('firstName'),
     last_name: formData.get('lastName'),
     phone: formData.get('phoneNumber'),
-    CNP: formData.get('cnp'),
+    cnp: formData.get('cnp'),
     birthdate: formData.get('birthdate'),
     patient_file: null as string | null,
   };

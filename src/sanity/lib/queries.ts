@@ -95,5 +95,5 @@ export const DICTIONARY_QUERY = defineQuery(`*[_type == "dictionary"][0]{
   "profile": profile[_key == $language][0].value,
   "save": save[_key == $language][0].value,
   "cancel": cancel[_key == $language][0].value,
-  "cnp": cnp[_key == $language][0].value
+  "cnp": cnp
 }`);
