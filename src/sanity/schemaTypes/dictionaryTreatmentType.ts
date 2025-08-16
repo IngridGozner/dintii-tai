@@ -27,15 +27,8 @@ export const dictionaryTreatmentType = defineType({
       name: 'consent',
       type: 'internationalizedArrayString',
     }),
-    defineField({
-      name: 'slug',
-      type: 'slug',
-    }),
   ],
   preview: {
-    select: {
-      title: 'title',
-    },
     prepare() {
       return { title: 'Dictionary Entries' };
     },

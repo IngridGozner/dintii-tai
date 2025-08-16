@@ -39,15 +39,8 @@ export const dictionaryPatientType = defineType({
       name: 'cnp',
       type: 'string',
     }),
-    defineField({
-      name: 'slug',
-      type: 'slug',
-    }),
   ],
   preview: {
-    select: {
-      title: 'title',
-    },
     prepare() {
       return { title: 'Dictionary Entries' };
     },

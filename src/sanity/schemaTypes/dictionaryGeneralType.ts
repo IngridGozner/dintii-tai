@@ -39,15 +39,8 @@ export const dictionaryGeneralType = defineType({
       name: 'schedule',
       type: 'internationalizedArrayString',
     }),
-    defineField({
-      name: 'slug',
-      type: 'slug',
-    }),
   ],
   preview: {
-    select: {
-      title: 'title',
-    },
     prepare() {
       return { title: 'Dictionary Entries' };
     },

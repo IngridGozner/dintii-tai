@@ -31,15 +31,8 @@ export const dictionaryNavigationType = defineType({
       name: 'profile',
       type: 'internationalizedArrayString',
     }),
-    defineField({
-      name: 'slug',
-      type: 'slug',
-    }),
   ],
   preview: {
-    select: {
-      title: 'title',
-    },
     prepare() {
       return { title: 'Dictionary Entries' };
     },

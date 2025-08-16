@@ -32,42 +32,7 @@ export default async function RootLayout({
     params: { language: lang, slug: 'about-us' },
   });
 
-  // const { data: dictionaryNavigation } = await sanityFetch({
-  //   query: DICTIONARY_NAVIGATION_QUERY,
-  //   params: { language: lang },
-  // });
-
-  // const { data: dictionaryGeneral } = await sanityFetch({
-  //   query: DICTIONARY_GENERAL_QUERY,
-  //   params: { language: lang },
-  // });
-
-  // const { data: dictionaryEdit } = await sanityFetch({
-  //   query: DICTIONARY_EDIT_QUERY,
-  //   params: { language: lang },
-  // });
-
-  // const { data: dictionaryPatient } = await sanityFetch({
-  //   query: DICTIONARY_PATIENT_QUERY,
-  //   params: { language: lang },
-  // });
-
-  // const { data: dictionaryTreatment } = await sanityFetch({
-  //   query: DICTIONARY_TREATMENT_QUERY,
-  //   params: { language: lang },
-  // });
-
-  // const dictionaryEntries: DICTIONARY_QUERYResult = {
-  //   ...dictionaryGeneral,
-  //   ...dictionaryNavigation,
-  //   ...dictionaryEdit,
-  //   ...dictionaryPatient,
-  //   ...dictionaryTreatment,
-  // };
-
   const dictionaryEntries = await getDictionaryEntries(lang);
-
-  console.log('dictionaryEntries', dictionaryEntries);
 
   return (
     <html lang={lang}>

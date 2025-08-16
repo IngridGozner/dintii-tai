@@ -27,15 +27,8 @@ export const dictionaryEditType = defineType({
       name: 'cancel',
       type: 'internationalizedArrayString',
     }),
-    defineField({
-      name: 'slug',
-      type: 'slug',
-    }),
   ],
   preview: {
-    select: {
-      title: 'title',
-    },
     prepare() {
       return { title: 'Dictionary Entries' };
     },
