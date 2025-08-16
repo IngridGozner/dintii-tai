@@ -5,6 +5,7 @@ import { GridContainer } from '../molecules/GridContainer';
 import { Link } from '../atoms/Link';
 import Image from 'next/image';
 import { DICTIONARY_QUERYResult } from '@/types/GeneralTypes';
+import { getWhatsAppLink } from '@/helpers';
 
 type ContactProps = {
   siteInfo: NonNullable<SITEINFO_QUERYResult>;
@@ -55,7 +56,7 @@ export default function Contact(props: ContactProps) {
                   alt='whatsapp icon'
                 />
                 <Link
-                  href={`https://wa.me/${phone}`}
+                  href={getWhatsAppLink(phone)}
                   label='WhatsApp'
                   className='ml-3'
                 />

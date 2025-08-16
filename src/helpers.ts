@@ -58,3 +58,7 @@ export function convertSnakeToCamelCase(snakeCaseString: string): string {
 export function removeLocaleFromPathName(pathName: string): string {
   return pathName.substring(pathName.indexOf('/', 1));
 }
+
+export function getWhatsAppLink(phoneNumber: string) {
+  return `https://wa.me/${phoneNumber}`;
+}
