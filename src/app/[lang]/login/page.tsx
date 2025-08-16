@@ -1,13 +1,9 @@
-import Dialog from '@/components/components/Dialog';
-import { Button } from '@/components/atoms/Button';
-import { Input } from '@/components/atoms/Input';
 import { sanityFetch } from '@/sanity/lib/live';
 import { SITEINFO_QUERY } from '@/sanity/lib/queries';
 import Image from 'next/image';
 import { urlFor } from '@/sanity/lib/image';
-import { defaultDictionaryEntries } from '@/components/providers/DictionaryProvider';
-import { login } from '@/supabase/actions/userActions';
 import { getDictionaryEntries } from '../layout';
+import LoginForm from './LoginForm';
 
 export default async function LoginPage({
   params,
@@ -23,40 +19,15 @@ export default async function LoginPage({
 
   const dictionaryEntries = await getDictionaryEntries(lang);
 
-  const {
-    login: loginEntry,
-    email,
-    password,
-  } = dictionaryEntries || defaultDictionaryEntries;
   const backgroundImage = siteInfo?.loginImage?.image;
 
   return (
     <>
-      <Dialog headline={loginEntry ?? 'Login'} closeButton={false}>
-        <form className='flex flex-col gap-y-7'>
-          <Input
-            label={email ?? 'Email'}
-            element='email'
-            type='email'
-            required
-          />
-          <Input
-            label={password ?? 'Password'}
-            element='password'
-            type='password'
-            required
-          />
-          <Button
-            formAction={login}
-            label={loginEntry ?? 'Login'}
-            className='justify-center rounded-full text-center'
-          />
-        </form>
-      </Dialog>
+      <LoginForm dictionaryEntries={dictionaryEntries} />
 
       {backgroundImage && (
         <Image
-          src={urlFor(backgroundImage).width(3000).height(1000).url()}
+          src={urlFor(backgroundImage).width(800).height(800).url()}
           alt={backgroundImage?.alt || ''}
           fill
           className='relative h-full w-full object-cover'
