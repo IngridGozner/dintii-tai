@@ -17,6 +17,7 @@ export function Input(props: InputProps) {
         className='peer w-full min-w-72 rounded-lg border-b bg-white p-3 placeholder:text-transparent'
         placeholder='name'
         required={required}
+        autoComplete={element}
       />
       <label
         htmlFor={element}
