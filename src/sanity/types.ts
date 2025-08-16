@@ -59,7 +59,6 @@ export type DictionaryGeneral = {
       _key: string;
     } & InternationalizedArrayStringValue
   >;
-  slug?: Slug;
 };
 
 export type DictionaryEdit = {
@@ -93,7 +92,6 @@ export type DictionaryEdit = {
       _key: string;
     } & InternationalizedArrayStringValue
   >;
-  slug?: Slug;
 };
 
 export type DictionaryNavigation = {
@@ -132,7 +130,6 @@ export type DictionaryNavigation = {
       _key: string;
     } & InternationalizedArrayStringValue
   >;
-  slug?: Slug;
 };
 
 export type DictionaryTreatment = {
@@ -166,7 +163,6 @@ export type DictionaryTreatment = {
       _key: string;
     } & InternationalizedArrayStringValue
   >;
-  slug?: Slug;
 };
 
 export type DictionaryPatient = {
@@ -211,7 +207,6 @@ export type DictionaryPatient = {
     } & InternationalizedArrayStringValue
   >;
   cnp?: string;
-  slug?: Slug;
 };
 
 export type Article = {
