@@ -31,6 +31,10 @@ export const dictionaryNavigationType = defineType({
       name: 'profile',
       type: 'internationalizedArrayString',
     }),
+    defineField({
+      name: 'backToPatients',
+      type: 'internationalizedArrayString',
+    }),
   ],
   preview: {
     prepare() {

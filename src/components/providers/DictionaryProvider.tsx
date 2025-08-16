@@ -36,6 +36,7 @@ export const defaultDictionaryEntries = {
   save: 'Save',
   cancel: 'Cancel',
   cnp: 'CNP',
+  backToPatients: 'Back to patients overview',
 };
 
 export const DictionaryContext = createContext<DICTIONARY_QUERYResult | null>(

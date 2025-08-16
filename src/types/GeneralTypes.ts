@@ -62,4 +62,5 @@ export type DICTIONARY_QUERYResult = {
   save: string | null;
   cancel: string | null;
   cnp: string | null;
+  backToPatients: string | null;
 };
