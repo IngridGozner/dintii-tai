@@ -8,6 +8,7 @@ import { getDictionaryEntries } from '@/app/[lang]/layout';
 import ProfileOverview from '@/components/components/ProfileOverview/ProfileOverview';
 import {
   deletePatient,
+  editPatient,
   getPatientWithID,
 } from '@/supabase/actions/patientActions';
 import { PATIENTS_PATH } from '@/types/GlobalTypes';
@@ -42,7 +43,11 @@ export default async function PacientDetail({
       </Container>
       <Tabs>
         <Tab title={dictionary?.profile ?? ''}>
-          <ProfileOverview patient={patient} deleteAction={deletePatient} />
+          <ProfileOverview
+            patient={patient}
+            deleteAction={deletePatient}
+            editAction={editPatient}
+          />
         </Tab>
         <Tab title={dictionary?.treatmentTableTitle ?? ''}>
           <div className='h-9 bg-green-500'>Treatments</div>

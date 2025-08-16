@@ -5,6 +5,7 @@ import { useDictionary } from '../../providers/DictionaryProvider';
 import ProfileField from './ProfileField';
 import { getWhatsAppLink } from '@/helpers';
 import { Button } from '@/components/atoms/Button';
+import PatientForm from '@/components/molecules/PatientForm';
 
 type ProfileOverviewProps = {
   patient: NonNullable<PatientType>;
@@ -15,6 +16,7 @@ type ProfileOverviewProps = {
 export default function ProfileOverview({
   patient,
   deleteAction,
+  editAction,
 }: ProfileOverviewProps) {
   const {
     firstName,
@@ -57,7 +59,14 @@ export default function ProfileOverview({
           />
         ))}
       </div>
-      <div className='bg-background flex flex-1/3 flex-col rounded-lg p-5 md:p-10'>
+      <div className='bg-background flex flex-1/3 flex-col gap-y-3 rounded-lg p-5 md:p-10'>
+        {editAction && (
+          <PatientForm
+            formFunctionality='edit'
+            formAction={editAction}
+            patient={patient}
+          />
+        )}
         {deleteAction && (
           <Button
             label={deletePatient ?? ''}
