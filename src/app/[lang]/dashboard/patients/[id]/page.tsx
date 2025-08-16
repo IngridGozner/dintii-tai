@@ -4,9 +4,10 @@ import { Container } from '@/components/molecules/Container';
 import { GridContainer } from '@/components/molecules/GridContainer';
 import { Link } from '@/components/atoms/Link';
 import { Headline } from '@/components/atoms/Headline';
-import { Tab } from '@/components/components/Tabs/Tab';
-import { Tabs } from '@/components/components/Tabs/Tabs';
+import Tab from '@/components/components/Tabs/Tab';
+import Tabs from '@/components/components/Tabs/Tabs';
 import { getDictionaryEntries } from '@/app/[lang]/layout';
+import ProfileOverview from '@/components/components/ProfileOverview/ProfileOverview';
 
 export default async function PacientDetail({
   params,
@@ -28,8 +29,6 @@ export default async function PacientDetail({
 
   const { first_name, last_name } = patient;
 
-  console.log('dictionary', dictionary);
-
   return (
     <>
       <Container>
@@ -47,7 +46,7 @@ export default async function PacientDetail({
       </Container>
       <Tabs>
         <Tab title={dictionary?.profile ?? ''}>
-          <div className='h-9 bg-pink-500'>Profile</div>
+          <ProfileOverview patient={patient} />
         </Tab>
         <Tab title={dictionary?.treatmentTableTitle ?? ''}>
           <div className='h-9 bg-green-500'>Treatments</div>
