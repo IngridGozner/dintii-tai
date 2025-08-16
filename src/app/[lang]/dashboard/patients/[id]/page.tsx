@@ -8,6 +8,7 @@ import Tab from '@/components/components/Tabs/Tab';
 import Tabs from '@/components/components/Tabs/Tabs';
 import { getDictionaryEntries } from '@/app/[lang]/layout';
 import ProfileOverview from '@/components/components/ProfileOverview/ProfileOverview';
+import { deletePatient } from '@/supabase/actions/patientActions';
 
 export default async function PacientDetail({
   params,
@@ -46,7 +47,7 @@ export default async function PacientDetail({
       </Container>
       <Tabs>
         <Tab title={dictionary?.profile ?? ''}>
-          <ProfileOverview patient={patient} />
+          <ProfileOverview patient={patient} deleteAction={deletePatient} />
         </Tab>
         <Tab title={dictionary?.treatmentTableTitle ?? ''}>
           <div className='h-9 bg-green-500'>Treatments</div>

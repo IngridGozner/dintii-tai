@@ -4,12 +4,18 @@ import { PatientType } from '@/types/PatientType';
 import { useDictionary } from '../../providers/DictionaryProvider';
 import ProfileField from './ProfileField';
 import { getWhatsAppLink } from '@/helpers';
+import { Button } from '@/components/atoms/Button';
 
 type ProfileOverviewProps = {
-  patient: PatientType;
+  patient: NonNullable<PatientType>;
+  editAction?: (formData: FormData) => Promise<void>;
+  deleteAction?: (id: number) => Promise<void>;
 };
 
-export default function ProfileOverview({ patient }: ProfileOverviewProps) {
+export default function ProfileOverview({
+  patient,
+  deleteAction,
+}: ProfileOverviewProps) {
   const {
     firstName,
     lastName,
@@ -20,6 +26,7 @@ export default function ProfileOverview({ patient }: ProfileOverviewProps) {
     city,
     country,
     patientFile,
+    deletePatient,
   } = useDictionary();
 
   const fieldValues = [
@@ -39,15 +46,27 @@ export default function ProfileOverview({ patient }: ProfileOverviewProps) {
   ];
 
   return (
-    <div className='bg-background flex flex-col gap-y-2 rounded-lg p-5 md:p-10'>
-      {fieldValues.map(({ label, value, link }, index) => (
-        <ProfileField
-          key={`${label}-${index}`}
-          label={label ?? ''}
-          value={value}
-          link={link}
-        />
-      ))}
+    <div className='flex flex-col gap-y-2 md:flex-row md:gap-x-2'>
+      <div className='bg-background flex flex-2/3 flex-col gap-y-2 rounded-lg p-5 md:p-10'>
+        {fieldValues.map(({ label, value, link }, index) => (
+          <ProfileField
+            key={`${label}-${index}`}
+            label={label ?? ''}
+            value={value}
+            link={link}
+          />
+        ))}
+      </div>
+      <div className='bg-background flex flex-1/3 flex-col rounded-lg p-5 md:p-10'>
+        {deleteAction && (
+          <Button
+            label={deletePatient ?? ''}
+            onClick={() => deleteAction(patient.id)}
+            className='items-center justify-center bg-red-700 hover:bg-red-500'
+            iconName='delete'
+          />
+        )}
+      </div>
     </div>
   );
 }

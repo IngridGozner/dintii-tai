@@ -3,6 +3,7 @@
 import { revalidatePath } from 'next/cache';
 
 import { createClient } from '@/supabase/server';
+import { redirect } from 'next/navigation';
 
 export async function addPatient(formData: FormData) {
   const supabase = await createClient();
@@ -42,4 +43,15 @@ export async function addPatient(formData: FormData) {
   }
 
   revalidatePath('/dashboard/patients');
+}
+
+export async function editPatient() {}
+
+export async function deletePatient(id: number) {
+  console.log('in delete');
+  const supabase = await createClient();
+
+  await supabase.from('patient').delete().eq('id', id);
+
+  redirect('/dashboard/patients');
 }
