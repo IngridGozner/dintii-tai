@@ -54,3 +54,7 @@ export function convertSnakeToCamelCase(snakeCaseString: string): string {
       group.toUpperCase().replace('-', '').replace('_', '')
     );
 }
+
+export function removeLocaleFromPathName(pathName: string): string {
+  return pathName.substring(pathName.indexOf('/', 1));
+}

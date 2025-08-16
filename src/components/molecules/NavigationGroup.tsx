@@ -5,10 +5,13 @@ type NavigationGroupProps = {
   groupTitle: string;
   navigationLinks: NavigationLink[];
   className?: string;
+  activeTab: string | null;
+  setActiveTab: (tab: string | null) => void;
 };
 
 export default function NavigationGroup(props: NavigationGroupProps) {
-  const { groupTitle, navigationLinks, className } = props;
+  const { groupTitle, navigationLinks, className, activeTab, setActiveTab } =
+    props;
 
   return (
     <div className={className}>
@@ -20,11 +23,20 @@ export default function NavigationGroup(props: NavigationGroupProps) {
           return link.name ? (
             <li key={index}>
               <Link
-                className='hover:bg-link-hover rounded-lg px-4 py-2 text-xl !text-white hover:!text-white'
+                className={`hover:bg-link-hover rounded-lg px-4 py-2 text-xl !text-white hover:!text-white ${
+                  activeTab === link.href ? '!bg-link-hover' : ''
+                }`}
                 href={link.href ?? ''}
                 label={link.name}
                 iconName={link.icon}
-                onClick={link.onClick}
+                onClick={() => {
+                  if (link.onClick) {
+                    link.onClick();
+                  }
+                  if (link.href) {
+                    setActiveTab(link.href);
+                  }
+                }}
               />
             </li>
           ) : undefined;

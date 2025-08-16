@@ -6,12 +6,15 @@ import {
   useDictionary,
 } from '../providers/DictionaryProvider';
 import { useEffect, useState } from 'react';
-import { subscribeToEvent } from '@/helpers';
+import { removeLocaleFromPathName, subscribeToEvent } from '@/helpers';
 import { signOut } from '@/supabase/actions/userActions';
+import { usePathname } from 'next/navigation';
 
 export default function Sidebar() {
+  const pathName = usePathname();
   const dictionary = useDictionary();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<string | null>('');
 
   const { menu, general } = dictionary || defaultDictionaryEntries;
 
@@ -20,8 +23,10 @@ export default function Sidebar() {
       setMenuOpen(e.detail);
     });
 
+    setActiveTab(removeLocaleFromPathName(pathName));
+
     return () => document.removeEventListener('toggleMenu', () => {});
-  }, []);
+  }, [pathName]);
 
   const menuLinks = [
     {
@@ -52,8 +57,15 @@ export default function Sidebar() {
       aria-label='Sidebar'
     >
       <nav className='bg-base-dark h-full space-y-8 overflow-y-auto px-3 pb-4'>
-        <NavigationGroup groupTitle={menu ?? ''} navigationLinks={menuLinks} />
         <NavigationGroup
+          groupTitle={menu ?? ''}
+          navigationLinks={menuLinks}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+        />
+        <NavigationGroup
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
           groupTitle={general ?? ''}
           navigationLinks={generalLinks}
         />
