@@ -5,6 +5,7 @@ import EditableTable from '@/components/components/Tables/EditableTable';
 import PatientForm from '@/components/molecules/PatientForm';
 import { useDictionary } from '@/components/providers/DictionaryProvider';
 import { getWhatsAppLink } from '@/helpers';
+import { PATIENTS_PATH } from '@/types/GlobalTypes';
 import { redirect } from 'next/navigation';
 
 export default function EditableTablePatient({
@@ -20,7 +21,7 @@ export default function EditableTablePatient({
     <EditableTable
       data={data}
       excludedHeaders={['id']}
-      onClickRow={(rowData) => redirect(`/dashboard/patients/${rowData.id}`)}
+      onClickRow={(rowData) => redirect(`${PATIENTS_PATH}/${rowData.id}`)}
       clickableCell={{
         clickableCellHeader: 'phone',
         clickableCellFunction: (rowData) =>

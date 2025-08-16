@@ -1,5 +1,3 @@
-import { notFound } from 'next/navigation';
-import { createClient } from '@/supabase/server';
 import { Container } from '@/components/molecules/Container';
 import { GridContainer } from '@/components/molecules/GridContainer';
 import { Link } from '@/components/atoms/Link';
@@ -8,23 +6,20 @@ import Tab from '@/components/components/Tabs/Tab';
 import Tabs from '@/components/components/Tabs/Tabs';
 import { getDictionaryEntries } from '@/app/[lang]/layout';
 import ProfileOverview from '@/components/components/ProfileOverview/ProfileOverview';
-import { deletePatient } from '@/supabase/actions/patientActions';
+import {
+  deletePatient,
+  getPatientWithID,
+} from '@/supabase/actions/patientActions';
+import { PATIENTS_PATH } from '@/types/GlobalTypes';
 
 export default async function PacientDetail({
   params,
 }: Readonly<{
   params: Promise<{ id: string; lang: string }>;
 }>) {
-  const supabase = await createClient();
   const { id, lang } = await params;
 
-  const { data: patient, error } = await supabase
-    .from('patient')
-    .select()
-    .eq('id', id)
-    .maybeSingle();
-
-  if (!patient || error) return notFound();
+  const patient = await getPatientWithID(Number(id));
 
   const dictionary = await getDictionaryEntries(lang);
 
@@ -36,7 +31,7 @@ export default async function PacientDetail({
         <GridContainer>
           <div className='col-span-6 md:col-span-12'>
             <Link
-              href='/dashboard/patients'
+              href={PATIENTS_PATH}
               label={dictionary?.backToPatients}
               className='mt-3 mb-3 md:mt-0'
               iconName='arrow_back'

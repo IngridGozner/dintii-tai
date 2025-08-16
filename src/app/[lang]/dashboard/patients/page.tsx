@@ -1,17 +1,11 @@
-import { createClient } from '@/supabase/server';
 import EditableTablePatient from './EditableTablePatients';
-import { addPatient } from '@/supabase/actions/patientActions';
+import {
+  addPatient,
+  getPatientFields,
+} from '@/supabase/actions/patientActions';
 
 export default async function Patients() {
-  const supabase = await createClient();
+  const patients = await getPatientFields();
 
-  const { data: patients } = await supabase
-    .from('patient')
-    .select('id, first_name, last_name, phone');
-
-  return (
-    <>
-      <EditableTablePatient data={patients} formAction={addPatient} />
-    </>
-  );
+  return <EditableTablePatient data={patients} formAction={addPatient} />;
 }

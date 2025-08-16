@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { removeLocaleFromPathName, subscribeToEvent } from '@/helpers';
 import { signOut } from '@/supabase/actions/userActions';
 import { usePathname } from 'next/navigation';
+import { DASHBOARD_PATH, PATIENTS_PATH } from '@/types/GlobalTypes';
 
 export default function Sidebar() {
   const pathName = usePathname();
@@ -31,12 +32,12 @@ export default function Sidebar() {
   const menuLinks = [
     {
       name: dictionary?.dashboard || '',
-      href: '/dashboard',
+      href: DASHBOARD_PATH,
       icon: 'dashboard',
     },
     {
       name: dictionary?.patients || '',
-      href: '/dashboard/patients',
+      href: PATIENTS_PATH,
       icon: 'perm_identity',
     },
   ];
