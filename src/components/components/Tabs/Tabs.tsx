@@ -10,7 +10,7 @@ import {
   useState,
 } from 'react';
 
-export function Tabs({ children }: PropsWithChildren) {
+export default function Tabs({ children }: PropsWithChildren) {
   const [activeTab, setActiveTab] = useState(0);
 
   if (!Children.count(children)) return null;

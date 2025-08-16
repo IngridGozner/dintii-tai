@@ -3,10 +3,21 @@ export type InputProps = {
   element: string;
   type?: string;
   required?: boolean;
+  value?: string | number;
+  readOnly?: boolean;
+  className?: string;
 };
 
 export function Input(props: InputProps) {
-  const { label = '', element, type = 'text', required = false } = props;
+  const {
+    label = '',
+    element,
+    type = 'text',
+    required = false,
+    readOnly = false,
+    value,
+    className,
+  } = props;
 
   return (
     <div className='relative'>
@@ -14,10 +25,12 @@ export function Input(props: InputProps) {
         id={element}
         type={type}
         name={element}
-        className='peer w-full min-w-72 rounded-lg border-b bg-white p-3 placeholder:text-transparent'
+        className={`peer w-full min-w-72 rounded-lg border-b bg-white p-3 placeholder:text-transparent ${className ?? ''}`}
         placeholder='name'
         required={required}
         autoComplete={element}
+        readOnly={readOnly}
+        value={value}
       />
       <label
         htmlFor={element}

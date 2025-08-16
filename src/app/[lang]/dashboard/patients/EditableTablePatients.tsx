@@ -1,11 +1,10 @@
 'use client';
 
-import { Button } from '@/components/atoms/Button';
 import { Headline } from '@/components/atoms/Headline';
-import { Input } from '@/components/atoms/Input';
 import EditableTable from '@/components/components/Tables/EditableTable';
-import { useDialog } from '@/components/providers/DialogProvider';
+import PatientForm from '@/components/molecules/PatientForm';
 import { useDictionary } from '@/components/providers/DictionaryProvider';
+import { getWhatsAppLink } from '@/helpers';
 import { redirect } from 'next/navigation';
 
 export default function EditableTablePatient({
@@ -15,9 +14,7 @@ export default function EditableTablePatient({
   data: { [key: string]: string }[] | null;
   formAction?: (formData: FormData) => Promise<void>;
 }) {
-  const { handleClick } = useDialog();
-  const { addPatient, firstName, lastName, phone, patientFile, patients } =
-    useDictionary();
+  const { patients } = useDictionary();
 
   return (
     <EditableTable
@@ -27,7 +24,7 @@ export default function EditableTablePatient({
       clickableCell={{
         clickableCellHeader: 'phone',
         clickableCellFunction: (rowData) =>
-          redirect(`https://wa.me/${rowData.phone}`),
+          redirect(getWhatsAppLink(rowData.phone)),
       }}
       tableHeader={
         <>
@@ -35,31 +32,10 @@ export default function EditableTablePatient({
             <Headline headline={patients ?? ''} />
           </div>
           <div className='col-span-6 flex h-fit justify-end'>
-            <Button
-              label={addPatient ?? ''}
-              iconName='person_add'
-              onClick={() =>
-                handleClick(
-                  <form className='flex flex-col gap-y-7'>
-                    <Input label={firstName} element='firstName' required />
-                    <Input label={lastName} element='lastName' required />
-                    <Input label={phone} element='phoneNumber' type='tel' />
-                    {/* <Input label='Email' element='email' type='email' /> */}
-                    {/* <Input label={cnp} element='cnp' /> */}
-                    {/* <Input label={birthdate} element='birthdate' type='date' /> */}
-                    {/* <Input label='Country' element='country' /> */}
-                    {/* <Input label='City' element='city' /> */}
-                    <Input label={patientFile} element='file' type='file' />
-                    <Button
-                      formAction={formAction}
-                      label={addPatient ?? ''}
-                      className='justify-center rounded-full text-center'
-                    />
-                  </form>,
-                  addPatient ?? '',
-                  '!py-7'
-                )
-              }
+            <PatientForm
+              formFunctionality='add'
+              formElements={['firstName', 'lastName', 'phone', 'patientFile']}
+              formAction={formAction}
             />
           </div>
         </>

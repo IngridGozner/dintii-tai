@@ -10,6 +10,7 @@ export const DialogContext = createContext<{
     headline?: string,
     className?: string
   ) => void;
+  closeDialog: () => void;
 } | null>(null);
 
 export default function DialogProvider({
@@ -33,8 +34,12 @@ export default function DialogProvider({
     setClassName(className || '');
   };
 
+  const closeDialog = () => {
+    setIsOpen(false);
+  };
+
   return (
-    <DialogContext.Provider value={{ isOpen, handleClick }}>
+    <DialogContext.Provider value={{ isOpen, handleClick, closeDialog }}>
       <Dialog
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
