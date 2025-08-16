@@ -3,7 +3,7 @@
 import { Button } from '@/components/atoms/Button';
 import { Headline } from '@/components/atoms/Headline';
 import { Input } from '@/components/atoms/Input';
-import EditableTable from '@/components/components/EditableTable';
+import EditableTable from '@/components/components/Tables/EditableTable';
 import { useDialog } from '@/components/providers/DialogProvider';
 import { useDictionary } from '@/components/providers/DictionaryProvider';
 import { redirect } from 'next/navigation';

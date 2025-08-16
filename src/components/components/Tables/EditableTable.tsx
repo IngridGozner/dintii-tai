@@ -1,10 +1,10 @@
 'use client';
 
 import { ReactNode } from 'react';
-import { Container } from '../molecules/Container';
-import { GridContainer } from '../molecules/GridContainer';
-import { useDictionary } from '../providers/DictionaryProvider';
 import { convertSnakeToCamelCase } from '@/helpers';
+import { useDictionary } from '@/components/providers/DictionaryProvider';
+import { Container } from '@/components/molecules/Container';
+import { GridContainer } from '@/components/molecules/GridContainer';
 
 type EditableTableProps = {
   data: { [key: string]: string }[] | null;

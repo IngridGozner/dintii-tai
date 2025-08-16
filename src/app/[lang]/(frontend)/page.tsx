@@ -2,7 +2,6 @@ import Contact from '@/components/components/Contact';
 import ImageSlider from '@/components/components/ImageSlider';
 import ScheduleCard from '@/components/components/ScheduleCard';
 import Stage from '@/components/components/Stage';
-import Table from '@/components/components/Table';
 import TextImage from '@/components/components/TextImage';
 import { defaultDictionaryEntries } from '@/components/providers/DictionaryProvider';
 import { sanityFetch } from '@/sanity/lib/live';
@@ -14,6 +13,7 @@ import {
   TREATMENT_QUERY,
 } from '@/sanity/lib/queries';
 import { getDictionaryEntries } from '../layout';
+import Table from '@/components/components/Tables/Table';
 
 export default async function Page({
   params,
