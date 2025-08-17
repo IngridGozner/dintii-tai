@@ -3,9 +3,10 @@
 import { PatientType } from '@/types/PatientType';
 import { useDictionary } from '../../providers/DictionaryProvider';
 import ProfileField from './ProfileField';
-import { getWhatsAppLink } from '@/helpers';
+import { getPatientFileNameFromFile, getWhatsAppLink } from '@/helpers';
 import { Button } from '@/components/atoms/Button';
 import PatientForm from '@/components/molecules/PatientForm';
+import { useEffect, useState } from 'react';
 
 type ProfileOverviewProps = {
   patient: NonNullable<PatientType>;
@@ -31,6 +32,22 @@ export default function ProfileOverview({
     deletePatient,
   } = useDictionary();
 
+  const { patient_document: patientDocument } = patient;
+
+  const [documentURL, setDocumentURL] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (patientDocument) {
+      const url = URL.createObjectURL(patientDocument);
+      setDocumentURL(url);
+
+      return () => {
+        URL.revokeObjectURL(url);
+      };
+    }
+    setDocumentURL(null);
+  }, [patientDocument]);
+
   const fieldValues = [
     { label: firstName, value: patient?.first_name },
     { label: lastName, value: patient?.last_name },
@@ -44,7 +61,13 @@ export default function ProfileOverview({
     { label: cnp, value: patient?.cnp },
     { label: city, value: patient?.city },
     { label: country, value: patient?.country },
-    { label: patientFile, value: patient?.patient_file },
+    {
+      label: patientFile,
+      value: patient.patient_file_name
+        ? getPatientFileNameFromFile(patient.patient_file_name)
+        : patientFile,
+      link: documentURL ?? '-',
+    },
   ];
 
   return (
@@ -70,7 +93,7 @@ export default function ProfileOverview({
         {deleteAction && (
           <Button
             label={deletePatient ?? ''}
-            onClick={() => deleteAction(patient.id)}
+            onClick={() => deleteAction(patient.id as number)}
             className='items-center justify-center bg-red-700 hover:bg-red-500'
             iconName='delete'
           />

@@ -12,8 +12,12 @@ import {
   getPatientWithID,
 } from '@/supabase/actions/patientActions';
 import { PATIENTS_PATH } from '@/types/GlobalTypes';
+import {
+  downloadPatientFile,
+  getPatientFileName,
+} from '@/supabase/actions/bucketActions';
 
-export default async function PacientDetail({
+export default async function PatientDetail({
   params,
 }: Readonly<{
   params: Promise<{ id: string; lang: string }>;
@@ -21,6 +25,9 @@ export default async function PacientDetail({
   const { id, lang } = await params;
 
   const patient = await getPatientWithID(Number(id));
+  const patientFileName = await getPatientFileName(id || '');
+  patient.patient_file_name = patientFileName;
+  patient.patient_document = await downloadPatientFile(patientFileName || '');
 
   const dictionary = await getDictionaryEntries(lang);
 

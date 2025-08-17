@@ -5,8 +5,9 @@ import { Button } from '../atoms/Button';
 import { Input } from '../atoms/Input';
 import { useDialog } from '../providers/DialogProvider';
 import { useDictionary } from '../providers/DictionaryProvider';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { GoogleIcon } from '../atoms/GoogleIcon';
+import { getPatientFileNameFromFile } from '@/helpers';
 
 type PatientFormProps = {
   formFunctionality: 'add' | 'edit';
@@ -39,7 +40,7 @@ export default function PatientForm({
     editPatient,
   } = useDictionary();
 
-  const { handleClick, closeDialog } = useDialog();
+  const { isOpen, handleClick, closeDialog } = useDialog();
 
   const isAddDialog = formFunctionality == 'add';
   const dialogHeadine = isAddDialog ? addPatient : editPatient;
@@ -49,6 +50,29 @@ export default function PatientForm({
 
     return formElements.includes(element);
   };
+
+  const {
+    patient_document: patientDocument,
+    patient_file_name: patientFileNamePath,
+  } = patient || {};
+
+  const patientFileName =
+    patientFileNamePath && getPatientFileNameFromFile(patientFileNamePath);
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (patientDocument && fileInputRef.current) {
+      const file = new File(
+        [patientDocument],
+        patientFileName || patientFile || ''
+      );
+
+      const dataTransfer = new DataTransfer();
+      dataTransfer.items.add(file);
+      fileInputRef.current.files = dataTransfer.files;
+    }
+  }, [patientDocument, isOpen]);
 
   const formFields = [
     {
@@ -78,7 +102,7 @@ export default function PatientForm({
       key: 'patientFile',
       label: patientFile,
       type: 'file',
-      defaultValue: patient?.patient_file,
+      ref: fileInputRef,
     },
     {
       key: 'id',
@@ -122,6 +146,7 @@ export default function PatientForm({
                 required,
                 defaultValue,
                 containerClassName,
+                ref,
               }) =>
                 hasFormElement(key) && (
                   <Input
@@ -132,6 +157,7 @@ export default function PatientForm({
                     required={required}
                     defaultValue={defaultValue ?? undefined}
                     containerClassName={containerClassName}
+                    ref={ref}
                   />
                 )
             )}

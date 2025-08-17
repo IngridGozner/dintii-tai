@@ -1,4 +1,5 @@
 import { SanityDocument } from 'next-sanity';
+import { PATIENT_BUCKET_FOLDER } from './types/GlobalTypes';
 
 export function getEnglishNameFromInternationalizedField(
   document: SanityDocument,
@@ -61,4 +62,12 @@ export function removeLocaleFromPathName(pathName: string): string {
 
 export function getWhatsAppLink(phoneNumber: string) {
   return `https://wa.me/${phoneNumber}`;
+}
+
+export function getPatientFileNameFromFile(filePath: string) {
+  if (!filePath) return null;
+
+  const fileName = filePath.replace(`${PATIENT_BUCKET_FOLDER}/`, '');
+
+  return fileName;
 }

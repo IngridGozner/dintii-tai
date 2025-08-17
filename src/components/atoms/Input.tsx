@@ -1,3 +1,5 @@
+import { Ref } from 'react';
+
 export type InputProps = {
   label: string | null;
   element: string;
@@ -7,6 +9,7 @@ export type InputProps = {
   readOnly?: boolean;
   className?: string;
   containerClassName?: string;
+  ref?: Ref<HTMLInputElement>;
 };
 
 export function Input(props: InputProps) {
@@ -19,6 +22,7 @@ export function Input(props: InputProps) {
     defaultValue,
     className,
     containerClassName,
+    ref,
   } = props;
 
   return (
@@ -33,6 +37,7 @@ export function Input(props: InputProps) {
         autoComplete={element}
         readOnly={readOnly}
         defaultValue={defaultValue}
+        ref={ref}
       />
       {type != 'hidden' && (
         <label
