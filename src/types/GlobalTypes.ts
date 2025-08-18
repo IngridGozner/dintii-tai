@@ -7,3 +7,5 @@ export const PATIENT_DATABASE = 'patient';
 export const PATIENT_BUCKET_FOLDER = 'patient_files';
 export const PATIENT_FILE_BUCKET = 'patients';
 export const PATIENT_FILE_VIEW = 'view_patient_file';
+
+export const TREATMENT_DATABASE = 'treatment';

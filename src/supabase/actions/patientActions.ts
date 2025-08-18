@@ -19,7 +19,7 @@ export async function addPatient(formData: FormData) {
   const data = {
     first_name: formData.get('firstName')?.toString() || null,
     last_name: formData.get('lastName')?.toString() || null,
-    phone: formData.get('phoneNumber')?.toString() || null,
+    phone: formData.get('phone')?.toString() || null,
     patient_file_id: null as string | null,
   };
 
@@ -113,7 +113,7 @@ export async function deletePatient(id: number) {
     deletePatientFile(patientFileName);
   }
 
-  await supabase.from(PATIENT_DATABASE).delete().eq('id', id).select();
+  await supabase.from(PATIENT_DATABASE).delete().eq('id', id);
 
   redirect(PATIENTS_PATH);
 }
