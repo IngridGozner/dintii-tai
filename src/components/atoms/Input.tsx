@@ -5,10 +5,11 @@ export type InputProps = {
   element: string;
   type?: string;
   required?: boolean;
-  defaultValue?: string | number;
+  value?: string | number;
   readOnly?: boolean;
   className?: string;
   containerClassName?: string;
+  autoComplete?: string;
   ref?: Ref<HTMLInputElement>;
 };
 
@@ -19,9 +20,10 @@ export function Input(props: InputProps) {
     type = 'text',
     required = false,
     readOnly = false,
-    defaultValue,
+    value,
     className,
     containerClassName,
+    autoComplete,
     ref,
   } = props;
 
@@ -34,10 +36,11 @@ export function Input(props: InputProps) {
         className={`peer w-full min-w-72 rounded-lg border-b bg-white p-3 placeholder:text-transparent ${className ?? ''}`}
         placeholder='name'
         required={required}
-        autoComplete={element}
+        autoComplete={autoComplete ?? 'off'}
         readOnly={readOnly}
-        defaultValue={defaultValue}
+        value={value}
         ref={ref}
+        onChange={() => {}}
       />
       {type != 'hidden' && (
         <label

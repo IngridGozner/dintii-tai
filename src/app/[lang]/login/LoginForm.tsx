@@ -42,11 +42,18 @@ export default function LoginForm({
             {state.message}
           </p>
         )}
-        <Input label={email ?? 'Email'} element='email' type='email' required />
+        <Input
+          label={email ?? 'Email'}
+          element='email'
+          type='email'
+          required
+          autoComplete='email'
+        />
         <Input
           label={password ?? 'Password'}
           element='password'
           type='password'
+          autoComplete='current-password'
           required
         />
         <Button

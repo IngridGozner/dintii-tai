@@ -7,6 +7,7 @@ import { getPatientFileNameFromFile, getWhatsAppLink } from '@/helpers';
 import { Button } from '@/components/atoms/Button';
 import PatientForm from '@/components/molecules/PatientForm';
 import { useEffect, useState } from 'react';
+import { downloadPatientFile } from '@/supabase/actions/bucketActions';
 
 type ProfileOverviewProps = {
   patient: NonNullable<PatientType>;
@@ -32,21 +33,27 @@ export default function ProfileOverview({
     deletePatient,
   } = useDictionary();
 
-  const { patient_document: patientDocument } = patient;
-
   const [documentURL, setDocumentURL] = useState<string | null>(null);
 
   useEffect(() => {
-    if (patientDocument) {
-      const url = URL.createObjectURL(patientDocument);
-      setDocumentURL(url);
+    const fileName = patient.patient_file_name;
+    let url: string;
 
-      return () => {
-        URL.revokeObjectURL(url);
-      };
+    async function fetchFile() {
+      if (!fileName) return;
+
+      const file = await downloadPatientFile(fileName);
+      patient.patient_document = file;
+
+      url = URL.createObjectURL(patient.patient_document);
+      setDocumentURL(url);
     }
-    setDocumentURL(null);
-  }, [patientDocument]);
+
+    fetchFile();
+    return () => {
+      URL.revokeObjectURL(url);
+    };
+  }, [patient]);
 
   const fieldValues = [
     { label: firstName, value: patient?.first_name },

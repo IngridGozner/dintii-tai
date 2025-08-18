@@ -9,7 +9,6 @@ import {
   addPatientFile,
   deletePatientFile,
   getPatientFileName,
-  updatePatientFile,
 } from './bucketActions';
 
 export async function addPatient(formData: FormData) {
@@ -70,6 +69,7 @@ export async function editPatient(formData: FormData) {
   const supabase = await createClient();
 
   const id = formData.get('id');
+  let patientFileID = null;
 
   if (!id) return;
 
@@ -77,10 +77,10 @@ export async function editPatient(formData: FormData) {
   const patientFileName = await getPatientFileName(id?.toString());
   const patientFullName = `${formData.get('firstName')}-${formData.get('lastName')}`;
 
-  const patientFileID =
-    patientFile && patientFileName !== null
-      ? await updatePatientFile(patientFileName, patientFile)
-      : await addPatientFile(patientFullName, patientFile);
+  if (patientFileName) {
+    deletePatientFile(patientFileName);
+    patientFileID = await addPatientFile(patientFullName, patientFile);
+  }
 
   const data = {
     first_name: formData.get('firstName'),

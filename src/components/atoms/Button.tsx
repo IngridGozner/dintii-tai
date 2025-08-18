@@ -6,6 +6,7 @@ type ButtonProps = Partial<GoogleIconProps> & {
   onClick?: () => void;
   href?: string;
   asLink?: boolean;
+  type?: 'button' | 'submit';
   formAction?: (formData: FormData) => Promise<void>;
 };
 
@@ -18,6 +19,7 @@ export function Button({
   iconClassName,
   asLink,
   formAction,
+  type,
 }: ButtonProps) {
   const buttonClasses = `flex items-center cursor-pointer ${
     asLink
@@ -39,7 +41,12 @@ export function Button({
       {buttonContent}
     </a>
   ) : (
-    <button className={buttonClasses} onClick={onClick} formAction={formAction}>
+    <button
+      className={buttonClasses}
+      onClick={onClick}
+      formAction={formAction}
+      type={type}
+    >
       {buttonContent}
     </button>
   );
