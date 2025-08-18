@@ -1,7 +1,14 @@
 'use client';
 
-import { createContext, ReactNode, useContext, useState } from 'react';
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import Dialog from '../components/Dialog';
+import { GoogleIcon } from '../atoms/GoogleIcon';
 
 export const DialogContext = createContext<{
   isOpen: boolean;
@@ -11,6 +18,7 @@ export const DialogContext = createContext<{
     className?: string
   ) => void;
   closeDialog: () => void;
+  showFeedback: (type: 'success' | 'error', message: string) => void;
 } | null>(null);
 
 export default function DialogProvider({
@@ -22,6 +30,28 @@ export default function DialogProvider({
   const [content, setContent] = useState<ReactNode>(null);
   const [headline, setHeadline] = useState('');
   const [className, setClassName] = useState('');
+  const [feedback, setFeedback] = useState<{
+    type: 'success' | 'error';
+    message: string;
+  } | null>(null);
+
+  const showFeedback = (type: 'success' | 'error', message: string) => {
+    setFeedback({ type, message });
+    setIsOpen(true);
+    setContent(
+      <div
+        className={`${type === 'success' ? 'text-green-500' : 'text-red-500'}`}
+      >
+        <p className='flex items-center justify-center gap-x-2'>
+          <GoogleIcon
+            iconName={type === 'success' ? 'check_circle' : 'error'}
+          />
+          <span className='text-white'>{message}</span>
+        </p>
+      </div>
+    );
+    setClassName('text-xl');
+  };
 
   const handleClick = (
     customContent: ReactNode,
@@ -38,8 +68,20 @@ export default function DialogProvider({
     setIsOpen(false);
   };
 
+  useEffect(() => {
+    if (feedback) {
+      const timer = setTimeout(() => {
+        closeDialog();
+        setFeedback(null);
+      }, 4500);
+      return () => clearTimeout(timer);
+    }
+  }, [feedback]);
+
   return (
-    <DialogContext.Provider value={{ isOpen, handleClick, closeDialog }}>
+    <DialogContext.Provider
+      value={{ isOpen, handleClick, closeDialog, showFeedback }}
+    >
       <Dialog
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}

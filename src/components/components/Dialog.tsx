@@ -25,9 +25,9 @@ export default function Dialog(props: DialogProps) {
     >
       <div className='fixed inset-0 bg-black/25' />
       <div className='fixed inset-0 z-[100] w-screen overflow-y-auto'>
-        <div className='flex min-h-full items-center justify-center p-6 text-center'>
+        <div className='flex min-h-full items-center justify-center p-6'>
           <div className='relative overflow-hidden rounded-lg shadow-xl'>
-            <div className={`bg-base-dark/75 px-28 py-14 ${className || ''}`}>
+            <div className={`bg-base-dark px-28 py-14 ${className || ''}`}>
               <div className={`flex items-center justify-center`}>
                 {closeButton && (
                   <Button
@@ -38,8 +38,8 @@ export default function Dialog(props: DialogProps) {
                     asLink
                   />
                 )}
-                <div className='mt-0 text-center'>
-                  <div className='text-4xl font-semibold text-white'>
+                <div className='mt-0'>
+                  <div className='border-b-2 border-white text-4xl font-semibold text-white'>
                     {headline}
                   </div>
                   <div className='mt-10'>{children}</div>
