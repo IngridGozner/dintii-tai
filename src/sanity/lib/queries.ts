@@ -115,3 +115,9 @@ export const DICTIONARY_TREATMENT_QUERY =
     "consent": consent[_key == $language][0].value,
     "date": date[_key == $language][0].value,
   }`);
+
+export const DICTIONARY_FEEDBACK_QUERY =
+  defineQuery(`*[_type == "dictionaryFeedback"][0]{
+    "successMessage": successMessage[_key == $language][0].value,
+    "errorMessage": errorMessage[_key == $language][0].value,
+  }`);

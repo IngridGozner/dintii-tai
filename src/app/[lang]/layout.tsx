@@ -5,6 +5,7 @@ import { sanityFetch } from '@/sanity/lib/live';
 import {
   ARTICLE_SLUG_QUERY,
   DICTIONARY_EDIT_QUERY,
+  DICTIONARY_FEEDBACK_QUERY,
   DICTIONARY_GENERAL_QUERY,
   DICTIONARY_NAVIGATION_QUERY,
   DICTIONARY_PATIENT_QUERY,
@@ -81,12 +82,18 @@ export async function getDictionaryEntries(
     params: { language: lang },
   });
 
+  const { data: dictionaryFeedback } = await sanityFetch({
+    query: DICTIONARY_FEEDBACK_QUERY,
+    params: { language: lang },
+  });
+
   const mergedEntries = {
     ...dictionaryGeneral,
     ...dictionaryNavigation,
     ...dictionaryEdit,
     ...dictionaryPatient,
     ...dictionaryTreatment,
+    ...dictionaryFeedback,
   };
 
   // Ensure all values are string or null (never undefined)
