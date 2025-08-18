@@ -10,4 +10,6 @@ export const { sanityFetch, SanityLive } = defineLive({
     // https://www.sanity.io/docs/api-versioning
     apiVersion: 'vX',
   }),
+  serverToken: false,
+  browserToken: false,
 });
