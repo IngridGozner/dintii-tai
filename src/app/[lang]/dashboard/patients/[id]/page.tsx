@@ -13,6 +13,11 @@ import {
 } from '@/supabase/actions/patientActions';
 import { PATIENTS_PATH } from '@/types/GlobalTypes';
 import { getPatientFileName } from '@/supabase/actions/bucketActions';
+import TreatmentsOverview from '@/components/components/TreatmentsOveriew/TreatmentsOverview';
+import {
+  addTreatment,
+  getPatientTreatments,
+} from '@/supabase/actions/treatmentActions';
 
 export default async function PatientDetail({
   params,
@@ -28,6 +33,8 @@ export default async function PatientDetail({
   const dictionary = await getDictionaryEntries(lang);
 
   const { first_name, last_name } = patient;
+
+  const treatments = await getPatientTreatments(Number(id));
 
   return (
     <>
@@ -52,8 +59,12 @@ export default async function PatientDetail({
             editAction={editPatient}
           />
         </Tab>
-        <Tab title={dictionary?.treatmentTableTitle ?? ''}>
-          <div className='h-9 bg-green-500'>Treatments</div>
+        <Tab title={dictionary?.treatment ?? ''}>
+          <TreatmentsOverview
+            data={treatments}
+            addAction={addTreatment}
+            patientID={Number(id)}
+          />
         </Tab>
       </Tabs>
     </>

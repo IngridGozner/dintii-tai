@@ -5,17 +5,18 @@ import { revalidatePath } from 'next/cache';
 import { createClient } from '@/supabase/server';
 import { redirect } from 'next/navigation';
 import { PATIENTS_PATH, TREATMENT_DATABASE } from '@/types/GlobalTypes';
+import { TreatmentType } from '@/types/TreatmentType';
 
 export async function addTreatment(formData: FormData) {
   const supabase = await createClient();
 
-  const treatmentData = {
+  const treatmentData: TreatmentType = {
     date: formData.get('date')?.toString() || null,
-    price: formData.get('price')?.toString() || null,
+    price: Number(formData.get('price')) || null,
     treatment: formData.get('treatment')?.toString() || null,
-    gdpr: formData.get('gdpr')?.toString() || null,
-    consent: formData.get('consent')?.toString() || null,
-    patientID: formData.get('patientID')?.toString() || null,
+    gdpr: Boolean(formData.get('gdpr')),
+    consent: Boolean(formData.get('consent')),
+    patientID: Number(formData.get('patientID')),
   };
 
   const { error } = await supabase
