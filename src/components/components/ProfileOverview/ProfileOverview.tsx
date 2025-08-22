@@ -5,9 +5,9 @@ import { useDictionary } from '../../providers/DictionaryProvider';
 import ProfileField from './ProfileField';
 import { getPatientFileNameFromFile, getWhatsAppLink } from '@/helpers';
 import { Button } from '@/components/atoms/Button';
-import PatientForm from '@/components/molecules/PatientForm';
 import { useEffect, useState } from 'react';
 import { downloadPatientFile } from '@/supabase/actions/bucketActions';
+import EditForm from '@/components/molecules/EditForm';
 
 type ProfileOverviewProps = {
   patient: NonNullable<PatientType>;
@@ -34,15 +34,17 @@ export default function ProfileOverview({
   } = useDictionary();
 
   const [documentURL, setDocumentURL] = useState<string | null>(null);
+  const phoneNumber = getWhatsAppLink(patient?.phone ?? '');
+  const fileName = getPatientFileNameFromFile(patient.patient_file_name ?? '');
 
   useEffect(() => {
-    const fileName = patient.patient_file_name;
+    const fileNameWithPath = patient.patient_file_name;
     let url: string;
 
     async function fetchFile() {
-      if (!fileName) return;
+      if (!fileNameWithPath) return;
 
-      const file = await downloadPatientFile(fileName);
+      const file = await downloadPatientFile(fileNameWithPath);
       patient.patient_document = file;
 
       url = URL.createObjectURL(patient.patient_document);
@@ -61,7 +63,7 @@ export default function ProfileOverview({
     {
       label: phone,
       value: patient?.phone,
-      link: phone ? getWhatsAppLink(phone) : '',
+      link: patient.phone ? phoneNumber : '',
     },
     { label: email, value: patient?.email },
     { label: birthdate, value: patient?.birthdate },
@@ -70,9 +72,7 @@ export default function ProfileOverview({
     { label: country, value: patient?.country },
     {
       label: patientFile,
-      value: patient.patient_file_name
-        ? getPatientFileNameFromFile(patient.patient_file_name)
-        : patientFile,
+      value: patient.patient_file_name ? fileName : patientFile,
       link: documentURL ?? '-',
     },
   ];
@@ -91,10 +91,71 @@ export default function ProfileOverview({
       </div>
       <div className='bg-background flex flex-1/3 flex-col gap-y-3 rounded-lg p-5 md:p-10'>
         {editAction && (
-          <PatientForm
+          <EditForm
             formFunctionality='edit'
             formAction={editAction}
-            patient={patient}
+            formFields={[
+              {
+                element: 'firstName',
+                label: firstName,
+                required: true,
+                value: patient?.first_name ?? undefined,
+                autoComplete: 'given-name',
+              },
+              {
+                element: 'lastName',
+                label: lastName,
+                required: true,
+                value: patient?.last_name ?? undefined,
+                autoComplete: 'family-name',
+              },
+              {
+                element: 'phone',
+                label: phone,
+                type: 'tel',
+                value: patient.phone || undefined,
+                autoComplete: 'tel',
+              },
+              {
+                element: 'email',
+                label: email,
+                type: 'email',
+                value: patient?.email || undefined,
+                autoComplete: 'email',
+              },
+              { element: 'cnp', label: cnp, value: patient?.cnp || undefined },
+              {
+                element: 'birthdate',
+                label: birthdate,
+                type: 'date',
+                value: patient?.birthdate || undefined,
+              },
+              {
+                element: 'city',
+                label: city,
+                value: patient?.city || undefined,
+              },
+              {
+                element: 'country',
+                label: country,
+                value: patient?.country || undefined,
+                autoComplete: 'country-name',
+              },
+              {
+                element: 'patientFile',
+                label: patientFile,
+                type: 'file',
+              },
+              {
+                element: 'id',
+                label: 'id',
+                value: patient?.id,
+                type: 'hidden',
+                containerClassName: '!-mt-7',
+              },
+            ]}
+            blob={patient.patient_document}
+            fileName={fileName}
           />
         )}
         {deleteAction && (

@@ -17,7 +17,7 @@ export async function addPatientFile(patientFullName: string, file: File) {
     .upload(`${PATIENT_BUCKET_FOLDER}/${patientFullName}-${Date.now()}`, file);
 
   if (error) {
-    console.error('Error uploading file:', error);
+    console.error(`Error uploading file: ${file}`, error);
     throw error;
   }
 
@@ -50,7 +50,7 @@ export async function deletePatientFile(fileName: string) {
     .remove([fileName]);
 
   if (error) {
-    console.error('Error deleting patient file:', error);
+    console.error(`Error deleting patient file with name:${fileName}`, error);
     throw error;
   }
 }
