@@ -27,25 +27,29 @@ export function Input(props: InputProps) {
     ref,
   } = props;
 
+  const isCheckbox = type === 'checkbox';
+
+  const checkboxStylesInput = 'w-fit mr-3';
+  const checkboxStylesLabel = 'text-white';
+
   return (
     <div className={`relative ${containerClassName || ''}`}>
       <input
         id={element}
         type={type}
         name={element}
-        className={`peer w-full min-w-72 rounded-lg border-b bg-white p-3 placeholder:text-transparent ${className ?? ''}`}
+        className={`${isCheckbox ? checkboxStylesInput : `peer w-full min-w-72 rounded-lg border-b bg-white p-3 placeholder:text-transparent`} ${className ?? ''}`}
         placeholder='name'
         required={required}
         autoComplete={autoComplete ?? 'off'}
         readOnly={readOnly}
-        value={value}
+        defaultValue={value}
         ref={ref}
-        onChange={() => {}}
       />
       {type != 'hidden' && (
         <label
           htmlFor={element}
-          className='absolute left-0 ml-3 -translate-y-6 cursor-text text-white duration-200 ease-linear peer-placeholder-shown:translate-y-2.5 peer-placeholder-shown:text-gray-500 peer-focus:ml-3 peer-focus:-translate-y-6 peer-focus:text-white'
+          className={`${isCheckbox ? checkboxStylesLabel : `absolute left-0 ml-3 -translate-y-6 cursor-text text-white duration-200 ease-linear peer-placeholder-shown:translate-y-2.5 peer-placeholder-shown:text-gray-500 peer-focus:ml-3 peer-focus:-translate-y-6 peer-focus:text-white`}`}
         >
           {label}
         </label>
