@@ -8,7 +8,7 @@ export const dictionaryTreatmentType = defineType({
   icon: DocumentTextIcon,
   fields: [
     defineField({
-      name: 'treatmentTableTitle',
+      name: 'treatment',
       type: 'internationalizedArrayString',
     }),
     defineField({

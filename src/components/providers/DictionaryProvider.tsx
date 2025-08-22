@@ -7,7 +7,7 @@ export const defaultDictionaryEntries = {
   prices: 'Prices',
   aboutUs: 'About Us',
   pricesTableTitle: 'Prices',
-  treatmentTableTitle: 'Treatment',
+  treatment: 'Treatment',
   contact: 'Contact',
   schedule: 'Schedule',
   login: 'Login',

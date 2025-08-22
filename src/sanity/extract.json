@@ -666,7 +666,7 @@
           "type": "string"
         }
       },
-      "treatmentTableTitle": {
+      "treatment": {
         "type": "objectAttribute",
         "value": {
           "type": "array",

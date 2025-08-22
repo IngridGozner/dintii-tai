@@ -109,7 +109,7 @@ export const DICTIONARY_PATIENT_QUERY =
 
 export const DICTIONARY_TREATMENT_QUERY =
   defineQuery(`*[_type == "dictionaryTreatment"][0]{
-    "treatmentTableTitle": treatmentTableTitle[_key == $language][0].value,
+    "treatment": treatment[_key == $language][0].value,
     "price": price[_key == $language][0].value,
     "gdpr": gdpr[_key == $language][0].value,
     "consent": consent[_key == $language][0].value,

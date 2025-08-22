@@ -61,7 +61,12 @@ export function removeLocaleFromPathName(pathName: string): string {
 }
 
 export function getWhatsAppLink(phoneNumber: string) {
-  return `https://wa.me/${phoneNumber}`;
+  let phoneNumberWithCountryCode = phoneNumber;
+
+  if (!phoneNumber.includes('+'))
+    phoneNumberWithCountryCode = `+40${phoneNumber}`;
+
+  return `https://wa.me/${phoneNumberWithCountryCode}`;
 }
 
 export function getPatientFileNameFromFile(filePath: string) {

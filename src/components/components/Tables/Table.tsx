@@ -14,7 +14,7 @@ export default function Table(props: TableProps) {
   const { treatments, dictionaryEntries } = props;
 
   const treatmentGroups = Object.values(treatments);
-  const { treatmentTableTitle, pricesTableTitle, prices } = dictionaryEntries;
+  const { treatment, pricesTableTitle, prices } = dictionaryEntries;
 
   if (!treatmentGroups || !treatmentGroups.length) return null;
 
@@ -34,7 +34,7 @@ export default function Table(props: TableProps) {
             </colgroup>
             <thead>
               <tr>
-                <th className={headClasses}>{treatmentTableTitle}</th>
+                <th className={headClasses}>{treatment}</th>
                 <th className={headClasses}>{pricesTableTitle}</th>
               </tr>
             </thead>

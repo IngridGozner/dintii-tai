@@ -33,7 +33,7 @@ export type DICTIONARY_QUERYResult = {
   prices: string | null;
   aboutUs: string | null;
   pricesTableTitle: string | null;
-  treatmentTableTitle: string | null;
+  treatment: string | null;
   contact: string | null;
   schedule: string | null;
   login: string | null;
