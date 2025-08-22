@@ -2,7 +2,7 @@
 
 import { Headline } from '@/components/atoms/Headline';
 import EditableTable from '@/components/components/Tables/EditableTable';
-import PatientForm from '@/components/molecules/PatientForm';
+import EditForm from '@/components/molecules/EditForm';
 import { useDictionary } from '@/components/providers/DictionaryProvider';
 import { getWhatsAppLink } from '@/helpers';
 import { PATIENTS_PATH } from '@/types/GlobalTypes';
@@ -15,7 +15,7 @@ export default function EditableTablePatient({
   data: { [key: string]: string }[] | null;
   formAction?: (formData: FormData) => Promise<void>;
 }) {
-  const { patients } = useDictionary();
+  const { patients, firstName, lastName, phone, patientFile } = useDictionary();
 
   return (
     <EditableTable
@@ -33,10 +33,37 @@ export default function EditableTablePatient({
             <Headline headline={patients ?? ''} />
           </div>
           <div className='col-span-6 flex h-fit justify-end'>
-            <PatientForm
+            <EditForm
               formFunctionality='add'
-              formElements={['firstName', 'lastName', 'phone', 'patientFile']}
               formAction={formAction}
+              formFields={[
+                {
+                  element: 'firstName',
+                  label: firstName,
+                  required: true,
+                  value: undefined,
+                  autoComplete: 'given-name',
+                },
+                {
+                  element: 'lastName',
+                  label: lastName,
+                  required: true,
+                  value: undefined,
+                  autoComplete: 'family-name',
+                },
+                {
+                  element: 'phone',
+                  label: phone,
+                  type: 'tel',
+                  value: undefined,
+                  autoComplete: 'tel',
+                },
+                {
+                  element: 'patientFile',
+                  label: patientFile,
+                  type: 'file',
+                },
+              ]}
             />
           </div>
         </>
