@@ -1,17 +1,16 @@
 'use client';
 
-import { Button } from '../atoms/Button';
+import { Button, ButtonProps } from '../atoms/Button';
 import { Input, InputProps } from '../atoms/Input';
 import { useDialog } from '../providers/DialogProvider';
 import { useDictionary } from '../providers/DictionaryProvider';
 import { useEffect, useRef } from 'react';
 
-type EditFormProps = {
+type EditFormProps = ButtonProps & {
   formFunctionality: 'add' | 'edit';
   formFields: InputProps[];
   blob?: Blob | null;
   fileName?: string | null;
-  formAction?: (formData: FormData) => Promise<void>;
 };
 
 export default function EditForm({
@@ -20,6 +19,7 @@ export default function EditForm({
   formAction,
   blob,
   fileName,
+  ...rest
 }: EditFormProps) {
   const {
     addPatient,
@@ -68,7 +68,7 @@ export default function EditForm({
     <Button
       label={dialogHeadine || ''}
       iconName={isAddDialog ? 'person_add' : 'edit'}
-      className='justify-center'
+      {...rest}
       onClick={() =>
         handleClick(
           <form className='flex flex-col gap-y-7'>

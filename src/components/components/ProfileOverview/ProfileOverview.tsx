@@ -161,7 +161,7 @@ export default function ProfileOverview({
         {deleteAction && (
           <Button
             label={deletePatient ?? ''}
-            onClick={() => deleteAction(patient.id as number)}
+            onClick={() => deleteAction(Number(patient.id))}
             className='items-center justify-center bg-red-700 hover:bg-red-500'
             iconName='delete'
           />

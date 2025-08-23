@@ -23,7 +23,7 @@ export default function NavigationGroup(props: NavigationGroupProps) {
           return link.name ? (
             <li key={index}>
               <Link
-                className={`hover:bg-link-hover rounded-lg px-4 py-2 text-xl !text-white hover:!text-white ${
+                className={`hover:bg-link-hover rounded-lg px-4 py-2 text-lg !text-white hover:!text-white ${
                   activeTab === link.href ? '!bg-link-hover' : ''
                 }`}
                 href={link.href ?? ''}

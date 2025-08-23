@@ -49,6 +49,8 @@ export function unsubscribeFromEvent(eventName: string) {
 }
 
 export function convertSnakeToCamelCase(snakeCaseString: string): string {
+  if (!snakeCaseString.includes('_')) return snakeCaseString;
+
   return snakeCaseString
     .toLowerCase()
     .replace(/([-_][a-z])/g, (group) =>

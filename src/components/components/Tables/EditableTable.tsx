@@ -4,6 +4,9 @@ import { ReactNode } from 'react';
 import { convertSnakeToCamelCase } from '@/helpers';
 import { useDictionary } from '@/components/providers/DictionaryProvider';
 import { GoogleIcon } from '@/components/atoms/GoogleIcon';
+import { Button } from '@/components/atoms/Button';
+import EditForm from '@/components/molecules/EditForm';
+import { InputProps } from '@/components/atoms/Input';
 
 type EditableTableProps = {
   data: { [key: string]: string }[] | [] | null;
@@ -15,6 +18,9 @@ type EditableTableProps = {
   };
   tableHeader?: ReactNode;
   tableClassName?: string;
+  editAction?: (formData: FormData) => Promise<void>;
+  deleteAction?: (id: number) => Promise<void>;
+  formFields?: InputProps[];
 };
 
 export default function EditableTable(props: EditableTableProps) {
@@ -25,15 +31,27 @@ export default function EditableTable(props: EditableTableProps) {
     clickableCell,
     tableHeader,
     tableClassName,
+    editAction,
+    deleteAction,
+    formFields,
   } = props;
 
   const t = useDictionary();
+  let filledFormFields = formFields;
 
   const headers = data?.length
     ? excludedHeaders
       ? Object.keys(data[0]).filter((key) => !excludedHeaders.includes(key))
       : Object.keys(data[0])
     : null;
+
+  if (editAction && formFields) {
+    headers?.push('editPatient');
+  }
+
+  if (deleteAction) {
+    headers?.push('deletePatient');
+  }
 
   const cellClasses = 'p-3 text-font text-base border-b border-font/20';
   const headClasses = `bg-background text-base ${cellClasses}`;
@@ -72,35 +90,75 @@ export default function EditableTable(props: EditableTableProps) {
                     className={`hover:bg-background/50 ${onClickRow ? 'cursor-pointer' : ''}`}
                     onClick={() => onClickRow?.(entry)}
                   >
-                    {headers?.map((header, index) => (
-                      <td
-                        key={index}
-                        className={`${cellClasses} ${clickableCellHeader === header ? 'text-link hover:text-link-hover font-semibold' : ''}`}
-                        onClick={(e) => {
-                          if (
-                            clickableCell &&
-                            clickableCellHeader === header &&
-                            entry[header] !== ''
-                          ) {
-                            e.stopPropagation();
-                            clickableCellFunction?.(entry);
-                          }
-                        }}
-                      >
-                        {typeof entry[header] === 'boolean' ? (
-                          <GoogleIcon
-                            iconName={
-                              entry[header]
-                                ? 'check_box'
-                                : 'check_box_outline_blank'
+                    {headers?.map((header, index) => {
+                      filledFormFields = formFields?.map((field) =>
+                        !field.value
+                          ? { ...field, value: entry[field.element] }
+                          : field
+                      );
+
+                      filledFormFields?.push({
+                        element: 'id',
+                        label: 'id',
+                        value: entry['id'],
+                        containerClassName: '-mt-7',
+                        type: 'hidden',
+                      });
+
+                      return (
+                        <td
+                          key={index}
+                          className={`${cellClasses} ${clickableCellHeader === header ? 'text-link hover:text-link-hover font-semibold' : ''}`}
+                          onClick={(e) => {
+                            if (
+                              clickableCell &&
+                              clickableCellHeader === header &&
+                              entry[header] !== ''
+                            ) {
+                              e.stopPropagation();
+                              clickableCellFunction?.(entry);
                             }
-                            iconClassName='!text-green-700'
-                          />
-                        ) : (
-                          entry[header]
-                        )}
-                      </td>
-                    ))}
+                          }}
+                        >
+                          {typeof entry[header] === 'boolean' ? (
+                            <GoogleIcon
+                              iconName={
+                                entry[header]
+                                  ? 'check_box'
+                                  : 'check_box_outline_blank'
+                              }
+                              iconClassName={
+                                entry[header]
+                                  ? '!text-green-700'
+                                  : '!text-red-700'
+                              }
+                            />
+                          ) : (
+                            entry[header]
+                          )}
+
+                          {header === 'editPatient' &&
+                          editAction &&
+                          filledFormFields ? (
+                            <EditForm
+                              formFunctionality='edit'
+                              formAction={editAction}
+                              formFields={filledFormFields}
+                              asLink
+                              label=''
+                            />
+                          ) : undefined}
+
+                          {header === 'deletePatient' && deleteAction ? (
+                            <Button
+                              iconName='delete'
+                              asLink
+                              onClick={() => deleteAction(Number(entry['id']))}
+                            />
+                          ) : undefined}
+                        </td>
+                      );
+                    })}
                   </tr>
                 );
               })}

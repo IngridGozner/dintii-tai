@@ -45,6 +45,9 @@ export function Input(props: InputProps) {
         readOnly={readOnly}
         defaultValue={value}
         ref={ref}
+        {...(isCheckbox && Boolean(value) === true
+          ? { defaultChecked: true }
+          : {})}
       />
       {type != 'hidden' && (
         <label

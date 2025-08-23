@@ -1,6 +1,6 @@
 import { GoogleIcon, GoogleIconProps } from './GoogleIcon';
 
-type ButtonProps = Partial<GoogleIconProps> & {
+export type ButtonProps = Partial<GoogleIconProps> & {
   className?: string;
   label?: string;
   onClick?: () => void;
@@ -24,7 +24,7 @@ export function Button({
   const buttonClasses = `flex items-center cursor-pointer ${
     asLink
       ? 'text-link hover:text-link-hover'
-      : 'bg-link border-2 py-2 px-4 text-white hover:bg-link-hover rounded-lg'
+      : 'justify-center bg-link border-2 py-2 px-4 text-white hover:bg-link-hover rounded-lg'
   } ${className ? ` ${className}` : ''}`;
 
   const buttonContent = (

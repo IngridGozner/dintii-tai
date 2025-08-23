@@ -4,11 +4,14 @@ import { useDictionary } from '@/components/providers/DictionaryProvider';
 import EditableTable from '../Tables/EditableTable';
 import { Headline } from '@/components/atoms/Headline';
 import EditForm from '@/components/molecules/EditForm';
+import {
+  deleteTreatment,
+  editTreatment,
+} from '@/supabase/actions/treatmentActions';
 
 type TreatmentsOverviewProps = {
   data: { [key: string]: string }[] | null | [];
   addAction?: (formData: FormData) => Promise<void>;
-  // deleteAction?: (id: number) => Promise<void>;
   patientID: number;
 };
 
@@ -53,7 +56,7 @@ export default function TreatmentsOverview({
     },
     {
       element: 'patientID',
-      label: consent,
+      label: 'patientID',
       value: patientID,
       containerClassName: '-mt-7',
       type: 'hidden',
@@ -65,6 +68,9 @@ export default function TreatmentsOverview({
       <EditableTable
         data={data}
         excludedHeaders={['id']}
+        editAction={editTreatment}
+        deleteAction={deleteTreatment}
+        formFields={formFields}
         tableHeader={
           <>
             <div className='border-font/20 mb-2 flex flex-row border-b-2 border-dashed pb-2'>
