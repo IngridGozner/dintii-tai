@@ -9,7 +9,11 @@ import { useEffect, useState } from 'react';
 import { removeLocaleFromPathName, subscribeToEvent } from '@/helpers';
 import { signOut } from '@/supabase/actions/userActions';
 import { usePathname } from 'next/navigation';
-import { DASHBOARD_PATH, PATIENTS_PATH } from '@/types/GlobalTypes';
+import {
+  DASHBOARD_PATH,
+  PATIENTS_PATH,
+  STUDIO_PATH,
+} from '@/types/GlobalTypes';
 
 export default function Sidebar() {
   const pathName = usePathname();
@@ -42,6 +46,12 @@ export default function Sidebar() {
     },
   ];
   const generalLinks = [
+    {
+      name: 'STUDIO',
+      href: STUDIO_PATH,
+      icon: 'edit_note',
+      target: '_blank',
+    },
     {
       name: dictionary?.logout || '',
       onClick: () => {

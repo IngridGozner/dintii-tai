@@ -26,6 +26,7 @@ export type NavigationLink = {
   name: string;
   href?: string;
   icon: string;
+  target?: string;
   onClick?: () => void;
 };
 

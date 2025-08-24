@@ -29,6 +29,7 @@ export default function NavigationGroup(props: NavigationGroupProps) {
                 href={link.href ?? ''}
                 label={link.name}
                 iconName={link.icon}
+                target={link.target}
                 onClick={() => {
                   if (link.onClick) {
                     link.onClick();

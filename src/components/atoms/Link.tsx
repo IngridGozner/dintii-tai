@@ -11,6 +11,7 @@ type LinkProps = Partial<GoogleIconProps> & {
   href: string;
   darkBackground?: boolean;
   logo?: SanityImage;
+  target?: string;
 };
 
 export function Link({
@@ -22,6 +23,7 @@ export function Link({
   iconClassName,
   darkBackground = false,
   logo,
+  target,
 }: LinkProps) {
   const linkClsses = `${darkBackground ? 'text-white hover:text-white' : 'text-link hover:!text-link-hover'} flex items-center${className ? ` ${className}` : ''}`;
 
@@ -48,7 +50,12 @@ export function Link({
   );
 
   return (
-    <NextLink className={linkClsses} onClick={onClick} href={href}>
+    <NextLink
+      className={linkClsses}
+      onClick={onClick}
+      href={href}
+      target={target}
+    >
       {linkContent}
     </NextLink>
   );
