@@ -20,6 +20,14 @@ export const dictionaryFeedbackType = defineType({
       type: 'internationalizedArrayString',
     }),
     defineField({
+      name: 'emptyPatientData',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'emptyTreatmentData',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
       name: 'yes',
       type: 'internationalizedArrayString',
     }),

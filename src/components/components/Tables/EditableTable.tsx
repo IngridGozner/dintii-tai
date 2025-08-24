@@ -47,16 +47,18 @@ export default function EditableTable(props: EditableTableProps) {
       : Object.keys(data[0])
     : null;
 
-  let deleteMessage, editMessage;
+  let deleteMessage, editMessage, emptyTableMessage;
 
   switch (formType) {
     case 'patient':
       deleteMessage = 'deletePatient';
       editMessage = 'editPatient';
+      emptyTableMessage = t.emptyPatientData;
       break;
     case 'treatment':
       deleteMessage = 'deleteTreatment';
       editMessage = 'editTreatment';
+      emptyTableMessage = t.emptyTreatmentData;
       break;
   }
 
@@ -75,7 +77,7 @@ export default function EditableTable(props: EditableTableProps) {
     <>
       {tableHeader}
 
-      {data?.length && (
+      {data?.length ? (
         <div
           className={`overflow-x-auto ${tableClassName ? tableClassName : 'col-span-6 md:col-span-12'}`}
         >
@@ -180,6 +182,8 @@ export default function EditableTable(props: EditableTableProps) {
             </tbody>
           </table>
         </div>
+      ) : (
+        <div>{emptyTableMessage}</div>
       )}
     </>
   );

@@ -34,6 +34,16 @@ export type DictionaryFeedback = {
       _key: string;
     } & InternationalizedArrayStringValue
   >;
+  emptyPatientData?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  emptyTreatmentData?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
   yes?: Array<
     {
       _key: string;
@@ -833,11 +843,13 @@ export type DICTIONARY_TREATMENT_QUERYResult = {
   date: string | null;
 } | null;
 // Variable: DICTIONARY_FEEDBACK_QUERY
-// Query: *[_type == "dictionaryFeedback"][0]{    "successMessage": successMessage[_key == $language][0].value,    "errorMessage": errorMessage[_key == $language][0].value,    "deleteMessage": deleteMessage[_key == $language][0].value,    "yes": yes[_key == $language][0].value,    "no": no[_key == $language][0].value,  }
+// Query: *[_type == "dictionaryFeedback"][0]{    "successMessage": successMessage[_key == $language][0].value,    "errorMessage": errorMessage[_key == $language][0].value,    "deleteMessage": deleteMessage[_key == $language][0].value,    "emptyPatientData": emptyPatientData[_key == $language][0].value,    "emptyTreatmentData": emptyTreatmentData[_key == $language][0].value,    "yes": yes[_key == $language][0].value,    "no": no[_key == $language][0].value,  }
 export type DICTIONARY_FEEDBACK_QUERYResult = {
   successMessage: string | null;
   errorMessage: string | null;
   deleteMessage: string | null;
+  emptyPatientData: string | null;
+  emptyTreatmentData: string | null;
   yes: string | null;
   no: string | null;
 } | null;
@@ -857,6 +869,6 @@ declare module '@sanity/client' {
     '*[_type == "dictionaryEdit"][0]{\n    "addPatient": addPatient[_key == $language][0].value,\n    "editPatient": editPatient[_key == $language][0].value,\n    "deletePatient": deletePatient[_key == $language][0].value,\n    "addTreatment": addTreatment[_key == $language][0].value,\n    "editTreatment": editTreatment[_key == $language][0].value,\n    "deleteTreatment": deleteTreatment[_key == $language][0].value,\n    "save": save[_key == $language][0].value,\n    "cancel": cancel[_key == $language][0].value,\n  }': DICTIONARY_EDIT_QUERYResult;
     '*[_type == "dictionaryPatient"][0]{\n    "firstName": firstName[_key == $language][0].value,\n    "lastName": lastName[_key == $language][0].value,\n    "phone": phone[_key == $language][0].value,\n    "city": city[_key == $language][0].value,\n    "country": country[_key == $language][0].value,\n    "patientFile": patientFile[_key == $language][0].value,\n    "birthdate": birthdate[_key == $language][0].value,\n    "cnp": cnp\n  }': DICTIONARY_PATIENT_QUERYResult;
     '*[_type == "dictionaryTreatment"][0]{\n    "treatment": treatment[_key == $language][0].value,\n    "price": price[_key == $language][0].value,\n    "gdpr": gdpr[_key == $language][0].value,\n    "consent": consent[_key == $language][0].value,\n    "date": date[_key == $language][0].value,\n  }': DICTIONARY_TREATMENT_QUERYResult;
-    '*[_type == "dictionaryFeedback"][0]{\n    "successMessage": successMessage[_key == $language][0].value,\n    "errorMessage": errorMessage[_key == $language][0].value,\n    "deleteMessage": deleteMessage[_key == $language][0].value,\n    "yes": yes[_key == $language][0].value,\n    "no": no[_key == $language][0].value,\n  }': DICTIONARY_FEEDBACK_QUERYResult;
+    '*[_type == "dictionaryFeedback"][0]{\n    "successMessage": successMessage[_key == $language][0].value,\n    "errorMessage": errorMessage[_key == $language][0].value,\n    "deleteMessage": deleteMessage[_key == $language][0].value,\n    "emptyPatientData": emptyPatientData[_key == $language][0].value,\n    "emptyTreatmentData": emptyTreatmentData[_key == $language][0].value,\n    "yes": yes[_key == $language][0].value,\n    "no": no[_key == $language][0].value,\n  }': DICTIONARY_FEEDBACK_QUERYResult;
   }
 }
