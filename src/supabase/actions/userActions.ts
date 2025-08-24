@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 import { createClient } from '@/supabase/server';
+import { UPDATE_PASSWORD } from '@/types/GlobalTypes';
 
 export async function login(formData: FormData) {
   const supabase = await createClient();
@@ -29,4 +30,22 @@ export async function signOut() {
   const { error } = await supabase.auth.signOut();
 
   return error;
+}
+
+export async function resetPassword(formData: FormData) {
+  const supabase = await createClient();
+  const email = formData.get('email')?.toString();
+
+  if (!email) return;
+
+  await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: UPDATE_PASSWORD,
+  });
+}
+
+export async function updatePassword(formData: FormData) {
+  const supabase = await createClient();
+  const newPassword = formData.get('newPassword')?.toString();
+
+  await supabase.auth.updateUser({ password: newPassword });
 }

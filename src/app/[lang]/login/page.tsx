@@ -1,38 +1,54 @@
-import { sanityFetch } from '@/sanity/lib/live';
-import { SITEINFO_QUERY } from '@/sanity/lib/queries';
-import Image from 'next/image';
-import { urlFor } from '@/sanity/lib/image';
-import { getDictionaryEntries } from '../layout';
-import LoginForm from './LoginForm';
+'use client';
 
-export default async function LoginPage({
-  params,
-}: Readonly<{
-  params: Promise<{ lang: string }>;
-}>) {
-  const { lang } = await params;
+import { login } from '@/supabase/actions/userActions';
+import Dialog from '@/components/components/Dialog';
+import { Input } from '@/components/atoms/Input';
+import { Button } from '@/components/atoms/Button';
+import { useDictionary } from '@/components/providers/DictionaryProvider';
+import { useActionState } from 'react';
+import { GoogleIcon } from '@/components/atoms/GoogleIcon';
 
-  const { data: siteInfo } = await sanityFetch({
-    query: SITEINFO_QUERY,
-    params: { language: lang },
+export default function LoginForm() {
+  const { login: loginEntry, email, password } = useDictionary();
+
+  const loginReducer = async (
+    state: { success: boolean; message: string },
+    formData: FormData
+  ) => {
+    return await login(formData);
+  };
+
+  const [state, formAction] = useActionState(loginReducer, {
+    success: true,
+    message: '',
   });
 
-  const dictionaryEntries = await getDictionaryEntries(lang);
-
-  const backgroundImage = siteInfo?.loginImage?.image;
-
   return (
-    <>
-      <LoginForm dictionaryEntries={dictionaryEntries} />
+    <Dialog headline={loginEntry ?? 'Login'} closeButton={false}>
+      <form action={formAction} className='flex flex-col gap-y-7'>
+        {state?.success === false && (
+          <p className='-mt-5 -mb-2 flex items-center gap-x-2 text-left font-bold text-yellow-300'>
+            <GoogleIcon iconName='error' />
 
-      {backgroundImage && (
-        <Image
-          src={urlFor(backgroundImage).width(800).height(800).url()}
-          alt={backgroundImage?.alt || ''}
-          fill
-          className='relative h-full w-full object-cover'
+            {state.message}
+          </p>
+        )}
+        <Input
+          label={email ?? 'Email'}
+          element='email'
+          type='email'
+          required
+          autoComplete='email'
         />
-      )}
-    </>
+        <Input
+          label={password ?? 'Password'}
+          element='password'
+          type='password'
+          autoComplete='current-password'
+          required
+        />
+        <Button label={loginEntry ?? 'Login'} />
+      </form>
+    </Dialog>
   );
 }
