@@ -1,5 +1,5 @@
 import '@/app/globals.css';
-import Head from '@/components/components/Head';
+import CustomHead from '@/components/components/Head';
 import { Providers } from '@/components/providers/providers';
 import { sanityFetch } from '@/sanity/lib/live';
 import {
@@ -37,7 +37,7 @@ export default async function RootLayout({
 
   return (
     <html lang={lang}>
-      <Head
+      <CustomHead
         siteInfo={siteInfo || undefined}
         article={aboutUsData || undefined}
       />
