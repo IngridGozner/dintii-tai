@@ -4,9 +4,9 @@ import { ReactNode } from 'react';
 import { convertSnakeToCamelCase } from '@/helpers';
 import { useDictionary } from '@/components/providers/DictionaryProvider';
 import { GoogleIcon } from '@/components/atoms/GoogleIcon';
-import { Button } from '@/components/atoms/Button';
 import EditForm from '@/components/molecules/EditForm';
 import { InputProps } from '@/components/atoms/Input';
+import { DeleteTreatmentButton } from '@/components/molecules/DeleteButton';
 
 type EditableTableProps = {
   data: { [key: string]: string }[] | [] | null;
@@ -167,10 +167,11 @@ export default function EditableTable(props: EditableTableProps) {
                           ) : undefined}
 
                           {header === deleteMessage && deleteAction ? (
-                            <Button
-                              iconName='delete'
-                              asLink
-                              onClick={() => deleteAction(Number(entry['id']))}
+                            <DeleteTreatmentButton
+                              deleteAction={() =>
+                                deleteAction(Number(entry['id']))
+                              }
+                              textForEntryToDelete={entry['treatment']}
                             />
                           ) : undefined}
                         </td>

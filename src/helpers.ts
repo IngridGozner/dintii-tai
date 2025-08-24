@@ -78,3 +78,6 @@ export function getPatientFileNameFromFile(filePath: string) {
 
   return fileName;
 }
+
+export const replaceEntry = (message: string, entry: string) =>
+  message?.replace('{entry}', entry);

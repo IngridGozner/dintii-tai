@@ -118,7 +118,7 @@ export default function EditForm({
             {isAddDialog ? (
               <Button
                 label={isAddDialog ? (addMessage ?? '') : (save ?? '')}
-                className='justify-center rounded-full text-center'
+                className='rounded-full text-center'
                 iconName={isAddDialog ? undefined : 'save'}
                 formAction={async (formData) => handleFormSubmission(formData)}
               />
@@ -129,12 +129,12 @@ export default function EditForm({
                     handleFormSubmission(formData)
                   }
                   label={save ?? ''}
-                  className='w-full justify-center rounded-full text-center'
+                  className='w-full rounded-full text-center'
                   iconName='save'
                 />
                 <Button
                   label={cancel ?? ''}
-                  className='w-full justify-center rounded-full text-center'
+                  className='w-full rounded-full text-center'
                   onClick={closeDialog}
                   iconName='cancel'
                   type='button'

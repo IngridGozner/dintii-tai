@@ -124,7 +124,8 @@ export const DICTIONARY_FEEDBACK_QUERY =
   defineQuery(`*[_type == "dictionaryFeedback"][0]{
     "successMessage": successMessage[_key == $language][0].value,
     "errorMessage": errorMessage[_key == $language][0].value,
-    "deleteMessage": deleteMessage[_key == $language][0].value,
+    "deletePatientMessage": deletePatientMessage[_key == $language][0].value,
+    "deleteTreatmentMessage": deleteTreatmentMessage[_key == $language][0].value,
     "emptyPatientData": emptyPatientData[_key == $language][0].value,
     "emptyTreatmentData": emptyTreatmentData[_key == $language][0].value,
     "yes": yes[_key == $language][0].value,

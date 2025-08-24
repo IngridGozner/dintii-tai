@@ -3,7 +3,7 @@
 import { revalidatePath } from 'next/cache';
 
 import { createClient } from '@/supabase/server';
-import { notFound, redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import { PATIENT_DATABASE, PATIENTS_PATH } from '@/types/GlobalTypes';
 import {
   addPatientFile,
@@ -114,6 +114,4 @@ export async function deletePatient(id: number) {
   }
 
   await supabase.from(PATIENT_DATABASE).delete().eq('id', id);
-
-  redirect(PATIENTS_PATH);
 }

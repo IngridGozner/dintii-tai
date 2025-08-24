@@ -42,7 +42,7 @@ export default function Dialog(props: DialogProps) {
                   <div className='border-b-2 border-white text-4xl font-semibold text-white'>
                     {headline}
                   </div>
-                  <div className='mt-10'>{children}</div>
+                  <div className='mt-7'>{children}</div>
                 </div>
               </div>
             </div>

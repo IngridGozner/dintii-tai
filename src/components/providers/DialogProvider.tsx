@@ -73,7 +73,7 @@ export default function DialogProvider({
       const timer = setTimeout(() => {
         closeDialog();
         setFeedback(null);
-      }, 4500);
+      }, 4000);
       return () => clearTimeout(timer);
     }
   }, [feedback]);

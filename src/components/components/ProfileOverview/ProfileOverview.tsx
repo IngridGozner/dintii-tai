@@ -4,10 +4,10 @@ import { PatientType } from '@/types/PatientType';
 import { useDictionary } from '../../providers/DictionaryProvider';
 import ProfileField from './ProfileField';
 import { getPatientFileNameFromFile, getWhatsAppLink } from '@/helpers';
-import { Button } from '@/components/atoms/Button';
 import { useEffect, useState } from 'react';
 import { downloadPatientFile } from '@/supabase/actions/bucketActions';
 import EditForm from '@/components/molecules/EditForm';
+import { DeletePatientButton } from '@/components/molecules/DeleteButton';
 
 type ProfileOverviewProps = {
   patient: NonNullable<PatientType>;
@@ -30,7 +30,6 @@ export default function ProfileOverview({
     city,
     country,
     patientFile,
-    deletePatient,
   } = useDictionary();
 
   const [documentURL, setDocumentURL] = useState<string | null>(null);
@@ -159,11 +158,9 @@ export default function ProfileOverview({
           />
         )}
         {deleteAction && (
-          <Button
-            label={deletePatient ?? ''}
-            onClick={() => deleteAction(Number(patient.id))}
-            className='items-center justify-center bg-red-700 hover:bg-red-500'
-            iconName='delete'
+          <DeletePatientButton
+            deleteAction={() => deleteAction(Number(patient.id))}
+            textForEntryToDelete={`${patient.first_name} ${patient.last_name}`}
           />
         )}
       </div>
