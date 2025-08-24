@@ -71,7 +71,7 @@ export default function ProfileOverview({
     { label: country, value: patient?.country },
     {
       label: patientFile,
-      value: patient.patient_file_name ? fileName : patientFile,
+      value: patient.patient_file_name ? fileName : '-',
       link: documentURL ?? '-',
     },
   ];

@@ -25,7 +25,7 @@ export async function addPatient(formData: FormData) {
 
   const patientFullName = `${data.first_name}-${data.last_name}`;
 
-  if (patientFile) {
+  if (patientFile.size) {
     const fileID = await addPatientFile(patientFullName, patientFile);
 
     data.patient_file_id = fileID;
