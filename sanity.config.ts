@@ -13,9 +13,10 @@ import { apiVersion, dataset, projectId } from './src/sanity/env';
 import { schema } from './src/sanity/schemaTypes';
 import { structure } from './src/sanity/structure';
 import { internationalizedArray } from 'sanity-plugin-internationalized-array';
+import { STUDIO_PATH } from '@/types/GlobalTypes';
 
 export default defineConfig({
-  basePath: '/ro/studio',
+  basePath: STUDIO_PATH,
   projectId,
   dataset,
   // Add and edit the content schema in the './sanity/schemaTypes' folder

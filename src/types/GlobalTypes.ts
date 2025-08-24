@@ -1,6 +1,7 @@
 export const DASHBOARD_PATH = '/dashboard';
 export const PATIENTS_PATH = '/dashboard/patients';
 export const LOGIN_PATH = '/login';
+export const STUDIO_PATH = '/studio';
 
 export const PATIENT_DATABASE = 'patient';
 

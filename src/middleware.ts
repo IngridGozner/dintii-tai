@@ -13,6 +13,10 @@ export function middleware(request: NextRequest) {
 
   if (pathnameHasLocale) return updateSession(request);
 
+  if (pathname.startsWith('/studio')) {
+    return NextResponse.next();
+  }
+
   // Redirect if there is no locale
   const locale = request.cookies.get('NEXT_LOCALE')?.value || defaultLocale;
   request.nextUrl.pathname = `/${locale}${pathname}`;
