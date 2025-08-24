@@ -47,7 +47,7 @@ export default function Sidebar() {
   ];
   const generalLinks = [
     {
-      name: 'STUDIO',
+      name: dictionary.studio || '',
       href: STUDIO_PATH,
       icon: 'edit_note',
       target: '_blank',

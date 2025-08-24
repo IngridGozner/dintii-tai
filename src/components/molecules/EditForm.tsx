@@ -11,6 +11,7 @@ type EditFormProps = ButtonProps & {
   formFields: InputProps[];
   blob?: Blob | null;
   fileName?: string | null;
+  formType?: 'patient' | 'treatment';
 };
 
 export default function EditForm({
@@ -19,6 +20,7 @@ export default function EditForm({
   formAction,
   blob,
   fileName,
+  formType = 'patient',
   ...rest
 }: EditFormProps) {
   const {
@@ -27,14 +29,30 @@ export default function EditForm({
     cancel,
     patientFile,
     editPatient,
+    addTreatment,
+    editTreatment,
     errorMessage,
     successMessage,
   } = useDictionary();
 
   const { isOpen, handleClick, closeDialog, showFeedback } = useDialog();
+  let addMessage, editMessage, buttonAddIconName;
+
+  switch (formType) {
+    case 'patient':
+      addMessage = addPatient;
+      editMessage = editPatient;
+      buttonAddIconName = 'person_add';
+      break;
+    case 'treatment':
+      addMessage = addTreatment;
+      editMessage = editTreatment;
+      buttonAddIconName = 'post_add';
+      break;
+  }
 
   const isAddDialog = formFunctionality == 'add';
-  const dialogHeadine = isAddDialog ? addPatient : editPatient;
+  const dialogHeadine = isAddDialog ? addMessage : editMessage;
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -67,7 +85,7 @@ export default function EditForm({
   return (
     <Button
       label={dialogHeadine || ''}
-      iconName={isAddDialog ? 'person_add' : 'edit'}
+      iconName={isAddDialog ? buttonAddIconName : 'edit'}
       {...rest}
       onClick={() =>
         handleClick(
@@ -99,7 +117,7 @@ export default function EditForm({
 
             {isAddDialog ? (
               <Button
-                label={isAddDialog ? (addPatient ?? '') : (save ?? '')}
+                label={isAddDialog ? (addMessage ?? '') : (save ?? '')}
                 className='justify-center rounded-full text-center'
                 iconName={isAddDialog ? undefined : 'save'}
                 formAction={async (formData) => handleFormSubmission(formData)}

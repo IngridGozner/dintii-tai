@@ -21,6 +21,7 @@ type EditableTableProps = {
   editAction?: (formData: FormData) => Promise<void>;
   deleteAction?: (id: number) => Promise<void>;
   formFields?: InputProps[];
+  formType?: 'patient' | 'treatment';
 };
 
 export default function EditableTable(props: EditableTableProps) {
@@ -34,6 +35,7 @@ export default function EditableTable(props: EditableTableProps) {
     editAction,
     deleteAction,
     formFields,
+    formType = 'patient',
   } = props;
 
   const t = useDictionary();
@@ -45,12 +47,25 @@ export default function EditableTable(props: EditableTableProps) {
       : Object.keys(data[0])
     : null;
 
+  let deleteMessage, editMessage;
+
+  switch (formType) {
+    case 'patient':
+      deleteMessage = 'deletePatient';
+      editMessage = 'editPatient';
+      break;
+    case 'treatment':
+      deleteMessage = 'deleteTreatment';
+      editMessage = 'editTreatment';
+      break;
+  }
+
   if (editAction && formFields) {
-    headers?.push('editPatient');
+    headers?.push(editMessage ?? 'Edit');
   }
 
   if (deleteAction) {
-    headers?.push('deletePatient');
+    headers?.push(deleteMessage ?? 'Delete');
   }
 
   const cellClasses = 'p-3 text-font text-base border-b border-font/20';
@@ -137,7 +152,7 @@ export default function EditableTable(props: EditableTableProps) {
                             entry[header]
                           )}
 
-                          {header === 'editPatient' &&
+                          {header === editMessage &&
                           editAction &&
                           filledFormFields ? (
                             <EditForm
@@ -149,7 +164,7 @@ export default function EditableTable(props: EditableTableProps) {
                             />
                           ) : undefined}
 
-                          {header === 'deletePatient' && deleteAction ? (
+                          {header === deleteMessage && deleteAction ? (
                             <Button
                               iconName='delete'
                               asLink

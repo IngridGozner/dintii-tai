@@ -35,7 +35,7 @@ export async function getPatientTreatments(id: number) {
 
   const { data } = await supabase
     .from(TREATMENT_DATABASE)
-    .select('id, date, price, treatment, gdpr, consent')
+    .select('id, date, treatment, price, gdpr, consent')
     .eq('patientID', id);
 
   return data;

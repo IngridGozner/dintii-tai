@@ -32,15 +32,15 @@ export default function TreatmentsOverview({
       type: 'date',
     },
     {
+      element: 'treatment',
+      label: treatment,
+      value: undefined,
+    },
+    {
       element: 'price',
       label: price,
       value: undefined,
       type: 'number',
-    },
-    {
-      element: 'treatment',
-      label: treatment,
-      value: undefined,
     },
     {
       element: 'gdpr',
@@ -71,6 +71,7 @@ export default function TreatmentsOverview({
         editAction={editTreatment}
         deleteAction={deleteTreatment}
         formFields={formFields}
+        formType='treatment'
         tableHeader={
           <>
             <div className='border-font/20 mb-2 flex flex-row border-b-2 border-dashed pb-2'>
@@ -85,6 +86,7 @@ export default function TreatmentsOverview({
                   formFunctionality='add'
                   formAction={addAction}
                   formFields={formFields}
+                  formType='treatment'
                 />
               </div>
             </div>
