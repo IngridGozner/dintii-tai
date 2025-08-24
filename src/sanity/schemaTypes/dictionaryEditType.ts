@@ -20,6 +20,18 @@ export const dictionaryEditType = defineType({
       type: 'internationalizedArrayString',
     }),
     defineField({
+      name: 'addTreatment',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'editTreatment',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'deleteTreatment',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
       name: 'save',
       type: 'internationalizedArrayString',
     }),

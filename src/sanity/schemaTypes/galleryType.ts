@@ -17,6 +17,8 @@ export const galleryType = defineType({
       options: {
         source: 'title',
       },
+      readOnly: true,
+      hidden: true,
     }),
     defineField({
       name: 'image',

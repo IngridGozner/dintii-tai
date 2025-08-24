@@ -73,6 +73,7 @@ export const DICTIONARY_GENERAL_QUERY =
     "email":email[_key == $language][0].value,
     "password":password[_key == $language][0].value,
     "schedule":schedule[_key == $language][0].value,
+    "studio":studio,
   }`);
 
 export const DICTIONARY_NAVIGATION_QUERY =
@@ -91,6 +92,9 @@ export const DICTIONARY_EDIT_QUERY =
     "addPatient": addPatient[_key == $language][0].value,
     "editPatient": editPatient[_key == $language][0].value,
     "deletePatient": deletePatient[_key == $language][0].value,
+    "addTreatment": addTreatment[_key == $language][0].value,
+    "editTreatment": editTreatment[_key == $language][0].value,
+    "deleteTreatment": deleteTreatment[_key == $language][0].value,
     "save": save[_key == $language][0].value,
     "cancel": cancel[_key == $language][0].value,
   }`);
@@ -120,4 +124,7 @@ export const DICTIONARY_FEEDBACK_QUERY =
   defineQuery(`*[_type == "dictionaryFeedback"][0]{
     "successMessage": successMessage[_key == $language][0].value,
     "errorMessage": errorMessage[_key == $language][0].value,
+    "deleteMessage": deleteMessage[_key == $language][0].value,
+    "yes": yes[_key == $language][0].value,
+    "no": no[_key == $language][0].value,
   }`);

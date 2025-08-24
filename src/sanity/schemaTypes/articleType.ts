@@ -23,6 +23,8 @@ export const articleType = defineType({
           return getEnglishNameFromInternationalizedField(document, 'title');
         },
       },
+      readOnly: true,
+      hidden: true,
     }),
     defineField({
       name: 'image',

@@ -1,4 +1,10 @@
 import {
+  DICTIONARY_EDIT_QUERYResult,
+  DICTIONARY_FEEDBACK_QUERYResult,
+  DICTIONARY_GENERAL_QUERYResult,
+  DICTIONARY_NAVIGATION_QUERYResult,
+  DICTIONARY_PATIENT_QUERYResult,
+  DICTIONARY_TREATMENT_QUERYResult,
   internalGroqTypeReferenceTo,
   SanityImageCrop,
   SanityImageHotspot,
@@ -30,40 +36,9 @@ export type NavigationLink = {
   onClick?: () => void;
 };
 
-export type DICTIONARY_QUERYResult = {
-  prices: string | null;
-  aboutUs: string | null;
-  pricesTableTitle: string | null;
-  treatment: string | null;
-  contact: string | null;
-  schedule: string | null;
-  login: string | null;
-  email: string | null;
-  logout: string | null;
-  patients: string | null;
-  password: string | null;
-  dashboard: string | null;
-  menu: string | null;
-  general: string | null;
-  firstName: string | null;
-  lastName: string | null;
-  phone: string | null;
-  city: string | null;
-  country: string | null;
-  patientFile: string | null;
-  birthdate: string | null;
-  date: string | null;
-  price: string | null;
-  gdpr: string | null;
-  consent: string | null;
-  editPatient: string | null;
-  addPatient: string | null;
-  deletePatient: string | null;
-  profile: string | null;
-  save: string | null;
-  cancel: string | null;
-  cnp: string | null;
-  backToPatients: string | null;
-  successMessage: string | null;
-  errorMessage: string | null;
-};
+export type DICTIONARY_QUERYResult = NonNullable<DICTIONARY_EDIT_QUERYResult> &
+  NonNullable<DICTIONARY_GENERAL_QUERYResult> &
+  NonNullable<DICTIONARY_NAVIGATION_QUERYResult> &
+  NonNullable<DICTIONARY_PATIENT_QUERYResult> &
+  NonNullable<DICTIONARY_TREATMENT_QUERYResult> &
+  NonNullable<DICTIONARY_FEEDBACK_QUERYResult>;

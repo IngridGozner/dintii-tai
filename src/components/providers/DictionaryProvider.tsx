@@ -3,7 +3,7 @@
 import { DICTIONARY_QUERYResult } from '@/types/GeneralTypes';
 import { createContext, useContext } from 'react';
 
-export const defaultDictionaryEntries = {
+export const defaultDictionaryEntries: DICTIONARY_QUERYResult = {
   prices: 'Prices',
   aboutUs: 'About Us',
   pricesTableTitle: 'Prices',
@@ -32,6 +32,9 @@ export const defaultDictionaryEntries = {
   editPatient: 'Edit Patient',
   addPatient: 'Add Patient',
   deletePatient: 'Delete Patient',
+  editTreatment: 'Edit Treatment',
+  addTreatment: 'Add Treatment',
+  deleteTreatment: 'Delete Treatment',
   profile: 'Profile',
   save: 'Save',
   cancel: 'Cancel',
@@ -39,6 +42,10 @@ export const defaultDictionaryEntries = {
   backToPatients: 'Back to patients overview',
   successMessage: 'Saved Successfully',
   errorMessage: 'Failed with following error',
+  deleteMessage: 'Are you sure you want to delete ',
+  yes: 'Yes',
+  no: 'No',
+  studio: 'Studio',
 };
 
 export const DictionaryContext = createContext<DICTIONARY_QUERYResult | null>(

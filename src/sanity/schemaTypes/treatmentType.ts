@@ -23,6 +23,8 @@ export const treatmentType = defineType({
           return getEnglishNameFromInternationalizedField(document, 'name');
         },
       },
+      readOnly: true,
+      hidden: true,
     }),
     defineField({
       name: 'treatmentGroup',

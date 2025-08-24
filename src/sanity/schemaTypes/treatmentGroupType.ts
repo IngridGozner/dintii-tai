@@ -27,6 +27,8 @@ export const treatmentGroupType = defineType({
           return getEnglishNameFromInternationalizedField(document, 'name');
         },
       },
+      readOnly: true,
+      hidden: true,
     }),
   ],
   preview: {

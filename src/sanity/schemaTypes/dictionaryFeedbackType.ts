@@ -15,6 +15,18 @@ export const dictionaryFeedbackType = defineType({
       name: 'errorMessage',
       type: 'internationalizedArrayString',
     }),
+    defineField({
+      name: 'deleteMessage',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'yes',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'no',
+      type: 'internationalizedArrayString',
+    }),
   ],
   preview: {
     prepare() {

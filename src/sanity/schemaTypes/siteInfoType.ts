@@ -28,13 +28,6 @@ export const siteInfoType = defineType({
       type: 'internationalizedArrayString',
     }),
     defineField({
-      name: 'slug',
-      type: 'slug',
-      options: {
-        source: 'title',
-      },
-    }),
-    defineField({
       name: 'motto',
       type: 'internationalizedArrayString',
     }),
