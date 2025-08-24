@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 import { convertSnakeToCamelCase } from '@/helpers';
 import { useDictionary } from '@/components/providers/DictionaryProvider';
 import { GoogleIcon } from '@/components/atoms/GoogleIcon';
-import EditForm from '@/components/molecules/EditForm';
+import { EditTreatmentForm } from '@/components/molecules/EditForm';
 import { InputProps } from '@/components/atoms/Input';
 import { DeleteTreatmentButton } from '@/components/molecules/DeleteButton';
 
@@ -24,7 +24,13 @@ type EditableTableProps = {
   formType?: 'patient' | 'treatment';
 };
 
-export default function EditableTable(props: EditableTableProps) {
+type SpecificTableProps = EditableTableProps & {
+  deleteMessage?: string;
+  editMessage?: string;
+  emptyTableMessage: string;
+};
+
+export default function EditableTable(props: SpecificTableProps) {
   const {
     data,
     excludedHeaders,
@@ -35,7 +41,9 @@ export default function EditableTable(props: EditableTableProps) {
     editAction,
     deleteAction,
     formFields,
-    formType = 'patient',
+    editMessage,
+    deleteMessage,
+    emptyTableMessage,
   } = props;
 
   const t = useDictionary();
@@ -46,21 +54,6 @@ export default function EditableTable(props: EditableTableProps) {
       ? Object.keys(data[0]).filter((key) => !excludedHeaders.includes(key))
       : Object.keys(data[0])
     : null;
-
-  let deleteMessage, editMessage, emptyTableMessage;
-
-  switch (formType) {
-    case 'patient':
-      deleteMessage = 'deletePatient';
-      editMessage = 'editPatient';
-      emptyTableMessage = t.emptyPatientData;
-      break;
-    case 'treatment':
-      deleteMessage = 'deleteTreatment';
-      editMessage = 'editTreatment';
-      emptyTableMessage = t.emptyTreatmentData;
-      break;
-  }
 
   if (editAction && formFields) {
     headers?.push(editMessage ?? 'Edit');
@@ -157,7 +150,7 @@ export default function EditableTable(props: EditableTableProps) {
                           {header === editMessage &&
                           editAction &&
                           filledFormFields ? (
-                            <EditForm
+                            <EditTreatmentForm
                               formFunctionality='edit'
                               formAction={editAction}
                               formFields={filledFormFields}
@@ -187,5 +180,31 @@ export default function EditableTable(props: EditableTableProps) {
         <div>{emptyTableMessage}</div>
       )}
     </>
+  );
+}
+
+export function EditablePatientTable(props: EditableTableProps) {
+  const { emptyPatientData } = useDictionary();
+
+  return (
+    <EditableTable
+      deleteMessage='deletePatient'
+      editMessage='editPatient'
+      emptyTableMessage={emptyPatientData ?? ''}
+      {...props}
+    />
+  );
+}
+
+export function EditableTreatmentTable(props: EditableTableProps) {
+  const { emptyTreatmentData } = useDictionary();
+
+  return (
+    <EditableTable
+      deleteMessage='deleteTreatment'
+      editMessage='editTreatment'
+      emptyTableMessage={emptyTreatmentData ?? ''}
+      {...props}
+    />
   );
 }

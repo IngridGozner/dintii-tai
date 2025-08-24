@@ -1,14 +1,14 @@
 'use client';
 
 import { Headline } from '@/components/atoms/Headline';
-import EditableTable from '@/components/components/Tables/EditableTable';
-import EditForm from '@/components/molecules/EditForm';
+import { EditablePatientTable } from '@/components/components/Tables/EditableTable';
+import { EditPatientForm } from '@/components/molecules/EditForm';
 import { useDictionary } from '@/components/providers/DictionaryProvider';
 import { getWhatsAppLink } from '@/helpers';
 import { PATIENTS_PATH } from '@/types/GlobalTypes';
 import { redirect } from 'next/navigation';
 
-export default function EditableTablePatient({
+export default function EditableTablePatientAdd({
   data,
   formAction,
 }: {
@@ -18,7 +18,7 @@ export default function EditableTablePatient({
   const { patients, firstName, lastName, phone, patientFile } = useDictionary();
 
   return (
-    <EditableTable
+    <EditablePatientTable
       data={data}
       excludedHeaders={['id']}
       onClickRow={(rowData) => redirect(`${PATIENTS_PATH}/${rowData.id}`)}
@@ -33,7 +33,7 @@ export default function EditableTablePatient({
             <Headline headline={patients ?? ''} />
           </div>
           <div className='col-span-6 flex h-fit justify-end'>
-            <EditForm
+            <EditPatientForm
               formFunctionality='add'
               formAction={formAction}
               formFields={[

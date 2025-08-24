@@ -1,9 +1,9 @@
 'use client';
 
 import { useDictionary } from '@/components/providers/DictionaryProvider';
-import EditableTable from '../Tables/EditableTable';
+import { EditableTreatmentTable } from '../Tables/EditableTable';
 import { Headline } from '@/components/atoms/Headline';
-import EditForm from '@/components/molecules/EditForm';
+import { EditTreatmentForm } from '@/components/molecules/EditForm';
 import {
   deleteTreatment,
   editTreatment,
@@ -65,7 +65,7 @@ export default function TreatmentsOverview({
 
   return (
     <>
-      <EditableTable
+      <EditableTreatmentTable
         data={data}
         excludedHeaders={['id']}
         editAction={editTreatment}
@@ -82,11 +82,10 @@ export default function TreatmentsOverview({
                 />
               </div>
               <div className='flex h-fit flex-1 justify-end'>
-                <EditForm
+                <EditTreatmentForm
                   formFunctionality='add'
                   formAction={addAction}
                   formFields={formFields}
-                  formType='treatment'
                 />
               </div>
             </div>

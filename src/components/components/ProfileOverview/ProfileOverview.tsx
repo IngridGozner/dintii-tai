@@ -6,7 +6,7 @@ import ProfileField from './ProfileField';
 import { getPatientFileNameFromFile, getWhatsAppLink } from '@/helpers';
 import { useEffect, useState } from 'react';
 import { downloadPatientFile } from '@/supabase/actions/bucketActions';
-import EditForm from '@/components/molecules/EditForm';
+import { EditPatientForm } from '@/components/molecules/EditForm';
 import { DeletePatientButton } from '@/components/molecules/DeleteButton';
 
 type ProfileOverviewProps = {
@@ -90,7 +90,7 @@ export default function ProfileOverview({
       </div>
       <div className='bg-background flex flex-1/3 flex-col gap-y-3 rounded-lg p-5 md:p-10'>
         {editAction && (
-          <EditForm
+          <EditPatientForm
             formFunctionality='edit'
             formAction={editAction}
             formFields={[

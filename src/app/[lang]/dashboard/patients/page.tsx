@@ -1,5 +1,5 @@
 import { Container } from '@/components/molecules/Container';
-import EditableTablePatient from './EditableTablePatients';
+import EditableTablePatientAdd from './EditableTablePatientAdd';
 import {
   addPatient,
   getPatientFields,
@@ -12,7 +12,7 @@ export default async function Patients() {
   return (
     <Container>
       <GridContainer>
-        <EditableTablePatient data={patients} formAction={addPatient} />
+        <EditableTablePatientAdd data={patients} formAction={addPatient} />
       </GridContainer>
     </Container>
   );

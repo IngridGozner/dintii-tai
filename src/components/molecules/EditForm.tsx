@@ -6,12 +6,17 @@ import { useDialog } from '../providers/DialogProvider';
 import { useDictionary } from '../providers/DictionaryProvider';
 import { useEffect, useRef } from 'react';
 
-type EditFormProps = ButtonProps & {
+type BaseEditFormProps = ButtonProps & {
   formFunctionality: 'add' | 'edit';
   formFields: InputProps[];
   blob?: Blob | null;
   fileName?: string | null;
-  formType?: 'patient' | 'treatment';
+};
+
+type EditFormProps = BaseEditFormProps & {
+  addMessage: string;
+  editMessage: string;
+  buttonAddIconName: string;
 };
 
 export default function EditForm({
@@ -20,36 +25,15 @@ export default function EditForm({
   formAction,
   blob,
   fileName,
-  formType = 'patient',
+  addMessage,
+  editMessage,
+  buttonAddIconName,
   ...rest
 }: EditFormProps) {
-  const {
-    addPatient,
-    save,
-    cancel,
-    patientFile,
-    editPatient,
-    addTreatment,
-    editTreatment,
-    errorMessage,
-    successMessage,
-  } = useDictionary();
+  const { save, cancel, patientFile, errorMessage, successMessage } =
+    useDictionary();
 
   const { isOpen, handleClick, closeDialog, showFeedback } = useDialog();
-  let addMessage, editMessage, buttonAddIconName;
-
-  switch (formType) {
-    case 'patient':
-      addMessage = addPatient;
-      editMessage = editPatient;
-      buttonAddIconName = 'person_add';
-      break;
-    case 'treatment':
-      addMessage = addTreatment;
-      editMessage = editTreatment;
-      buttonAddIconName = 'post_add';
-      break;
-  }
 
   const isAddDialog = formFunctionality == 'add';
   const dialogHeadine = isAddDialog ? addMessage : editMessage;
@@ -146,6 +130,32 @@ export default function EditForm({
           '!py-7'
         )
       }
+    />
+  );
+}
+
+export function EditPatientForm(props: BaseEditFormProps) {
+  const { addPatient, editPatient } = useDictionary();
+
+  return (
+    <EditForm
+      addMessage={addPatient ?? ''}
+      editMessage={editPatient ?? ''}
+      buttonAddIconName='person_add'
+      {...props}
+    />
+  );
+}
+
+export function EditTreatmentForm(props: BaseEditFormProps) {
+  const { addTreatment, editTreatment } = useDictionary();
+
+  return (
+    <EditForm
+      addMessage={addTreatment ?? ''}
+      editMessage={editTreatment ?? ''}
+      buttonAddIconName='post_add'
+      {...props}
     />
   );
 }
