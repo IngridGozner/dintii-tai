@@ -1,37 +1,42 @@
-import { getEnglishNameFromInternationalizedField, getInternationalizedPreviewTitle } from '@/helpers';
-import { DocumentTextIcon } from '@sanity/icons'
-import { defineField, defineType } from 'sanity'
+import {
+  getEnglishNameFromInternationalizedField,
+  getInternationalizedPreviewTitle,
+} from '@/helpers';
+import { DocumentTextIcon } from '@sanity/icons';
+import { defineField, defineType } from 'sanity';
 
 export const treatmentGroupType = defineType({
-    name: 'treatmentGroup',
-    title: 'TreatmentGroup',
-    type: 'document',
-    icon: DocumentTextIcon,
-    fields: [
-        defineField({
-            name: 'name',
-            type: 'internationalizedArrayString',
-        }),
-        defineField({
-            name: 'order',
-            type: 'number',
-        }),
-        defineField({
-            name: 'slug',
-            type: 'slug',
-            options: {
-                source: ((document) => {
-                    return getEnglishNameFromInternationalizedField(document, 'name');
-                }),
-            },
-        }),
-    ],
-    preview: {
-        select: {
-            title: 'name',
+  name: 'treatmentGroup',
+  title: 'TreatmentGroup',
+  type: 'document',
+  icon: DocumentTextIcon,
+  fields: [
+    defineField({
+      name: 'name',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'order',
+      type: 'number',
+    }),
+    defineField({
+      name: 'slug',
+      type: 'slug',
+      options: {
+        source: (document) => {
+          return getEnglishNameFromInternationalizedField(document, 'name');
         },
-        prepare(selection) {
-            return getInternationalizedPreviewTitle(selection);
-        },
+      },
+      readOnly: true,
+      hidden: true,
+    }),
+  ],
+  preview: {
+    select: {
+      title: 'name',
     },
-})
+    prepare(selection) {
+      return getInternationalizedPreviewTitle(selection);
+    },
+  },
+});

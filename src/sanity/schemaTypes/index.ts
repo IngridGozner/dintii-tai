@@ -1,13 +1,31 @@
-import { type SchemaTypeDefinition } from 'sanity'
+import { type SchemaTypeDefinition } from 'sanity';
 
-import { blockContentType } from './blockContentType'
-import { siteInfoType } from './siteInfoType'
-import { treatmentType } from './treatmentType'
-import { treatmentGroupType } from './treatmentGroupType'
-import { articleType } from './articleType'
-import { galleryType } from './galleryType'
-import { dictionaryType } from './dictionaryType'
+import { blockContentType } from './blockContentType';
+import { siteInfoType } from './siteInfoType';
+import { treatmentType } from './treatmentType';
+import { treatmentGroupType } from './treatmentGroupType';
+import { articleType } from './articleType';
+import { galleryType } from './galleryType';
+import { dictionaryPatientType } from './dictionaryPatientType';
+import { dictionaryTreatmentType } from './dictionaryTreatmentType';
+import { dictionaryNavigationType } from './dictionaryNavigationType';
+import { dictionaryEditType } from './dictionaryEditType';
+import { dictionaryGeneralType } from './dictionaryGeneralType';
+import { dictionaryFeedbackType } from './dictionaryFeedbackType';
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [blockContentType, siteInfoType, treatmentType, treatmentGroupType, articleType, galleryType, dictionaryType],
-}
+  types: [
+    blockContentType,
+    siteInfoType,
+    treatmentType,
+    treatmentGroupType,
+    articleType,
+    galleryType,
+    dictionaryPatientType,
+    dictionaryTreatmentType,
+    dictionaryNavigationType,
+    dictionaryEditType,
+    dictionaryGeneralType,
+    dictionaryFeedbackType,
+  ],
+};

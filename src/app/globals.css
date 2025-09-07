@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 @import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Caveat:wght@400..700&display=swap');
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --color-base-dark: #386D92;
-  --color-base-light: #4D88AE;
+  --color-base-dark: #386d92;
+  --color-base-light: #4d88ae;
   --color-background: #e5f3fa;
   --color-font: #343a40;
   --color-link: var(--color-base-dark);

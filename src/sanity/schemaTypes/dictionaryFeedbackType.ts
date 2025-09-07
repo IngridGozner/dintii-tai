@@ -1,0 +1,48 @@
+import { DocumentTextIcon } from '@sanity/icons';
+import { defineField, defineType } from 'sanity';
+
+export const dictionaryFeedbackType = defineType({
+  name: 'dictionaryFeedback',
+  title: 'Dictionary Feedback',
+  type: 'document',
+  icon: DocumentTextIcon,
+  fields: [
+    defineField({
+      name: 'successMessage',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'errorMessage',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'deletePatientMessage',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'deleteTreatmentMessage',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'emptyPatientData',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'emptyTreatmentData',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'yes',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'no',
+      type: 'internationalizedArrayString',
+    }),
+  ],
+  preview: {
+    prepare() {
+      return { title: 'Dictionary Entries' };
+    },
+  },
+});

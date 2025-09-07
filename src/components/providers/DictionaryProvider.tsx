@@ -1,25 +1,82 @@
-'use client'
+'use client';
 
-import { DICTIONARY_QUERYResult } from '@/sanity/types'
-import { createContext } from 'react'
+import { DICTIONARY_QUERYResult } from '@/types/GeneralTypes';
+import { createContext, useContext } from 'react';
 
-export const defaultDictionaryEntries = {
-    prices: null,
-    aboutUs: null,
-    pricesTableTitle: null,
-    treatmentTableTitle: null,
-    contact: null,
-    schedule: null,
-}
+export const defaultDictionaryEntries: DICTIONARY_QUERYResult = {
+  prices: 'Prices',
+  aboutUs: 'About Us',
+  pricesTableTitle: 'Prices',
+  treatment: 'Treatment',
+  contact: 'Contact',
+  schedule: 'Schedule',
+  login: 'Login',
+  email: 'Email',
+  logout: 'Logout',
+  patients: 'Patients',
+  password: 'Password',
+  dashboard: 'Dashboard',
+  menu: 'Menu',
+  general: 'General',
+  firstName: 'First Name',
+  lastName: 'Last Name',
+  phone: 'Phone',
+  city: 'City',
+  country: 'Country',
+  patientFile: 'Patient File',
+  birthdate: 'Birthdate',
+  date: 'Date',
+  price: 'Price',
+  gdpr: 'GDPR',
+  consent: 'Consent',
+  editPatient: 'Edit Patient',
+  addPatient: 'Add Patient',
+  deletePatient: 'Delete Patient',
+  editTreatment: 'Edit Treatment',
+  addTreatment: 'Add Treatment',
+  deleteTreatment: 'Delete Treatment',
+  profile: 'Profile',
+  save: 'Save',
+  cancel: 'Cancel',
+  cnp: 'CNP',
+  backToPatients: 'Back to patients overview',
+  successMessage: 'Saved Successfully',
+  errorMessage: 'Failed with following error',
+  deletePatientMessage: 'Are you sure you want to delete this patient?',
+  deleteTreatmentMessage: 'Are you sure you want to delete this treatment?',
+  yes: 'Yes',
+  no: 'No',
+  studio: 'Studio',
+  emptyPatientData: 'No patients have been added yet',
+  emptyTreatmentData: 'No treatments have been added yet',
+};
 
-export const DictionaryContext = createContext<NonNullable<DICTIONARY_QUERYResult> | null>(defaultDictionaryEntries)
+export const DictionaryContext = createContext<DICTIONARY_QUERYResult | null>(
+  defaultDictionaryEntries
+);
 
 export default function DictionaryProvider({
-    children,
-    dictionaryEntries
+  children,
+  dictionaryEntries,
 }: {
-    children: React.ReactNode
-    dictionaryEntries: NonNullable<DICTIONARY_QUERYResult> | null;
+  children: React.ReactNode;
+  dictionaryEntries: DICTIONARY_QUERYResult | null;
 }) {
-    return <DictionaryContext.Provider value={dictionaryEntries || defaultDictionaryEntries}>{children}</DictionaryContext.Provider>
+  return (
+    <DictionaryContext.Provider
+      value={dictionaryEntries || defaultDictionaryEntries}
+    >
+      {children}
+    </DictionaryContext.Provider>
+  );
+}
+
+export function useDictionary() {
+  const context = useContext(DictionaryContext);
+
+  if (!context) {
+    throw new Error('useDictionary must be used within a DictionaryProvider');
+  }
+
+  return context;
 }
