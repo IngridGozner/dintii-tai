@@ -79,8 +79,9 @@ export async function editPatient(formData: FormData) {
 
   if (patientFileName) {
     await deletePatientFile(patientFileName.replace(/^patient_files\//, ''));
-    patientFileID = await addPatientFile(patientFullName, patientFile);
   }
+
+  patientFileID = await addPatientFile(patientFullName, patientFile);
 
   const data = {
     first_name: formData.get('firstName'),
