@@ -44,6 +44,9 @@ export default function ProfileOverview({
       if (!fileNameWithPath) return;
 
       const file = await downloadPatientFile(fileNameWithPath);
+
+      if (!file) return;
+
       patient.patient_document = file;
 
       url = URL.createObjectURL(patient.patient_document);
@@ -71,8 +74,8 @@ export default function ProfileOverview({
     { label: country, value: patient?.country },
     {
       label: patientFile,
-      value: patient.patient_file_name ? fileName : '-',
-      link: documentURL ?? '-',
+      value: documentURL ? fileName : '-',
+      link: documentURL ?? undefined,
     },
   ];
 

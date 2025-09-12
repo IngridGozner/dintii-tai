@@ -84,5 +84,7 @@ export async function downloadPatientFile(fileName: string) {
     throw error;
   }
 
+  if (data.type === 'application/octet-stream') return null;
+
   return data;
 }
