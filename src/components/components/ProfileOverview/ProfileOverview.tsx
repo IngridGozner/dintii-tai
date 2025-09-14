@@ -125,7 +125,11 @@ export default function ProfileOverview({
                 value: patient?.email || undefined,
                 autoComplete: 'email',
               },
-              { element: 'cnp', label: cnp, value: patient?.cnp || undefined },
+              {
+                element: 'cnp',
+                label: cnp,
+                value: patient?.cnp || undefined,
+              },
               {
                 element: 'birthdate',
                 label: birthdate,
