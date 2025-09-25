@@ -22,29 +22,29 @@ export default async function Page({
 }>) {
   const { lang } = await params;
 
-  const { data: stageData } = await sanityFetch({
-    query: STAGE_QUERY,
-    params: { language: lang },
-  });
-  const { data: mottoData } = await sanityFetch({
-    query: ARTICLE_SLUG_QUERY,
-    params: { language: lang, slug: 'your-teeth-our-care' },
-  });
-  const { data: aboutUsData } = await sanityFetch({
-    query: ARTICLE_SLUG_QUERY,
-    params: { language: lang, slug: 'about-us' },
-  });
-  const { data: images } = await sanityFetch({ query: GALLERY_QUERY });
-  const { data: treatmentGroups } = await sanityFetch({
-    query: TREATMENT_QUERY,
-    params: { language: lang },
-  });
-  const { data: footerData } = await sanityFetch({
-    query: SITEINFO_QUERY,
-    params: { language: lang },
-  });
-
-  const dictionaryEntries = await getDictionaryEntries(lang);
+  const [
+    { data: stageData },
+    { data: mottoData },
+    { data: aboutUsData },
+    { data: images },
+    { data: treatmentGroups },
+    { data: footerData },
+    dictionaryEntries,
+  ] = await Promise.all([
+    sanityFetch({ query: STAGE_QUERY, params: { language: lang } }),
+    sanityFetch({
+      query: ARTICLE_SLUG_QUERY,
+      params: { language: lang, slug: 'your-teeth-our-care' },
+    }),
+    sanityFetch({
+      query: ARTICLE_SLUG_QUERY,
+      params: { language: lang, slug: 'about-us' },
+    }),
+    sanityFetch({ query: GALLERY_QUERY }),
+    sanityFetch({ query: TREATMENT_QUERY, params: { language: lang } }),
+    sanityFetch({ query: SITEINFO_QUERY, params: { language: lang } }),
+    getDictionaryEntries(lang),
+  ]);
 
   return (
     <main>
@@ -63,16 +63,16 @@ export default async function Page({
       )}
       {images && <ImageSlider images={images} />}
       {footerData && (
-        <ScheduleCard
-          siteInfo={footerData}
-          dictionaryEntries={dictionaryEntries || defaultDictionaryEntries}
-        />
-      )}
-      {footerData && (
-        <Contact
-          siteInfo={footerData}
-          dictionaryEntries={dictionaryEntries || defaultDictionaryEntries}
-        />
+        <>
+          <ScheduleCard
+            siteInfo={footerData}
+            dictionaryEntries={dictionaryEntries || defaultDictionaryEntries}
+          />
+          <Contact
+            siteInfo={footerData}
+            dictionaryEntries={dictionaryEntries || defaultDictionaryEntries}
+          />
+        </>
       )}
     </main>
   );

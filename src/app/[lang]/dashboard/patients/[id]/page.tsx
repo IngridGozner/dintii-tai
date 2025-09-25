@@ -26,15 +26,15 @@ export default async function PatientDetail({
 }>) {
   const { id, lang } = await params;
 
-  const patient = await getPatientWithID(Number(id));
-  const patientFileName = await getPatientFileName(id || '');
+  const [patient, patientFileName, dictionary, treatments] = await Promise.all([
+    getPatientWithID(Number(id)),
+    getPatientFileName(id || ''),
+    getDictionaryEntries(lang),
+    getPatientTreatments(Number(id)),
+  ]);
+
   patient.patient_file_name = patientFileName;
-
-  const dictionary = await getDictionaryEntries(lang);
-
   const { first_name, last_name } = patient;
-
-  const treatments = await getPatientTreatments(Number(id));
 
   return (
     <>
