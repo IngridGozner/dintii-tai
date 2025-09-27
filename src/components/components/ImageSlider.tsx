@@ -17,7 +17,7 @@ export default function ImageSlider(props: ImageSliderProps) {
   if (!values || !values.length) return undefined;
 
   return (
-    <Container>
+    <Container animateOnScroll={true}>
       <GridContainer>
         <div className='col-span-6 md:col-span-12'>
           {headline && <Headline headline={headline} />}

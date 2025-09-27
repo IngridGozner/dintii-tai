@@ -17,7 +17,7 @@ export default function ScheduleCard(props: ScheduleProps) {
   if (!timetable || !timetable.value) return null;
 
   return (
-    <Container contentClass='bg-base-dark'>
+    <Container contentClass='bg-base-dark' animateOnScroll={true}>
       <GridContainer>
         <LineCard
           iconName='calendar_month'

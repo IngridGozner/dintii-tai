@@ -20,7 +20,7 @@ export default function Contact(props: ContactProps) {
   const { contact } = dictionaryEntries;
 
   return (
-    <Container darkBackground>
+    <Container darkBackground animateOnScroll={true}>
       <GridContainer>
         <div className='col-span-6 md:col-span-5 lg:col-start-2'>
           <div className='relative inset-0 h-64 w-full md:h-full'>

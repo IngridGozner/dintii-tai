@@ -43,6 +43,7 @@ export default function TextImage(props: TextImageProps) {
       darkBackground={darkBackground}
       containerClass={containerClass}
       contentClass={contentClass}
+      animateOnScroll={true}
     >
       <GridContainer>
         <div
