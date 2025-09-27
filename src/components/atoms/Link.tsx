@@ -39,6 +39,7 @@ export function Link({
           height={32}
           alt={logo?.image?.alt || ''}
           className='h-full w-full object-cover'
+          loading='lazy'
         />
       )}
       {iconName && (

@@ -29,6 +29,7 @@ export default async function LoginLayout({
           alt={backgroundImage?.alt || ''}
           fill
           className='relative h-full w-full object-cover'
+          loading='lazy'
         />
       )}
     </>

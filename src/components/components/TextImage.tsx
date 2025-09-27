@@ -63,6 +63,7 @@ export default function TextImage(props: TextImageProps) {
                   width={800}
                   height={800}
                   className='aspect-video h-full w-full object-cover'
+                  loading='lazy'
                 />
               </div>
             )}

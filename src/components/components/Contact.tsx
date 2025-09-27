@@ -54,6 +54,7 @@ export default function Contact(props: ContactProps) {
                   height={30}
                   width={30}
                   alt='whatsapp icon'
+                  loading='lazy'
                 />
                 <Link
                   href={getWhatsAppLink(phone)}

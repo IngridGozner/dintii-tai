@@ -38,6 +38,7 @@ export default function Stage(props: NonNullable<STAGE_QUERYResult>) {
           alt={stageImage?.image?.alt || ''}
           fill
           className='h-full w-full object-cover'
+          loading='lazy'
         />
       </div>
     </GridContainer>

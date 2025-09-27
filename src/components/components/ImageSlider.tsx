@@ -37,6 +37,7 @@ export default function ImageSlider(props: ImageSliderProps) {
                       height={576}
                       alt={image.alt || ''}
                       className='aspect-video rounded-lg'
+                      loading='lazy'
                     />
                   </div>
                 );

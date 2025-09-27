@@ -12,6 +12,7 @@ export default function FloatingIcon({ phone }: { phone: string }) {
           width={32}
           alt='whatsapp icon'
           className='aspect-square transition-all group-hover:w-10'
+          loading='lazy'
         />
       </div>
     </Link>
