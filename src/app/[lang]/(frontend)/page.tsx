@@ -14,6 +14,7 @@ import {
 } from '@/sanity/lib/queries';
 import { getDictionaryEntries } from '../layout';
 import Table from '@/components/components/Tables/Table';
+import FloatingIcon from '@/components/components/FloatingIcon';
 
 export default async function Page({
   params,
@@ -74,6 +75,7 @@ export default async function Page({
           />
         </>
       )}
+      {footerData?.phone && <FloatingIcon phone={footerData?.phone} />}
     </main>
   );
 }

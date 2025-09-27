@@ -3,16 +3,18 @@ import { GoogleIcon, GoogleIconProps } from './GoogleIcon';
 import NextLink from 'next/link';
 import { urlFor } from '@/sanity/lib/image';
 import Image from 'next/image';
+import { PropsWithChildren } from 'react';
 
-type LinkProps = Partial<GoogleIconProps> & {
-  className?: string;
-  label?: string | null;
-  onClick?: () => void;
-  href: string;
-  darkBackground?: boolean;
-  logo?: SanityImage;
-  target?: string;
-};
+type LinkProps = Partial<GoogleIconProps> &
+  PropsWithChildren & {
+    className?: string;
+    label?: string | null;
+    onClick?: () => void;
+    href: string;
+    darkBackground?: boolean;
+    logo?: SanityImage;
+    target?: string;
+  };
 
 export function Link({
   className,
@@ -24,6 +26,7 @@ export function Link({
   darkBackground = false,
   logo,
   target,
+  children,
 }: LinkProps) {
   const linkClsses = `${darkBackground ? 'text-white hover:text-white' : 'text-link hover:!text-link-hover'} flex items-center${className ? ` ${className}` : ''}`;
 
@@ -57,6 +60,7 @@ export function Link({
       target={target}
     >
       {linkContent}
+      {children}
     </NextLink>
   );
 }
