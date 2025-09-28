@@ -1,11 +1,11 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { ReactNode, useMemo, useState } from 'react';
 import { convertSnakeToCamelCase } from '@/helpers';
 import { useDictionary } from '@/components/providers/DictionaryProvider';
 import { GoogleIcon } from '@/components/atoms/GoogleIcon';
 import { EditTreatmentForm } from '@/components/molecules/EditForm';
-import { InputProps } from '@/components/atoms/Input';
+import { Input, InputProps } from '@/components/atoms/Input';
 import { DeleteTreatmentButton } from '@/components/molecules/DeleteButton';
 
 type EditableTableProps = {
@@ -22,6 +22,7 @@ type EditableTableProps = {
   deleteAction?: (id: number) => Promise<void>;
   formFields?: InputProps[];
   formType?: 'patient' | 'treatment';
+  addSearchBar?: boolean;
 };
 
 type SpecificTableProps = EditableTableProps & {
@@ -44,6 +45,7 @@ export default function EditableTable(props: SpecificTableProps) {
     editMessage,
     deleteMessage,
     emptyTableMessage,
+    addSearchBar = false,
   } = props;
 
   const t = useDictionary();
@@ -66,6 +68,18 @@ export default function EditableTable(props: SpecificTableProps) {
   const cellClasses = 'p-3 text-font text-base border-b border-font/20';
   const headClasses = `bg-background text-base ${cellClasses}`;
 
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const filteredData = useMemo(() => {
+    if (!searchTerm) return data;
+
+    return data?.filter((entry) =>
+      Object.values(entry).some((value) =>
+        value?.toString().toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
+  }, [searchTerm, data]);
+
   return (
     <>
       {tableHeader}
@@ -74,107 +88,131 @@ export default function EditableTable(props: SpecificTableProps) {
         <div
           className={`overflow-x-auto ${tableClassName ? tableClassName : 'col-span-6 md:col-span-12'}`}
         >
-          <table className='w-full text-left'>
-            <colgroup>
-              {headers?.map((_header, index) => (
-                <col key={index} />
-              ))}
-            </colgroup>
-            <thead>
-              <tr>
-                {headers?.map((header, index) => (
-                  <th key={index} className={headClasses}>
-                    {t?.[convertSnakeToCamelCase(header) as keyof typeof t]}
-                  </th>
+          {addSearchBar && (
+            <div className='relative flex items-center md:justify-end'>
+              <Input
+                label={t.search}
+                element='searchTerm'
+                value={searchTerm}
+                labelClassName='!ml-9 !text-font'
+                className='border-base-dark !border-2 !pl-9'
+                containerClassName='mb-3 mt-4 lg:w-1/3'
+                onChange={(e) => setSearchTerm(e.target.value)}
+                type='search'
+              >
+                <GoogleIcon
+                  iconName='search'
+                  iconClassName='text-2xl absolute text-base-dark mr-2 left-2 top-3'
+                />
+              </Input>
+            </div>
+          )}
+
+          {filteredData?.length === 0 ? (
+            <div>{emptyTableMessage}</div>
+          ) : (
+            <table className='w-full text-left'>
+              <colgroup>
+                {headers?.map((_header, index) => (
+                  <col key={index} />
                 ))}
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((entry, index) => {
-                const { clickableCellHeader, clickableCellFunction } =
-                  clickableCell || {};
+              </colgroup>
+              <thead>
+                <tr>
+                  {headers?.map((header, index) => (
+                    <th key={index} className={headClasses}>
+                      {t?.[convertSnakeToCamelCase(header) as keyof typeof t]}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {filteredData?.map((entry, index) => {
+                  const { clickableCellHeader, clickableCellFunction } =
+                    clickableCell || {};
 
-                return (
-                  <tr
-                    key={index}
-                    className={`hover:bg-background/50 ${onClickRow ? 'cursor-pointer' : ''}`}
-                    onClick={() => onClickRow?.(entry)}
-                  >
-                    {headers?.map((header, index) => {
-                      filledFormFields = formFields?.map((field) =>
-                        !field.value
-                          ? { ...field, value: entry[field.element] }
-                          : field
-                      );
+                  return (
+                    <tr
+                      key={index}
+                      className={`hover:bg-background/50 ${onClickRow ? 'cursor-pointer' : ''}`}
+                      onClick={() => onClickRow?.(entry)}
+                    >
+                      {headers?.map((header, index) => {
+                        filledFormFields = formFields?.map((field) =>
+                          !field.value
+                            ? { ...field, value: entry[field.element] }
+                            : field
+                        );
 
-                      filledFormFields?.push({
-                        element: 'id',
-                        label: 'id',
-                        value: entry['id'],
-                        containerClassName: '-mt-7',
-                        type: 'hidden',
-                      });
+                        filledFormFields?.push({
+                          element: 'id',
+                          label: 'id',
+                          value: entry['id'],
+                          containerClassName: '-mt-7',
+                          type: 'hidden',
+                        });
 
-                      return (
-                        <td
-                          key={index}
-                          className={`${cellClasses} ${clickableCellHeader === header ? 'text-link hover:text-link-hover font-semibold' : ''}`}
-                          onClick={(e) => {
-                            if (
-                              clickableCell &&
-                              clickableCellHeader === header &&
-                              entry[header] !== ''
-                            ) {
-                              e.stopPropagation();
-                              clickableCellFunction?.(entry);
-                            }
-                          }}
-                        >
-                          {typeof entry[header] === 'boolean' ? (
-                            <GoogleIcon
-                              iconName={
-                                entry[header]
-                                  ? 'check_box'
-                                  : 'check_box_outline_blank'
+                        return (
+                          <td
+                            key={index}
+                            className={`${cellClasses} ${clickableCellHeader === header ? 'text-link hover:text-link-hover font-semibold' : ''}`}
+                            onClick={(e) => {
+                              if (
+                                clickableCell &&
+                                clickableCellHeader === header &&
+                                entry[header] !== ''
+                              ) {
+                                e.stopPropagation();
+                                clickableCellFunction?.(entry);
                               }
-                              iconClassName={
-                                entry[header]
-                                  ? '!text-green-700'
-                                  : '!text-red-700'
-                              }
-                            />
-                          ) : (
-                            entry[header]
-                          )}
+                            }}
+                          >
+                            {typeof entry[header] === 'boolean' ? (
+                              <GoogleIcon
+                                iconName={
+                                  entry[header]
+                                    ? 'check_box'
+                                    : 'check_box_outline_blank'
+                                }
+                                iconClassName={
+                                  entry[header]
+                                    ? '!text-green-700'
+                                    : '!text-red-700'
+                                }
+                              />
+                            ) : (
+                              entry[header]
+                            )}
 
-                          {header === editMessage &&
-                          editAction &&
-                          filledFormFields ? (
-                            <EditTreatmentForm
-                              formFunctionality='edit'
-                              formAction={editAction}
-                              formFields={filledFormFields}
-                              asLink
-                              label=''
-                            />
-                          ) : undefined}
+                            {header === editMessage &&
+                            editAction &&
+                            filledFormFields ? (
+                              <EditTreatmentForm
+                                formFunctionality='edit'
+                                formAction={editAction}
+                                formFields={filledFormFields}
+                                asLink
+                                label=''
+                              />
+                            ) : undefined}
 
-                          {header === deleteMessage && deleteAction ? (
-                            <DeleteTreatmentButton
-                              deleteAction={() =>
-                                deleteAction(Number(entry['id']))
-                              }
-                              textForEntryToDelete={entry['treatment']}
-                            />
-                          ) : undefined}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                            {header === deleteMessage && deleteAction ? (
+                              <DeleteTreatmentButton
+                                deleteAction={() =>
+                                  deleteAction(Number(entry['id']))
+                                }
+                                textForEntryToDelete={entry['treatment']}
+                              />
+                            ) : undefined}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          )}
         </div>
       ) : (
         <div>{emptyTableMessage}</div>
@@ -191,6 +229,7 @@ export function EditablePatientTable(props: EditableTableProps) {
       deleteMessage='deletePatient'
       editMessage='editPatient'
       emptyTableMessage={emptyPatientData ?? ''}
+      addSearchBar={true}
       {...props}
     />
   );

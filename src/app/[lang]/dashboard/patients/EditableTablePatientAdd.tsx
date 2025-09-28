@@ -29,10 +29,10 @@ export default function EditableTablePatientAdd({
       }}
       tableHeader={
         <>
-          <div className='col-span-6'>
-            <Headline headline={patients ?? ''} />
+          <div className='col-span-6 mt-3 md:mt-0'>
+            <Headline headline={patients ?? ''} className='!mb-0' />
           </div>
-          <div className='col-span-6 flex h-fit justify-end'>
+          <div className='col-span-6 flex h-fit md:justify-end'>
             <EditPatientForm
               formFunctionality='add'
               formAction={formAction}

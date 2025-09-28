@@ -74,6 +74,7 @@ export const DICTIONARY_GENERAL_QUERY =
     "password":password[_key == $language][0].value,
     "schedule":schedule[_key == $language][0].value,
     "studio":studio,
+    "search":search[_key == $language][0].value,
   }`);
 
 export const DICTIONARY_NAVIGATION_QUERY =

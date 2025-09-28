@@ -43,6 +43,10 @@ export const dictionaryGeneralType = defineType({
       name: 'studio',
       type: 'string',
     }),
+    defineField({
+      name: 'search',
+      type: 'internationalizedArrayString',
+    }),
   ],
   preview: {
     prepare() {

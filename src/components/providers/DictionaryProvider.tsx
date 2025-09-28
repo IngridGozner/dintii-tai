@@ -49,6 +49,7 @@ export const defaultDictionaryEntries: DICTIONARY_QUERYResult = {
   studio: 'Studio',
   emptyPatientData: 'No patients have been added yet',
   emptyTreatmentData: 'No treatments have been added yet',
+  search: 'Search',
 };
 
 export const DictionaryContext = createContext<DICTIONARY_QUERYResult | null>(
