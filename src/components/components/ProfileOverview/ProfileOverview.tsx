@@ -9,7 +9,7 @@ import { downloadPatientFile } from '@/supabase/actions/bucketActions';
 import { EditPatientForm } from '@/components/molecules/EditForm';
 import { DeletePatientButton } from '@/components/molecules/DeleteButton';
 
-type ProfileOverviewProps = {
+export type ProfileOverviewProps = {
   patient: NonNullable<PatientType>;
   editAction?: (formData: FormData) => Promise<void>;
   deleteAction?: (id: number) => Promise<void>;

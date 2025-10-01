@@ -1,20 +1,21 @@
+'use client';
+
 import { TREATMENT_QUERYResult } from '@/sanity/types';
 import { Fragment } from 'react';
-import { DICTIONARY_QUERYResult } from '@/types/GeneralTypes';
 import { Container } from '@/components/molecules/Container';
 import { GridContainer } from '@/components/molecules/GridContainer';
 import { Headline } from '@/components/atoms/Headline';
+import { useDictionary } from '@/components/providers/DictionaryProvider';
 
 type TableProps = {
   treatments: NonNullable<TREATMENT_QUERYResult>;
-  dictionaryEntries: NonNullable<DICTIONARY_QUERYResult>;
 };
 
 export default function Table(props: TableProps) {
-  const { treatments, dictionaryEntries } = props;
+  const { treatments } = props;
 
   const treatmentGroups = Object.values(treatments);
-  const { treatment, pricesTableTitle, prices } = dictionaryEntries;
+  const { treatment, pricesTableTitle, prices } = useDictionary();
 
   if (!treatmentGroups || !treatmentGroups.length) return null;
 

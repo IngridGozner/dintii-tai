@@ -1,23 +1,25 @@
+'use client';
+
 import { SITEINFO_QUERYResult } from '@/sanity/types';
 import { Headline } from '../atoms/Headline';
 import { Container } from '../molecules/Container';
 import { GridContainer } from '../molecules/GridContainer';
 import { Link } from '../atoms/Link';
 import Image from 'next/image';
-import { DICTIONARY_QUERYResult } from '@/types/GeneralTypes';
 import { getWhatsAppLink } from '@/helpers';
+import { useDictionary } from '../providers/DictionaryProvider';
 
 type ContactProps = {
   siteInfo: NonNullable<SITEINFO_QUERYResult>;
-  dictionaryEntries: NonNullable<DICTIONARY_QUERYResult>;
 };
 
 export default function Contact(props: ContactProps) {
+  const { contact } = useDictionary();
+
   if (!props) return undefined;
 
-  const { siteInfo, dictionaryEntries } = props;
+  const { siteInfo } = props;
   const { phone, address, email, name, profession } = siteInfo;
-  const { contact } = dictionaryEntries;
 
   return (
     <Container darkBackground animateOnScroll={true}>

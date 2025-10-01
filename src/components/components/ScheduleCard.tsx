@@ -1,18 +1,19 @@
+'use client';
+
 import { SITEINFO_QUERYResult } from '@/sanity/types';
 import LineCard from '../molecules/LineCard';
 import { Container } from '../molecules/Container';
 import { GridContainer } from '../molecules/GridContainer';
-import { DICTIONARY_QUERYResult } from '@/types/GeneralTypes';
+import { useDictionary } from '../providers/DictionaryProvider';
 
 type ScheduleProps = {
   siteInfo: NonNullable<SITEINFO_QUERYResult>;
-  dictionaryEntries: NonNullable<DICTIONARY_QUERYResult>;
 };
 
 export default function ScheduleCard(props: ScheduleProps) {
-  const { siteInfo, dictionaryEntries } = props;
+  const { siteInfo } = props;
   const { timetable } = siteInfo;
-  const { schedule } = dictionaryEntries;
+  const { schedule } = useDictionary();
 
   if (!timetable || !timetable.value) return null;
 

@@ -96,7 +96,7 @@ export default function EditableTable(props: SpecificTableProps) {
                 value={searchTerm}
                 labelClassName='!ml-9 !text-font'
                 className='border-base-dark !border-2 !pl-9'
-                containerClassName='mb-3 mt-4 lg:w-1/3'
+                containerClassName='mb-3 mt-4 lg:w-1/2'
                 onChange={(e) => setSearchTerm(e.target.value)}
                 type='search'
               >

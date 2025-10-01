@@ -9,7 +9,7 @@ import {
   editTreatment,
 } from '@/supabase/actions/treatmentActions';
 
-type TreatmentsOverviewProps = {
+export type TreatmentsOverviewProps = {
   data: { [key: string]: string }[] | null | [];
   addAction?: (formData: FormData) => Promise<void>;
   patientID: number;

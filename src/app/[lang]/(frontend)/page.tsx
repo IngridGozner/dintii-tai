@@ -3,7 +3,6 @@ import ImageSlider from '@/components/components/ImageSlider';
 import ScheduleCard from '@/components/components/ScheduleCard';
 import Stage from '@/components/components/Stage';
 import TextImage from '@/components/components/TextImage';
-import { defaultDictionaryEntries } from '@/components/providers/DictionaryProvider';
 import { sanityFetch } from '@/sanity/lib/live';
 import {
   ARTICLE_SLUG_QUERY,
@@ -12,7 +11,6 @@ import {
   STAGE_QUERY,
   TREATMENT_QUERY,
 } from '@/sanity/lib/queries';
-import { getDictionaryEntries } from '../layout';
 import Table from '@/components/components/Tables/Table';
 import FloatingIcon from '@/components/components/FloatingIcon';
 
@@ -30,7 +28,6 @@ export default async function Page({
     { data: images },
     { data: treatmentGroups },
     { data: footerData },
-    dictionaryEntries,
   ] = await Promise.all([
     sanityFetch({ query: STAGE_QUERY, params: { language: lang } }),
     sanityFetch({
@@ -44,7 +41,6 @@ export default async function Page({
     sanityFetch({ query: GALLERY_QUERY }),
     sanityFetch({ query: TREATMENT_QUERY, params: { language: lang } }),
     sanityFetch({ query: SITEINFO_QUERY, params: { language: lang } }),
-    getDictionaryEntries(lang),
   ]);
 
   return (
@@ -53,26 +49,15 @@ export default async function Page({
       {mottoData && (
         <TextImage article={mottoData} darkBackground contentClass='!mt-0' />
       )}
-      {treatmentGroups && (
-        <Table
-          treatments={treatmentGroups}
-          dictionaryEntries={dictionaryEntries || defaultDictionaryEntries}
-        />
-      )}
+      {treatmentGroups && <Table treatments={treatmentGroups} />}
       {aboutUsData && (
         <TextImage darkBackground article={aboutUsData} anchor='aboutus' />
       )}
       {images && <ImageSlider images={images} />}
       {footerData && (
         <>
-          <ScheduleCard
-            siteInfo={footerData}
-            dictionaryEntries={dictionaryEntries || defaultDictionaryEntries}
-          />
-          <Contact
-            siteInfo={footerData}
-            dictionaryEntries={dictionaryEntries || defaultDictionaryEntries}
-          />
+          <ScheduleCard siteInfo={footerData} />
+          <Contact siteInfo={footerData} />
         </>
       )}
       {footerData?.phone && <FloatingIcon phone={footerData?.phone} />}

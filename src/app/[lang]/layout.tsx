@@ -1,4 +1,5 @@
 import '@/app/globals.css';
+
 import CustomHead from '@/components/components/Head';
 import { Providers } from '@/components/providers/providers';
 import { sanityFetch } from '@/sanity/lib/live';
