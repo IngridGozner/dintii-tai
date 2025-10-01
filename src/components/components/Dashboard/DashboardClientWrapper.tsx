@@ -11,7 +11,7 @@ export default function DashboardClientWrapper({
 
   return (
     <div className='min-h-screen'>
-      <Sidebar menuOpen={menuOpen} />
+      <Sidebar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       <div className='flex flex-1 flex-col'>
         <DashboardHeader menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
         <div

@@ -7,11 +7,18 @@ type NavigationGroupProps = {
   className?: string;
   activeTab: string | null;
   setActiveTab: (tab: string | null) => void;
+  onClick?: () => void;
 };
 
 export default function NavigationGroup(props: NavigationGroupProps) {
-  const { groupTitle, navigationLinks, className, activeTab, setActiveTab } =
-    props;
+  const {
+    groupTitle,
+    navigationLinks,
+    className,
+    activeTab,
+    setActiveTab,
+    onClick,
+  } = props;
 
   return (
     <div className={className}>
@@ -37,6 +44,7 @@ export default function NavigationGroup(props: NavigationGroupProps) {
                   if (link.href) {
                     setActiveTab(link.href);
                   }
+                  onClick?.();
                 }}
               />
             </li>

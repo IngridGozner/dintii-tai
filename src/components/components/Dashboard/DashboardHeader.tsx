@@ -2,7 +2,6 @@ import BurgerMenu from '../../molecules/BurgerMenu';
 import { Link } from '../../atoms/Link';
 import { LanguageSelector } from '../../molecules/LanguageSelector';
 import { useSiteInfo } from '../../providers/SiteInfoProvider';
-import { triggerEvent } from '@/helpers';
 
 export type MenuProps = {
   menuOpen: boolean;
@@ -23,7 +22,6 @@ export default function DashboardHeader({ menuOpen, setMenuOpen }: MenuProps) {
               isOpen={menuOpen}
               toggle={() => {
                 setMenuOpen(!menuOpen);
-                triggerEvent('toggleMenu', !menuOpen);
               }}
               variant='dark'
               className='!mt-0 justify-center'

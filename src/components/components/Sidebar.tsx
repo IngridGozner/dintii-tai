@@ -14,7 +14,7 @@ import {
 } from '@/types/GlobalTypes';
 import { MenuProps } from './Dashboard/DashboardHeader';
 
-export default function Sidebar({ menuOpen }: Pick<MenuProps, 'menuOpen'>) {
+export default function Sidebar({ menuOpen, setMenuOpen }: MenuProps) {
   const dictionary = useDictionary();
   const [activeTab, setActiveTab] = useState<string | null>('');
 
@@ -60,12 +60,14 @@ export default function Sidebar({ menuOpen }: Pick<MenuProps, 'menuOpen'>) {
           navigationLinks={menuLinks}
           activeTab={activeTab}
           setActiveTab={setActiveTab}
+          onClick={() => setMenuOpen(false)}
         />
         <NavigationGroup
           activeTab={activeTab}
           setActiveTab={setActiveTab}
           groupTitle={general ?? ''}
           navigationLinks={generalLinks}
+          onClick={() => setMenuOpen(false)}
         />
       </nav>
     </aside>
