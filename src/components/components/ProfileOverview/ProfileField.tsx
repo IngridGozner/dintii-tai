@@ -15,7 +15,7 @@ export default function ProfileField({
     <p className='flex gap-x-2'>
       <span>{label}:</span>
       {link ? (
-        <Link label={value} href={link} />
+        <Link label={value} href={link} target='_blank' />
       ) : (
         <span>{value ? value : '-'}</span>
       )}
