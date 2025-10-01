@@ -1,5 +1,4 @@
-import DashboardHeader from '@/components/components/DashboardHeader';
-import Sidebar from '@/components/components/Sidebar';
+import DashboardClientWrapper from '@/components/components/Dashboard/DashboardClientWrapper';
 import { createClient } from '@/supabase/server';
 import { LOGIN_PATH } from '@/types/GlobalTypes';
 import { redirect } from 'next/navigation';
@@ -21,11 +20,7 @@ export default async function DashboardLayout({
 
   return (
     <div className='min-h-screen'>
-      <Sidebar />
-      <div className='flex flex-1 flex-col'>
-        <DashboardHeader />
-        <div className='sm:ml-64'>{children}</div>
-      </div>
+      <DashboardClientWrapper>{children}</DashboardClientWrapper>
     </div>
   );
 }

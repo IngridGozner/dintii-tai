@@ -10,12 +10,12 @@ export default function BurgerMenu({
   className?: string;
 }) {
   const isDarkVariant = variant == 'dark';
-  const commmonLineClasses = `h-0.5 w-8 bg-link hover:bg-link-hover transition duration-300 ease-in-out ${isDarkVariant ? 'bg-white' : ''}`;
+  const commmonLineClasses = `h-0.5 w-8 bg-link transition duration-300 ease-in-out ${isDarkVariant ? 'bg-white' : ''}`;
 
   return (
     <button
       onClick={toggle}
-      className={`mt-7 flex h-8 w-8 cursor-pointer flex-col space-y-1.5 md:hidden ${className ? className : ''}`}
+      className={`mt-7 flex h-8 w-8 cursor-pointer flex-col space-y-1.5 ${className ? className : ''}`}
       aria-label='Toggle menu'
     >
       <span

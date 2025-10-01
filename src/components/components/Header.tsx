@@ -64,6 +64,7 @@ export function Header() {
             <BurgerMenu
               isOpen={menuOpen}
               toggle={() => setMenuOpen(!menuOpen)}
+              className='!mt-0 md:hidden'
             />
             <nav
               className={

@@ -5,33 +5,20 @@ import {
   defaultDictionaryEntries,
   useDictionary,
 } from '../providers/DictionaryProvider';
-import { useEffect, useState } from 'react';
-import { removeLocaleFromPathName, subscribeToEvent } from '@/helpers';
+import { useState } from 'react';
 import { signOut } from '@/supabase/actions/userActions';
-import { usePathname } from 'next/navigation';
 import {
   DASHBOARD_PATH,
   PATIENTS_PATH,
   STUDIO_PATH,
 } from '@/types/GlobalTypes';
+import { MenuProps } from './Dashboard/DashboardHeader';
 
-export default function Sidebar() {
-  const pathName = usePathname();
+export default function Sidebar({ menuOpen }: Pick<MenuProps, 'menuOpen'>) {
   const dictionary = useDictionary();
-  const [menuOpen, setMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<string | null>('');
 
   const { menu, general } = dictionary || defaultDictionaryEntries;
-
-  useEffect(() => {
-    subscribeToEvent('toggleMenu', (e) => {
-      setMenuOpen(e.detail);
-    });
-
-    setActiveTab(removeLocaleFromPathName(pathName));
-
-    return () => document.removeEventListener('toggleMenu', () => {});
-  }, [pathName]);
 
   const menuLinks = [
     {
@@ -64,7 +51,7 @@ export default function Sidebar() {
   return (
     <aside
       id='logo-sidebar'
-      className={`bg-base-dark border-background fixed left-0 z-40 h-screen w-64 -translate-x-full border-r pt-20 transition-transform sm:translate-x-0 ${menuOpen ? 'translate-x-0' : ''}`}
+      className={`bg-base-dark border-background fixed left-0 z-40 h-screen w-64 -translate-x-full border-r pt-20 transition-transform ${menuOpen ? 'translate-x-0' : ''}`}
       aria-label='Sidebar'
     >
       <nav className='bg-base-dark h-full space-y-8 overflow-y-auto px-3 pb-4'>
