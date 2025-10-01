@@ -1,5 +1,5 @@
 import { Container } from '@/components/molecules/Container';
-import EditableTablePatientAdd from './EditableTablePatientAdd';
+import EditableTablePatientAdd from '../../../../components/components/Tables/EditableTablePatientAdd';
 import {
   addPatient,
   getPatientFields,
