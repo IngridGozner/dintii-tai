@@ -81,3 +81,8 @@ export function getPatientFileNameFromFile(filePath: string) {
 
 export const replaceEntry = (message: string, entry: string) =>
   message?.replace('{entry}', entry);
+
+export function isTouchDevice() {
+  if (typeof window === 'undefined') return false;
+  return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+}

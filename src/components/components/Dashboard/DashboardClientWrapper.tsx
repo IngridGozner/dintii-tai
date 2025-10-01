@@ -1,13 +1,20 @@
 'use client';
 
-import { PropsWithChildren, useState } from 'react';
+import { PropsWithChildren, useEffect, useState } from 'react';
 import DashboardHeader from './DashboardHeader';
 import Sidebar from '../Sidebar';
+import { isTouchDevice } from '@/helpers';
 
 export default function DashboardClientWrapper({
   children,
 }: PropsWithChildren) {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isTouchDevice()) {
+      setMenuOpen(true);
+    }
+  }, []);
 
   return (
     <div className='min-h-screen'>

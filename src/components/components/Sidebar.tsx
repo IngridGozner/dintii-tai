@@ -13,6 +13,7 @@ import {
   STUDIO_PATH,
 } from '@/types/GlobalTypes';
 import { MenuProps } from './Dashboard/DashboardHeader';
+import { isTouchDevice } from '@/helpers';
 
 export default function Sidebar({ menuOpen, setMenuOpen }: MenuProps) {
   const dictionary = useDictionary();
@@ -60,14 +61,14 @@ export default function Sidebar({ menuOpen, setMenuOpen }: MenuProps) {
           navigationLinks={menuLinks}
           activeTab={activeTab}
           setActiveTab={setActiveTab}
-          onClick={() => setMenuOpen(false)}
+          onClick={() => isTouchDevice() && setMenuOpen(false)}
         />
         <NavigationGroup
           activeTab={activeTab}
           setActiveTab={setActiveTab}
           groupTitle={general ?? ''}
           navigationLinks={generalLinks}
-          onClick={() => setMenuOpen(false)}
+          onClick={() => isTouchDevice() && setMenuOpen(false)}
         />
       </nav>
     </aside>
