@@ -3,9 +3,9 @@
 import { PatientType } from '@/types/PatientType';
 import { useDictionary } from '../../providers/DictionaryProvider';
 import ProfileField from './ProfileField';
-import { getPatientFileNameFromFile, getWhatsAppLink } from '@/helpers';
+import { getPatientFileName, getWhatsAppLink } from '@/helpers';
 import { useEffect, useState } from 'react';
-import { downloadPatientFile } from '@/supabase/actions/bucketActions';
+import { getPatientFileURL } from '@/supabase/actions/bucketActions';
 import { EditPatientForm } from '@/components/molecules/EditForm';
 import { DeletePatientButton } from '@/components/molecules/DeleteButton';
 
@@ -34,30 +34,23 @@ export default function ProfileOverview({
 
   const [documentURL, setDocumentURL] = useState<string | null>(null);
   const phoneNumber = getWhatsAppLink(patient?.phone ?? '');
-  const fileName = getPatientFileNameFromFile(patient.patient_file_name ?? '');
+  const filePath = getPatientFileName(patient?.id?.toString() ?? '');
+  const [refreshFile, setRefreshFile] = useState(false);
 
   useEffect(() => {
-    const fileNameWithPath = patient.patient_file_name;
-    let url: string;
+    let url: string | null = null;
 
     async function fetchFile() {
-      if (!fileNameWithPath) return;
+      url = await getPatientFileURL(filePath);
 
-      const file = await downloadPatientFile(fileNameWithPath);
-
-      if (!file) return;
-
-      patient.patient_document = file;
-
-      url = URL.createObjectURL(patient.patient_document);
       setDocumentURL(url);
     }
 
     fetchFile();
     return () => {
-      URL.revokeObjectURL(url);
+      if (url) URL.revokeObjectURL(url);
     };
-  }, [patient]);
+  }, [refreshFile]);
 
   const fieldValues = [
     { label: firstName, value: patient?.first_name },
@@ -74,7 +67,7 @@ export default function ProfileOverview({
     { label: country, value: patient?.country },
     {
       label: patientFile,
-      value: documentURL ? fileName : '-',
+      value: documentURL ? `${patient.first_name}_${patient.last_name}` : '-',
       link: documentURL ?? undefined,
     },
   ];
@@ -96,6 +89,7 @@ export default function ProfileOverview({
           <EditPatientForm
             formFunctionality='edit'
             formAction={editAction}
+            onSave={() => setRefreshFile((prev) => !prev)}
             formFields={[
               {
                 element: 'firstName',
@@ -160,8 +154,6 @@ export default function ProfileOverview({
                 containerClassName: '!-mt-7',
               },
             ]}
-            blob={patient.patient_document}
-            fileName={fileName}
           />
         )}
         {deleteAction && (

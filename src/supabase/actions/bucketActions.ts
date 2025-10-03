@@ -1,41 +1,23 @@
 'use server';
 
+import { getPatientFileName } from '@/helpers';
 import { createClient } from '@/supabase/server';
-import {
-  PATIENT_BUCKET_FOLDER,
-  PATIENT_FILE_BUCKET,
-  PATIENT_FILE_VIEW,
-} from '@/types/GlobalTypes';
+import { PATIENT_FILE_BUCKET } from '@/types/GlobalTypes';
 
-export async function addPatientFile(patientFullName: string, file: File) {
+export async function addPatientFile(patientID: string, file: File) {
   const supabase = await createClient();
 
-  if (!patientFullName || !file) return null;
+  if (!patientID || !file) return null;
 
   const { data, error } = await supabase.storage
     .from(PATIENT_FILE_BUCKET)
-    .upload(`${PATIENT_BUCKET_FOLDER}/${patientFullName}-${Date.now()}`, file);
-
-  if (error) {
-    console.error(`Error uploading file: ${file}`, error);
-    throw error;
-  }
-
-  return data.id;
-}
-
-export async function updatePatientFile(patientFileName: string, file: File) {
-  const supabase = await createClient();
-
-  const { data, error } = await supabase.storage
-    .from(PATIENT_FILE_BUCKET)
-    .update(patientFileName, file, {
+    .upload(getPatientFileName(patientID), file, {
       cacheControl: '3600',
-      upsert: false,
+      upsert: true,
     });
 
   if (error) {
-    console.error('Error updating file:', error);
+    console.error(`Error uploading file for ${patientID}: ${file}`, error);
     throw error;
   }
 
@@ -47,29 +29,18 @@ export async function deletePatientFile(fileName: string) {
 
   const { error } = await supabase.storage
     .from(PATIENT_FILE_BUCKET)
-    .remove([fileName]);
+    .remove(['patient_files/44']);
 
   if (error) {
-    console.error(`Error deleting patient file with name:${fileName}`, error);
-    throw error;
-  }
-}
+    console.error(
+      `Error deleting patient file with name:"${fileName.toString()}"`,
+      error
+    );
 
-export async function getPatientFileName(patientID: string) {
-  const supabase = await createClient();
-
-  const { data, error } = await supabase
-    .from(PATIENT_FILE_VIEW)
-    .select('name')
-    .eq('id', patientID)
-    .maybeSingle();
-
-  if (error) {
-    console.error('Error getting patient file name:', error);
-    throw error;
+    return false;
   }
 
-  return data?.name || null;
+  return true;
 }
 
 export async function downloadPatientFile(fileName: string) {
@@ -80,11 +51,27 @@ export async function downloadPatientFile(fileName: string) {
     .download(fileName);
 
   if (error) {
-    console.error('Error downloading patient file:', error);
-    throw error;
+    return null;
   }
 
   if (data.type === 'application/octet-stream') return null;
 
   return data;
+}
+
+export async function getPatientFileURL(fileName: string) {
+  const supabase = await createClient();
+
+  if (!fileName) return null;
+
+  const { data, error } = await supabase.storage
+    .from(PATIENT_FILE_BUCKET)
+    .createSignedUrl(fileName, 3600);
+
+  if (error) {
+    console.error(`Error getting signed URL for file: ${fileName}`, error);
+    return null;
+  }
+
+  return data?.signedUrl;
 }

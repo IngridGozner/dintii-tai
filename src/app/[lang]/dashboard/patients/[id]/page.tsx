@@ -3,7 +3,6 @@ import {
   editPatient,
   getPatientWithID,
 } from '@/supabase/actions/patientActions';
-import { getPatientFileName } from '@/supabase/actions/bucketActions';
 import {
   addTreatment,
   getPatientTreatments,
@@ -17,13 +16,10 @@ export default async function PatientDetail({
 }>) {
   const { id } = await params;
 
-  const [patient, patientFileName, treatments] = await Promise.all([
+  const [patient, treatments] = await Promise.all([
     getPatientWithID(Number(id)),
-    getPatientFileName(id || ''),
     getPatientTreatments(Number(id)),
   ]);
-
-  patient.patient_file_name = patientFileName;
 
   return (
     <PatientClientWrapper

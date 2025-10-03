@@ -4,13 +4,11 @@ import { Button, ButtonProps } from '../atoms/Button';
 import { Input, InputProps } from '../atoms/Input';
 import { useDialog } from '../providers/DialogProvider';
 import { useDictionary } from '../providers/DictionaryProvider';
-import { useEffect, useRef } from 'react';
 
 type BaseEditFormProps = ButtonProps & {
   formFunctionality: 'add' | 'edit';
   formFields: InputProps[];
-  blob?: Blob | null;
-  fileName?: string | null;
+  onSave?: () => void;
 };
 
 type EditFormProps = BaseEditFormProps & {
@@ -23,36 +21,18 @@ export default function EditForm({
   formFunctionality,
   formFields,
   formAction,
-  blob,
-  fileName,
   addMessage,
   editMessage,
   buttonAddIconName,
+  onSave,
   ...rest
 }: EditFormProps) {
-  const { save, cancel, patientFile, errorMessage, successMessage } =
-    useDictionary();
+  const { save, cancel, errorMessage, successMessage } = useDictionary();
 
-  const { isOpen, handleClick, closeDialog, showFeedback } = useDialog();
+  const { handleClick, closeDialog, showFeedback } = useDialog();
 
   const isAddDialog = formFunctionality == 'add';
   const dialogHeadine = isAddDialog ? addMessage : editMessage;
-
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  formFields.find((field) => {
-    if (field.element === 'patientFile') field.ref = fileInputRef;
-  });
-
-  useEffect(() => {
-    if (blob && fileName && fileInputRef.current) {
-      const file = new File([blob], fileName || patientFile || '');
-
-      const dataTransfer = new DataTransfer();
-      dataTransfer.items.add(file);
-      fileInputRef.current.files = dataTransfer.files;
-    }
-  }, [blob, patientFile, fileName, isOpen]);
 
   async function handleFormSubmission(formData: FormData) {
     if (formAction) {
@@ -115,6 +95,7 @@ export default function EditForm({
                   label={save ?? ''}
                   className='w-full rounded-full text-center'
                   iconName='save'
+                  onClick={() => onSave && onSave()}
                 />
                 <Button
                   label={cancel ?? ''}

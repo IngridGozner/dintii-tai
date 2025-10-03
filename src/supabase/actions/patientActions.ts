@@ -5,11 +5,8 @@ import { revalidatePath } from 'next/cache';
 import { createClient } from '@/supabase/server';
 import { notFound } from 'next/navigation';
 import { PATIENT_DATABASE, PATIENTS_PATH } from '@/types/GlobalTypes';
-import {
-  addPatientFile,
-  deletePatientFile,
-  getPatientFileName,
-} from './bucketActions';
+import { addPatientFile, deletePatientFile } from './bucketActions';
+import { getPatientFileName } from '@/helpers';
 
 export async function addPatient(formData: FormData) {
   const supabase = await createClient();
@@ -20,22 +17,38 @@ export async function addPatient(formData: FormData) {
     first_name: formData.get('firstName')?.toString() || null,
     last_name: formData.get('lastName')?.toString() || null,
     phone: formData.get('phone')?.toString() || null,
-    patient_file_id: null as string | null,
+    patient_file_id: null,
   };
 
-  const patientFullName = `${data.first_name}-${data.last_name}`;
-
-  if (patientFile.size) {
-    const fileID = await addPatientFile(patientFullName, patientFile);
-
-    data.patient_file_id = fileID;
-  }
-
-  const { error } = await supabase.from(PATIENT_DATABASE).insert(data);
+  const { data: newPatient, error } = await supabase
+    .from(PATIENT_DATABASE)
+    .insert(data)
+    .select()
+    .single();
 
   if (error) {
-    console.error('Error adding patient:', error);
+    console.error('Error adding patient:', newPatient, error);
     throw error;
+  }
+
+  if (newPatient && patientFile.size) {
+    const patientFileId = await addPatientFile(
+      `${newPatient.id.toString()}`,
+      patientFile
+    );
+
+    const { error } = await supabase
+      .from(PATIENT_DATABASE)
+      .update({ patient_file_id: patientFileId })
+      .eq('id', newPatient.id);
+
+    if (error) {
+      console.error(
+        `Error adding file for ${newPatient.id}: ${patientFileId}`,
+        error
+      );
+      throw error;
+    }
   }
 
   revalidatePath(PATIENTS_PATH);
@@ -48,6 +61,7 @@ export async function getPatientWithID(id: number) {
     .from(PATIENT_DATABASE)
     .select()
     .eq('id', id)
+    .limit(1)
     .maybeSingle();
 
   if (!patient || error) return notFound();
@@ -68,20 +82,12 @@ export async function getPatientFields() {
 export async function editPatient(formData: FormData) {
   const supabase = await createClient();
 
-  const id = formData.get('id');
+  const id = formData.get('id')?.toString().trim();
   let patientFileID = null;
 
   if (!id) return;
 
   const patientFile = formData.get('patientFile') as File;
-  const patientFileName = await getPatientFileName(id?.toString());
-  const patientFullName = `${formData.get('firstName')}-${formData.get('lastName')}`;
-
-  if (patientFileName) {
-    await deletePatientFile(patientFileName.replace(/^patient_files\//, ''));
-  }
-
-  patientFileID = await addPatientFile(patientFullName, patientFile);
 
   const data = {
     first_name: formData.get('firstName'),
@@ -92,13 +98,26 @@ export async function editPatient(formData: FormData) {
     city: formData.get('city'),
     country: formData.get('country'),
     birthdate: formData.get('birthdate')?.toString() || null,
-    patient_file_id: patientFileID,
   };
 
   const { error } = await supabase
     .from(PATIENT_DATABASE)
     .update(data)
     .eq('id', id);
+
+  if (patientFile.size) {
+    patientFileID = await addPatientFile(id, patientFile);
+
+    const { error: fileError } = await supabase
+      .from(PATIENT_DATABASE)
+      .update({ patient_file_id: patientFileID })
+      .eq('id', id);
+
+    if (fileError) {
+      console.error(`Error adding file for ${id}: ${patientFileID}`, fileError);
+      throw fileError;
+    }
+  }
 
   if (error) throw error;
 
@@ -108,11 +127,20 @@ export async function editPatient(formData: FormData) {
 export async function deletePatient(id: number) {
   const supabase = await createClient();
 
-  const patientFileName = await getPatientFileName(id.toString());
+  if (!id) return;
 
-  if (patientFileName) {
-    deletePatientFile(patientFileName);
+  const { data: deletedPatient, error } = await supabase
+    .from(PATIENT_DATABASE)
+    .delete()
+    .eq('id', id)
+    .select();
+
+  if (deletedPatient && deletedPatient[0].patient_file_id) {
+    deletePatientFile(getPatientFileName(id.toString()));
   }
 
-  await supabase.from(PATIENT_DATABASE).delete().eq('id', id);
+  if (error) {
+    console.error(`Error deleting patient: ${id}`, deletedPatient, error);
+    throw error;
+  }
 }

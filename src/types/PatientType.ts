@@ -7,8 +7,6 @@ export type PatientType = {
   city: string | null;
   country: string | null;
   patient_file_id: string | null;
-  patient_file_name?: string | null;
-  patient_document?: Blob | null;
   birthdate: string | null;
   cnp: string | null;
 } | null;

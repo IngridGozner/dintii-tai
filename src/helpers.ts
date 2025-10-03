@@ -71,18 +71,14 @@ export function getWhatsAppLink(phoneNumber: string) {
   return `https://wa.me/${phoneNumberWithCountryCode}`;
 }
 
-export function getPatientFileNameFromFile(filePath: string) {
-  if (!filePath) return null;
-
-  const fileName = filePath.replace(`${PATIENT_BUCKET_FOLDER}/`, '');
-
-  return fileName;
-}
-
 export const replaceEntry = (message: string, entry: string) =>
   message?.replace('{entry}', entry);
 
 export function isTouchDevice() {
   if (typeof window === 'undefined') return false;
   return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+}
+
+export function getPatientFileName(id: string) {
+  return `${PATIENT_BUCKET_FOLDER}/${id}`.trim();
 }
