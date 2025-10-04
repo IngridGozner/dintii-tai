@@ -1,12 +1,13 @@
 'use client';
 
-import { ReactNode, useMemo, useState } from 'react';
+import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { convertSnakeToCamelCase } from '@/helpers';
 import { useDictionary } from '@/components/providers/DictionaryProvider';
 import { GoogleIcon } from '@/components/atoms/GoogleIcon';
 import { EditTreatmentForm } from '@/components/molecules/EditForm';
 import { Input, InputProps } from '@/components/atoms/Input';
 import { DeleteTreatmentButton } from '@/components/molecules/DeleteButton';
+import { Button } from '@/components/atoms/Button';
 
 type EditableTableProps = {
   data: { [key: string]: string }[] | [] | null;
@@ -23,6 +24,7 @@ type EditableTableProps = {
   formFields?: InputProps[];
   formType?: 'patient' | 'treatment';
   addSearchBar?: boolean;
+  initialSortOrder?: SortOrder;
 };
 
 type SpecificTableProps = EditableTableProps & {
@@ -30,6 +32,8 @@ type SpecificTableProps = EditableTableProps & {
   editMessage?: string;
   emptyTableMessage: string;
 };
+
+type SortOrder = 'asc' | 'desc';
 
 export default function EditableTable(props: SpecificTableProps) {
   const {
@@ -46,6 +50,7 @@ export default function EditableTable(props: SpecificTableProps) {
     deleteMessage,
     emptyTableMessage,
     addSearchBar = false,
+    initialSortOrder = 'asc',
   } = props;
 
   const t = useDictionary();
@@ -66,19 +71,44 @@ export default function EditableTable(props: SpecificTableProps) {
   }
 
   const cellClasses = 'p-3 text-font text-base border-b border-font/20';
-  const headClasses = `bg-background text-base ${cellClasses}`;
 
   const [searchTerm, setSearchTerm] = useState('');
+  const [sortOrder, setSortOrder] = useState<SortOrder>(initialSortOrder);
+  const [sortedHeader, setSortedHeader] = useState<string | null>(null);
+  const [sortedData, setSortedData] = useState(data ?? []);
 
   const filteredData = useMemo(() => {
-    if (!searchTerm) return data;
+    if (!searchTerm) return sortedData;
 
-    return data?.filter((entry) =>
+    return sortedData?.filter((entry) =>
       Object.values(entry).some((value) =>
         value?.toString().toLowerCase().includes(searchTerm.toLowerCase())
       )
     );
-  }, [searchTerm, data]);
+  }, [searchTerm, sortedData]);
+
+  useEffect(() => {
+    if (headers && headers.length > 0 && !sortedHeader) {
+      const initialHeader = headers[0];
+      setSortedHeader(initialHeader);
+    }
+  }, []);
+
+  function sortDataByHeader(header: string, order: SortOrder) {
+    if (!data) return;
+
+    const newSortedData = [...data].sort((a, b) => {
+      const valueA = a[header];
+      const valueB = b[header];
+
+      return order === 'asc'
+        ? valueA.localeCompare(valueB)
+        : valueB.localeCompare(valueA);
+    });
+
+    setSortedHeader(header);
+    setSortedData(newSortedData);
+  }
 
   return (
     <>
@@ -120,8 +150,37 @@ export default function EditableTable(props: SpecificTableProps) {
               <thead>
                 <tr>
                   {headers?.map((header, index) => (
-                    <th key={index} className={headClasses}>
-                      {t?.[convertSnakeToCamelCase(header) as keyof typeof t]}
+                    <th
+                      key={index}
+                      className={`bg-background text-base ${cellClasses}`}
+                    >
+                      <Button
+                        iconName={
+                          sortOrder === 'asc'
+                            ? 'arrow_upward'
+                            : 'arrow_downward'
+                        }
+                        asLink
+                        className='group'
+                        iconPlacement='right'
+                        iconClassName={`${sortedHeader === header ? 'opacity-100' : 'opacity-0'} transition-opacity group-hover:opacity-100`}
+                        onClick={() => {
+                          const newSortOrder: SortOrder =
+                            sortedHeader != header
+                              ? 'asc'
+                              : sortOrder === 'asc'
+                                ? 'desc'
+                                : 'asc';
+
+                          setSortOrder(newSortOrder);
+                          sortDataByHeader(header, newSortOrder);
+                        }}
+                        label={
+                          t?.[
+                            convertSnakeToCamelCase(header) as keyof typeof t
+                          ] ?? header
+                        }
+                      />
                     </th>
                   ))}
                 </tr>
@@ -178,6 +237,11 @@ export default function EditableTable(props: SpecificTableProps) {
                                   entry[header]
                                     ? '!text-green-700'
                                     : '!text-red-700'
+                                }
+                                ariaLabel={
+                                  entry[header]
+                                    ? 'terms accepted'
+                                    : 'terms not accepted'
                                 }
                               />
                             ) : (
@@ -243,6 +307,7 @@ export function EditableTreatmentTable(props: EditableTableProps) {
       deleteMessage='deleteTreatment'
       editMessage='editTreatment'
       emptyTableMessage={emptyTreatmentData ?? ''}
+      initialSortOrder='desc'
       {...props}
     />
   );
