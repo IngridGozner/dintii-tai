@@ -24,6 +24,7 @@ export default function PatientClientWrapper({
   addAction: addTreatment,
   editAction: editPatient,
   deleteAction: deletePatient,
+  loadRows,
 }: PatientClientWrapperProps) {
   const { backToPatients, profile, treatment } = useDictionary();
   const { first_name, last_name } = patient;
@@ -55,6 +56,7 @@ export default function PatientClientWrapper({
           <TreatmentsOverview
             data={treatments}
             addAction={addTreatment}
+            loadRows={loadRows}
             patientID={patientID}
           />
         </Tab>

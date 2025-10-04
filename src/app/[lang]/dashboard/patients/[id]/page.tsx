@@ -8,6 +8,7 @@ import {
   getPatientTreatments,
 } from '@/supabase/actions/treatmentActions';
 import PatientClientWrapper from '@/components/components/PatientClientWrapper';
+import { ROWS_TO_LOAD } from '@/types/GlobalTypes';
 
 export default async function PatientDetail({
   params,
@@ -18,7 +19,7 @@ export default async function PatientDetail({
 
   const [patient, treatments] = await Promise.all([
     getPatientWithID(Number(id)),
-    getPatientTreatments(Number(id)),
+    getPatientTreatments(0, ROWS_TO_LOAD - 1, Number(id)),
   ]);
 
   return (
@@ -29,6 +30,7 @@ export default async function PatientDetail({
       addAction={addTreatment}
       editAction={editPatient}
       deleteAction={deletePatient}
+      loadRows={getPatientTreatments}
     />
   );
 }

@@ -3,7 +3,11 @@
 import { revalidatePath } from 'next/cache';
 
 import { createClient } from '@/supabase/server';
-import { PATIENTS_PATH, TREATMENT_DATABASE } from '@/types/GlobalTypes';
+import {
+  PATIENTS_PATH,
+  ROWS_TO_LOAD,
+  TREATMENT_DATABASE,
+} from '@/types/GlobalTypes';
 import { TreatmentType } from '@/types/TreatmentType';
 
 export async function addTreatment(formData: FormData) {
@@ -30,14 +34,21 @@ export async function addTreatment(formData: FormData) {
   revalidatePath(`${PATIENTS_PATH}/${treatmentData.patientID}`);
 }
 
-export async function getPatientTreatments(id: number) {
+export async function getPatientTreatments(
+  from = 0,
+  to = ROWS_TO_LOAD,
+  id?: number
+) {
+  if (!id) return [];
+
   const supabase = await createClient();
 
   const { data } = await supabase
     .from(TREATMENT_DATABASE)
     .select('id, date, treatment, price, gdpr, consent')
     .eq('patientID', id)
-    .order('date', { ascending: false });
+    .order('date', { ascending: false })
+    .range(from, to);
 
   return data;
 }

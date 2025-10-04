@@ -8,17 +8,20 @@ import {
   deleteTreatment,
   editTreatment,
 } from '@/supabase/actions/treatmentActions';
+import { LoadRowsFunction, SupabaseArray } from '@/types/GeneralTypes';
 
 export type TreatmentsOverviewProps = {
-  data: { [key: string]: string }[] | null | [];
+  data: SupabaseArray;
   addAction?: (formData: FormData) => Promise<void>;
   patientID: number;
+  loadRows: LoadRowsFunction;
 };
 
 export default function TreatmentsOverview({
   data,
   addAction,
   patientID,
+  loadRows,
 }: TreatmentsOverviewProps) {
   const { treatment, date, price, gdpr, consent } = useDictionary();
 
@@ -72,6 +75,7 @@ export default function TreatmentsOverview({
         deleteAction={deleteTreatment}
         formFields={formFields}
         formType='treatment'
+        loadRows={(from, to) => loadRows(from, to, patientID)}
         tableHeader={
           <>
             <div className='border-font/20 mb-2 flex flex-row border-b-2 border-dashed pb-2'>
