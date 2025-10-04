@@ -5,15 +5,18 @@ import { EditablePatientTable } from '@/components/components/Tables/EditableTab
 import { EditPatientForm } from '@/components/molecules/EditForm';
 import { useDictionary } from '@/components/providers/DictionaryProvider';
 import { getWhatsAppLink } from '@/helpers';
+import { LoadRowsFunction, SupabaseArray } from '@/types/GeneralTypes';
 import { PATIENTS_PATH } from '@/types/GlobalTypes';
 import { redirect } from 'next/navigation';
 
 export default function EditableTablePatientAdd({
   data,
   formAction,
+  loadRows,
 }: {
-  data: { [key: string]: string }[] | null;
+  data: SupabaseArray;
   formAction?: (formData: FormData) => Promise<void>;
+  loadRows?: LoadRowsFunction;
 }) {
   const { patients, firstName, lastName, phone, patientFile } = useDictionary();
 
@@ -27,6 +30,7 @@ export default function EditableTablePatientAdd({
         clickableCellFunction: (rowData) =>
           redirect(getWhatsAppLink(rowData.phone)),
       }}
+      loadRows={loadRows}
       tableHeader={
         <>
           <div className='col-span-6 mt-3 md:mt-0'>

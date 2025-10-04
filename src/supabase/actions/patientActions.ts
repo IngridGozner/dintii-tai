@@ -4,7 +4,11 @@ import { revalidatePath } from 'next/cache';
 
 import { createClient } from '@/supabase/server';
 import { notFound } from 'next/navigation';
-import { PATIENT_DATABASE, PATIENTS_PATH } from '@/types/GlobalTypes';
+import {
+  PATIENT_DATABASE,
+  PATIENTS_PATH,
+  ROWS_TO_LOAD,
+} from '@/types/GlobalTypes';
 import { addPatientFile, deletePatientFile } from './bucketActions';
 import { getPatientFileName } from '@/helpers';
 
@@ -69,13 +73,14 @@ export async function getPatientWithID(id: number) {
   return patient;
 }
 
-export async function getPatientFields() {
+export async function getPatientFields(from = 0, to = ROWS_TO_LOAD - 1) {
   const supabase = await createClient();
 
   const { data } = await supabase
     .from(PATIENT_DATABASE)
     .select('id, first_name, last_name, phone')
-    .order('first_name', { ascending: true });
+    .order('first_name', { ascending: true })
+    .range(from, to);
 
   return data;
 }

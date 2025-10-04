@@ -12,7 +12,11 @@ export default async function Patients() {
   return (
     <Container>
       <GridContainer>
-        <EditableTablePatientAdd data={patients} formAction={addPatient} />
+        <EditableTablePatientAdd
+          data={patients}
+          formAction={addPatient}
+          loadRows={getPatientFields}
+        />
       </GridContainer>
     </Container>
   );

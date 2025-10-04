@@ -42,3 +42,10 @@ export type DICTIONARY_QUERYResult = NonNullable<DICTIONARY_EDIT_QUERYResult> &
   NonNullable<DICTIONARY_PATIENT_QUERYResult> &
   NonNullable<DICTIONARY_TREATMENT_QUERYResult> &
   NonNullable<DICTIONARY_FEEDBACK_QUERYResult>;
+
+export type SupabaseArray = { [key: string]: string }[] | [] | null;
+
+export type LoadRowsFunction = (
+  from: number,
+  to: number
+) => Promise<SupabaseArray | undefined>;

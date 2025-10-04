@@ -8,9 +8,12 @@ import { EditTreatmentForm } from '@/components/molecules/EditForm';
 import { Input, InputProps } from '@/components/atoms/Input';
 import { DeleteTreatmentButton } from '@/components/molecules/DeleteButton';
 import { Button } from '@/components/atoms/Button';
+import { useElementInViewport } from '@/app/hooks/useElementInViewport';
+import { LoadRowsFunction, SupabaseArray } from '@/types/GeneralTypes';
+import { ROWS_TO_LOAD } from '@/types/GlobalTypes';
 
 type EditableTableProps = {
-  data: { [key: string]: string }[] | [] | null;
+  data: SupabaseArray;
   excludedHeaders?: string[];
   onClickRow?: (rowData: { [key: string]: string }) => void;
   clickableCell?: {
@@ -25,6 +28,7 @@ type EditableTableProps = {
   formType?: 'patient' | 'treatment';
   addSearchBar?: boolean;
   initialSortOrder?: SortOrder;
+  loadRows?: LoadRowsFunction;
 };
 
 type SpecificTableProps = EditableTableProps & {
@@ -51,6 +55,7 @@ export default function EditableTable(props: SpecificTableProps) {
     emptyTableMessage,
     addSearchBar = false,
     initialSortOrder = 'asc',
+    loadRows,
   } = props;
 
   const t = useDictionary();
@@ -75,21 +80,43 @@ export default function EditableTable(props: SpecificTableProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortOrder, setSortOrder] = useState<SortOrder>(initialSortOrder);
   const [sortedHeader, setSortedHeader] = useState<string | null>(null);
-  const [sortedData, setSortedData] = useState(data ?? []);
+  const [tableData, setTableData] = useState(data ?? []);
+
+  const [containerRef, isVisible] = useElementInViewport();
+
+  const [rangeStart, setRangeStart] = useState(ROWS_TO_LOAD);
 
   useMemo(() => {
-    setSortedData(data ?? []);
+    setTableData(data ?? []);
+    setRangeStart(ROWS_TO_LOAD);
   }, [data]);
 
-  const filteredData = useMemo(() => {
-    if (!searchTerm) return sortedData;
+  useEffect(() => {
+    async function fetchData() {
+      const rangeTo = rangeStart + 15;
+      setRangeStart(rangeTo);
 
-    return sortedData?.filter((entry) =>
+      const newData = await loadRows?.(rangeStart, rangeTo);
+
+      if (newData?.length) {
+        setTableData([...(data ?? []), ...(newData ?? [])]);
+      }
+    }
+
+    if (isVisible) {
+      fetchData();
+    }
+  }, [isVisible]);
+
+  const filteredData = useMemo(() => {
+    if (!searchTerm) return tableData;
+
+    return tableData?.filter((entry) =>
       Object.values(entry).some((value) =>
         value?.toString().toLowerCase().includes(searchTerm.toLowerCase())
       )
     );
-  }, [searchTerm, sortedData]);
+  }, [searchTerm, tableData]);
 
   useEffect(() => {
     if (headers && headers.length > 0 && !sortedHeader) {
@@ -99,9 +126,9 @@ export default function EditableTable(props: SpecificTableProps) {
   }, []);
 
   function sortDataByHeader(header: string, order: SortOrder) {
-    if (!data) return;
+    if (!tableData) return;
 
-    const newSortedData = [...data].sort((a, b) => {
+    const newSortedData = [...tableData].sort((a, b) => {
       const valueA = a[header];
       const valueB = b[header];
 
@@ -111,14 +138,14 @@ export default function EditableTable(props: SpecificTableProps) {
     });
 
     setSortedHeader(header);
-    setSortedData(newSortedData);
+    setTableData(newSortedData);
   }
 
   return (
     <>
       {tableHeader}
 
-      {data?.length ? (
+      {tableData?.length ? (
         <div
           className={`overflow-x-auto ${tableClassName ? tableClassName : 'col-span-6 md:col-span-12'}`}
         >
@@ -281,6 +308,7 @@ export default function EditableTable(props: SpecificTableProps) {
               </tbody>
             </table>
           )}
+          <div ref={containerRef} />
         </div>
       ) : (
         <div>{emptyTableMessage}</div>

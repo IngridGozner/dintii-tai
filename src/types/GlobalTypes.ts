@@ -10,3 +10,5 @@ export const PATIENT_BUCKET_FOLDER = 'patient_files';
 export const PATIENT_FILE_BUCKET = 'patients';
 
 export const TREATMENT_DATABASE = 'treatment';
+
+export const ROWS_TO_LOAD = 15;
