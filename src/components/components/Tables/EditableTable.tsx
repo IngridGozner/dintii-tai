@@ -129,12 +129,28 @@ export default function EditableTable(props: SpecificTableProps) {
     if (!tableData) return;
 
     const newSortedData = [...tableData].sort((a, b) => {
-      const valueA = a[header];
-      const valueB = b[header];
+      const rawA = a[header];
+      const rawB = b[header];
+
+      const valueA = rawA ?? '';
+      const valueB = rawB ?? '';
+
+      const numA = parseFloat(valueA);
+      const numB = parseFloat(valueB);
+
+      const isNumeric = !isNaN(numA) && !isNaN(numB);
+
+      if (valueA === '' && valueB === '') return 0;
+      if (valueA === '') return 1;
+      if (valueB === '') return -1;
+
+      if (isNumeric) {
+        return order === 'asc' ? numA - numB : numB - numA;
+      }
 
       return order === 'asc'
-        ? valueA.localeCompare(valueB)
-        : valueB.localeCompare(valueA);
+        ? valueA.toString().localeCompare(valueB.toString())
+        : valueB.toString().localeCompare(valueA.toString());
     });
 
     setSortedHeader(header);
@@ -185,33 +201,39 @@ export default function EditableTable(props: SpecificTableProps) {
                       key={index}
                       className={`bg-background text-base ${cellClasses}`}
                     >
-                      <Button
-                        iconName={
-                          sortOrder === 'asc'
-                            ? 'arrow_upward'
-                            : 'arrow_downward'
-                        }
-                        asLink
-                        className='group'
-                        iconPlacement='right'
-                        iconClassName={`${sortedHeader === header ? 'opacity-100' : 'opacity-0'} transition-opacity group-hover:opacity-100`}
-                        onClick={() => {
-                          const newSortOrder: SortOrder =
-                            sortedHeader != header
-                              ? 'asc'
-                              : sortOrder === 'asc'
-                                ? 'desc'
-                                : 'asc';
+                      {header !== editMessage && header !== deleteMessage ? (
+                        <Button
+                          iconName={
+                            sortOrder === 'asc'
+                              ? 'arrow_upward'
+                              : 'arrow_downward'
+                          }
+                          asLink
+                          className='group'
+                          iconPlacement='right'
+                          iconClassName={`${sortedHeader === header ? 'opacity-100' : 'opacity-0'} transition-opacity group-hover:opacity-100`}
+                          onClick={() => {
+                            const newSortOrder: SortOrder =
+                              sortedHeader != header
+                                ? 'asc'
+                                : sortOrder === 'asc'
+                                  ? 'desc'
+                                  : 'asc';
 
-                          setSortOrder(newSortOrder);
-                          sortDataByHeader(header, newSortOrder);
-                        }}
-                        label={
-                          t?.[
-                            convertSnakeToCamelCase(header) as keyof typeof t
-                          ] ?? header
-                        }
-                      />
+                            setSortOrder(newSortOrder);
+                            sortDataByHeader(header, newSortOrder);
+                          }}
+                          label={
+                            t?.[
+                              convertSnakeToCamelCase(header) as keyof typeof t
+                            ] ?? header
+                          }
+                        />
+                      ) : (
+                        (t?.[
+                          convertSnakeToCamelCase(header) as keyof typeof t
+                        ] ?? header)
+                      )}
                     </th>
                   ))}
                 </tr>
