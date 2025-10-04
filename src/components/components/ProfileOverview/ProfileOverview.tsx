@@ -41,12 +41,15 @@ export default function ProfileOverview({
     let url: string | null = null;
 
     async function fetchFile() {
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
       url = await getPatientFileURL(filePath);
 
       setDocumentURL(url);
     }
 
     fetchFile();
+
     return () => {
       if (url) URL.revokeObjectURL(url);
     };
