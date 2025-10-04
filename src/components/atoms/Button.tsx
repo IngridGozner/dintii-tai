@@ -7,6 +7,7 @@ export type ButtonProps = Partial<GoogleIconProps> & {
   href?: string;
   asLink?: boolean;
   type?: 'button' | 'submit';
+  iconPlacement?: 'left' | 'right';
   formAction?: (formData: FormData) => Promise<void>;
 };
 
@@ -20,6 +21,7 @@ export function Button({
   asLink,
   formAction,
   type,
+  iconPlacement = 'left',
 }: ButtonProps) {
   const buttonClasses = `flex items-center cursor-pointer ${
     asLink
@@ -27,12 +29,17 @@ export function Button({
       : 'justify-center bg-link border-2 py-2 px-4 text-white hover:bg-link-hover rounded-lg'
   } ${className ? ` ${className}` : ''}`;
 
+  const icon = iconName ? (
+    <GoogleIcon iconName={iconName} iconClassName={iconClassName} />
+  ) : null;
+
   const buttonContent = (
     <>
-      {iconName && (
-        <GoogleIcon iconName={iconName} iconClassName={iconClassName} />
-      )}
-      <span className={iconName && 'ml-2'}>{label ? label : ''}</span>
+      {iconPlacement === 'left' && icon}
+      <span className={iconName && iconPlacement === 'left' ? 'ml-2' : 'mr-2'}>
+        {label ? label : ''}
+      </span>
+      {iconPlacement === 'right' && icon}
     </>
   );
 
