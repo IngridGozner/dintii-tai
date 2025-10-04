@@ -11,6 +11,7 @@ import { Button } from '@/components/atoms/Button';
 import { useElementInViewport } from '@/app/hooks/useElementInViewport';
 import { LoadRowsFunction, SupabaseArray } from '@/types/GeneralTypes';
 import { ROWS_TO_LOAD } from '@/types/GlobalTypes';
+import { Loading } from '../Loading';
 
 type EditableTableProps = {
   data: SupabaseArray;
@@ -85,6 +86,7 @@ export default function EditableTable(props: SpecificTableProps) {
   const [containerRef, isVisible] = useElementInViewport();
 
   const [rangeStart, setRangeStart] = useState(ROWS_TO_LOAD);
+  const [moreDataToLoad, setMoreDataToLoad] = useState(true);
 
   useMemo(() => {
     setTableData(data ?? []);
@@ -92,6 +94,8 @@ export default function EditableTable(props: SpecificTableProps) {
   }, [data]);
 
   useEffect(() => {
+    if (!moreDataToLoad) return;
+
     async function fetchData() {
       const rangeTo = rangeStart + 15;
       setRangeStart(rangeTo);
@@ -100,6 +104,8 @@ export default function EditableTable(props: SpecificTableProps) {
 
       if (newData?.length) {
         setTableData([...(data ?? []), ...(newData ?? [])]);
+      } else {
+        setMoreDataToLoad(false);
       }
     }
 
@@ -188,7 +194,7 @@ export default function EditableTable(props: SpecificTableProps) {
           {filteredData?.length === 0 ? (
             <div>{emptyTableMessage}</div>
           ) : (
-            <table className='w-full text-left'>
+            <table className='mb-6 w-full text-left md:mb-12'>
               <colgroup>
                 {headers?.map((_header, index) => (
                   <col key={index} />
@@ -330,7 +336,7 @@ export default function EditableTable(props: SpecificTableProps) {
               </tbody>
             </table>
           )}
-          <div ref={containerRef} />
+          {moreDataToLoad && <Loading ref={containerRef} />}
         </div>
       ) : (
         <div>{emptyTableMessage}</div>

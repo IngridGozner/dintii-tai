@@ -11,4 +11,4 @@ export const PATIENT_FILE_BUCKET = 'patients';
 
 export const TREATMENT_DATABASE = 'treatment';
 
-export const ROWS_TO_LOAD = 12;
+export const ROWS_TO_LOAD = 15;
