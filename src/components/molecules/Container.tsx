@@ -1,6 +1,7 @@
 'use client';
 
-import { PropsWithChildren, useRef, useEffect, useState } from 'react';
+import { useElementInViewport } from '@/app/hooks/useElementInViewport';
+import { PropsWithChildren } from 'react';
 
 export type ContainerProps = PropsWithChildren & {
   containerClass?: string;
@@ -16,32 +17,10 @@ export function Container({
   darkBackground = false,
   animateOnScroll = false,
 }: ContainerProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(!animateOnScroll);
-  const threshold = 0.1;
-
-  useEffect(() => {
-    if (!animateOnScroll || !containerRef.current) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        // Animate whenever entering viewport
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        } else {
-          setIsVisible(false);
-        }
-      },
-      {
-        threshold,
-        rootMargin: '0px 0px -50px 0px',
-      }
-    );
-
-    observer.observe(containerRef.current);
-
-    return () => observer.disconnect();
-  }, [animateOnScroll, threshold]);
+  const [containerRef, isVisible] = useElementInViewport({
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px',
+  });
 
   return (
     <div
