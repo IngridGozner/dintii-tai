@@ -77,6 +77,10 @@ export default function EditableTable(props: SpecificTableProps) {
   const [sortedHeader, setSortedHeader] = useState<string | null>(null);
   const [sortedData, setSortedData] = useState(data ?? []);
 
+  useMemo(() => {
+    setSortedData(data ?? []);
+  }, [data]);
+
   const filteredData = useMemo(() => {
     if (!searchTerm) return sortedData;
 
