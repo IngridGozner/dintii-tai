@@ -60,6 +60,8 @@ export default function DialogProvider({
 
   const closeDialog = () => {
     setIsOpen(false);
+
+    setContent(null);
   };
 
   return (
