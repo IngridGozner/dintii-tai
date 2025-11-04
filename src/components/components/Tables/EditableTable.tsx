@@ -30,6 +30,7 @@ type EditableTableProps = {
   addSearchBar?: boolean;
   initialSortOrder?: SortOrder;
   loadRows?: LoadRowsFunction;
+  unsortableHeaders?: string[];
 };
 
 type SpecificTableProps = EditableTableProps & {
@@ -57,6 +58,7 @@ export default function EditableTable(props: SpecificTableProps) {
     addSearchBar = false,
     initialSortOrder = 'asc',
     loadRows,
+    unsortableHeaders = [],
   } = props;
 
   const t = useDictionary();
@@ -94,25 +96,30 @@ export default function EditableTable(props: SpecificTableProps) {
   }, [data]);
 
   useEffect(() => {
+    if (!moreDataToLoad || !isVisible) return;
+
+    fetchData();
+  }, [isVisible, tableData]);
+
+  async function fetchData() {
     if (!moreDataToLoad) return;
 
-    async function fetchData() {
-      const rangeTo = rangeStart + 15;
-      setRangeStart(rangeTo);
+    const rangeTo = rangeStart + ROWS_TO_LOAD;
+    setRangeStart(rangeTo);
 
-      const newData = await loadRows?.(rangeStart, rangeTo);
+    const newData = await loadRows?.(
+      rangeStart,
+      rangeTo,
+      sortOrder === 'asc',
+      sortedHeader ?? undefined
+    );
 
-      if (newData?.length) {
-        setTableData([...(data ?? []), ...(newData ?? [])]);
-      } else {
-        setMoreDataToLoad(false);
-      }
+    if (newData && newData?.length) {
+      setTableData([...(tableData ?? []), ...(newData ?? [])]);
+    } else {
+      setMoreDataToLoad(false);
     }
-
-    if (isVisible) {
-      fetchData();
-    }
-  }, [isVisible]);
+  }
 
   const filteredData = useMemo(() => {
     if (!searchTerm) return tableData;
@@ -131,33 +138,17 @@ export default function EditableTable(props: SpecificTableProps) {
     }
   }, []);
 
-  function sortDataByHeader(header: string, order: SortOrder) {
+  async function sortDataByHeader(header: string, order: SortOrder) {
     if (!tableData) return;
 
-    const newSortedData = [...tableData].sort((a, b) => {
-      const rawA = a[header];
-      const rawB = b[header];
+    const newSortedData = await loadRows?.(
+      0,
+      rangeStart,
+      order === 'asc',
+      header
+    );
 
-      const valueA = rawA ?? '';
-      const valueB = rawB ?? '';
-
-      const numA = parseFloat(valueA);
-      const numB = parseFloat(valueB);
-
-      const isNumeric = !isNaN(numA) && !isNaN(numB);
-
-      if (valueA === '' && valueB === '') return 0;
-      if (valueA === '') return 1;
-      if (valueB === '') return -1;
-
-      if (isNumeric) {
-        return order === 'asc' ? numA - numB : numB - numA;
-      }
-
-      return order === 'asc'
-        ? valueA.toString().localeCompare(valueB.toString())
-        : valueB.toString().localeCompare(valueA.toString());
-    });
+    if (!newSortedData) return;
 
     setSortedHeader(header);
     setTableData(newSortedData);
@@ -207,7 +198,7 @@ export default function EditableTable(props: SpecificTableProps) {
                       key={index}
                       className={`bg-background text-base ${cellClasses}`}
                     >
-                      {header !== editMessage && header !== deleteMessage ? (
+                      {!unsortableHeaders.includes(header) ? (
                         <Button
                           iconName={
                             sortOrder === 'asc'
@@ -218,7 +209,7 @@ export default function EditableTable(props: SpecificTableProps) {
                           className='group'
                           iconPlacement='right'
                           iconClassName={`${sortedHeader === header ? 'opacity-100' : 'opacity-0'} transition-opacity group-hover:opacity-100`}
-                          onClick={() => {
+                          onClick={async () => {
                             const newSortOrder: SortOrder =
                               sortedHeader != header
                                 ? 'asc'
@@ -354,6 +345,7 @@ export function EditablePatientTable(props: EditableTableProps) {
       editMessage='editPatient'
       emptyTableMessage={emptyPatientData ?? ''}
       addSearchBar={true}
+      unsortableHeaders={['phone', 'deletePatient', 'editPatient']}
       {...props}
     />
   );
@@ -368,6 +360,7 @@ export function EditableTreatmentTable(props: EditableTableProps) {
       editMessage='editTreatment'
       emptyTableMessage={emptyTreatmentData ?? ''}
       initialSortOrder='desc'
+      unsortableHeaders={['deleteTreatment', 'editTreatment']}
       {...props}
     />
   );

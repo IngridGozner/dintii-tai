@@ -19,7 +19,7 @@ export default async function PatientDetail({
 
   const [patient, treatments] = await Promise.all([
     getPatientWithID(Number(id)),
-    getPatientTreatments(0, ROWS_TO_LOAD - 1, Number(id)),
+    getPatientTreatments(0, ROWS_TO_LOAD - 1, false, 'date', Number(id)),
   ]);
 
   return (

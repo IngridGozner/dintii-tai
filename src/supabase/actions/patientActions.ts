@@ -73,13 +73,18 @@ export async function getPatientWithID(id: number) {
   return patient;
 }
 
-export async function getPatientFields(from = 0, to = ROWS_TO_LOAD - 1) {
+export async function getPatientFields(
+  from = 0,
+  to = ROWS_TO_LOAD - 1,
+  ascending = true,
+  element = 'first_name'
+) {
   const supabase = await createClient();
 
   const { data } = await supabase
     .from(PATIENT_DATABASE)
     .select('id, first_name, last_name, phone')
-    .order('first_name', { ascending: true })
+    .order(element, { ascending: ascending })
     .range(from, to);
 
   return data;

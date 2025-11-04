@@ -48,5 +48,7 @@ export type SupabaseArray = { [key: string]: string }[] | [] | null;
 export type LoadRowsFunction = (
   from: number,
   to: number,
+  ascending?: boolean,
+  element?: string,
   id?: number
 ) => Promise<SupabaseArray | undefined>;

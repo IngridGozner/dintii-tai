@@ -75,7 +75,9 @@ export default function TreatmentsOverview({
         deleteAction={deleteTreatment}
         formFields={formFields}
         formType='treatment'
-        loadRows={(from, to) => loadRows(from, to, patientID)}
+        loadRows={(from, to, ascending, element) =>
+          loadRows(from, to, ascending, element, patientID)
+        }
         tableHeader={
           <>
             <div className='border-font/20 mb-2 flex flex-row border-b-2 border-dashed pb-2'>

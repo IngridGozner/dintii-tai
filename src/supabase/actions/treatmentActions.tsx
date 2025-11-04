@@ -37,6 +37,8 @@ export async function addTreatment(formData: FormData) {
 export async function getPatientTreatments(
   from = 0,
   to = ROWS_TO_LOAD,
+  ascending = false,
+  element = 'date',
   id?: number
 ) {
   if (!id) return [];
@@ -47,7 +49,7 @@ export async function getPatientTreatments(
     .from(TREATMENT_DATABASE)
     .select('id, date, treatment, price, gdpr, consent')
     .eq('patientID', id)
-    .order('date', { ascending: false })
+    .order(element, { ascending: ascending })
     .range(from, to);
 
   return data;
