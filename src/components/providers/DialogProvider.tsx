@@ -1,12 +1,6 @@
 'use client';
 
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { createContext, ReactNode, useContext, useState } from 'react';
 import Dialog from '../components/Dialog';
 import { GoogleIcon } from '../atoms/GoogleIcon';
 
@@ -30,7 +24,7 @@ export default function DialogProvider({
   const [content, setContent] = useState<ReactNode>(null);
   const [headline, setHeadline] = useState('');
   const [className, setClassName] = useState('');
-  const [feedback, setFeedback] = useState<{
+  const [, setFeedback] = useState<{
     type: 'success' | 'error';
     message: string;
   } | null>(null);
@@ -67,16 +61,6 @@ export default function DialogProvider({
   const closeDialog = () => {
     setIsOpen(false);
   };
-
-  useEffect(() => {
-    if (feedback) {
-      const timer = setTimeout(() => {
-        closeDialog();
-        setFeedback(null);
-      }, 4000);
-      return () => clearTimeout(timer);
-    }
-  }, [feedback]);
 
   return (
     <DialogContext.Provider

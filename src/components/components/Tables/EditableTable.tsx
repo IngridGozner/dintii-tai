@@ -93,6 +93,12 @@ export default function EditableTable(props: SpecificTableProps) {
   useMemo(() => {
     setTableData(data ?? []);
     setRangeStart(ROWS_TO_LOAD);
+
+    if (tableData.length <= ROWS_TO_LOAD - 1) {
+      setMoreDataToLoad(false);
+    } else {
+      setMoreDataToLoad(true);
+    }
   }, [data]);
 
   useEffect(() => {
