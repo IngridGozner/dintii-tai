@@ -1,9 +1,9 @@
-import { Link } from '@/components/atoms/Link';
+import { Button } from '@/components/atoms/Button';
 
 type ProfileFieldProps = {
   label: string;
   value?: string | null;
-  link?: string;
+  link?: () => void;
 };
 
 export default function ProfileField({
@@ -15,7 +15,7 @@ export default function ProfileField({
     <p className='flex gap-x-2'>
       <span>{label}:</span>
       {link ? (
-        <Link label={value} href={link} target='_blank' />
+        <Button asLink label={value ? value : '-'} onClick={link} />
       ) : (
         <span>{value ? value : '-'}</span>
       )}

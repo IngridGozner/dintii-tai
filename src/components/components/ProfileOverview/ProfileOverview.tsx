@@ -48,29 +48,20 @@ export default function ProfileOverview({
     GDPR_FILENAME
   );
 
-  const [refreshFile, setRefreshFile] = useState(false);
+  const getPatientFile = async () => {
+    const url = await getPatientFileURL(filePath);
+    setDocumentURL(url);
+  };
+
+  const getGdprFile = async () => {
+    const url = await getPatientFileURL(gdprFilePath);
+    setGdprDocumentURL(url);
+  };
 
   useEffect(() => {
-    let url: string | null = null;
-    let gdprUrl: string | null = null;
-
-    async function fetchFile() {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-
-      url = await getPatientFileURL(filePath);
-      gdprUrl = await getPatientFileURL(gdprFilePath);
-
-      setDocumentURL(url);
-      setGdprDocumentURL(gdprUrl);
-    }
-
-    fetchFile();
-
-    return () => {
-      if (url) URL.revokeObjectURL(url);
-      if (gdprUrl) URL.revokeObjectURL(gdprUrl);
-    };
-  }, [refreshFile]);
+    getPatientFile();
+    getGdprFile();
+  }, []);
 
   const fieldValues = [
     { label: firstName, value: patient?.first_name },
@@ -78,7 +69,12 @@ export default function ProfileOverview({
     {
       label: phone,
       value: patient?.phone,
-      link: patient.phone ? phoneNumber : '',
+      link: patient.phone
+        ? () => {
+            open(phoneNumber);
+            return;
+          }
+        : undefined,
     },
     { label: email, value: patient?.email },
     { label: birthdate, value: patient?.birthdate },
@@ -88,12 +84,24 @@ export default function ProfileOverview({
     {
       label: patientFile,
       value: documentURL ? `${patient.first_name} ${patient.last_name}` : '-',
-      link: documentURL ?? undefined,
+      link: documentURL
+        ? () => {
+            getPatientFile();
+            open(documentURL);
+            return;
+          }
+        : undefined,
     },
     {
       label: gdpr,
       value: gdprDocumentURL ? gdpr : '-',
-      link: gdprDocumentURL ?? undefined,
+      link: gdprDocumentURL
+        ? () => {
+            getGdprFile();
+            open(gdprDocumentURL);
+            return;
+          }
+        : undefined,
     },
   ];
 
@@ -114,7 +122,6 @@ export default function ProfileOverview({
           <EditPatientForm
             formFunctionality='edit'
             formAction={editAction}
-            onSave={() => setRefreshFile((prev) => !prev)}
             formFields={[
               {
                 element: 'firstName',
