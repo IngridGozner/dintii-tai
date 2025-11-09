@@ -31,6 +31,7 @@ type EditableTableProps = {
   initialSortOrder?: SortOrder;
   loadRows?: LoadRowsFunction;
   unsortableHeaders?: string[];
+  useHeaderTranslationForRows?: string[];
 };
 
 type SpecificTableProps = EditableTableProps & {
@@ -59,6 +60,7 @@ export default function EditableTable(props: SpecificTableProps) {
     initialSortOrder = 'asc',
     loadRows,
     unsortableHeaders = [],
+    useHeaderTranslationForRows = [],
   } = props;
 
   const t = useDictionary();
@@ -270,7 +272,7 @@ export default function EditableTable(props: SpecificTableProps) {
                         return (
                           <td
                             key={index}
-                            className={`${cellClasses} ${clickableCellHeader === header ? 'text-link hover:text-link-hover font-semibold' : ''}`}
+                            className={`${cellClasses} ${clickableCellHeader === header ? 'text-link hover:text-link-hover cursor-pointer font-semibold' : ''}`}
                             onClick={(e) => {
                               if (
                                 clickableCell &&
@@ -300,6 +302,13 @@ export default function EditableTable(props: SpecificTableProps) {
                                     : 'terms not accepted'
                                 }
                               />
+                            ) : useHeaderTranslationForRows.includes(header) &&
+                              entry[header] != undefined ? (
+                              (t?.[
+                                convertSnakeToCamelCase(
+                                  header
+                                ) as keyof typeof t
+                              ] ?? header)
                             ) : (
                               entry[header]
                             )}

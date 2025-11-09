@@ -1,5 +1,5 @@
 import { SanityDocument } from 'next-sanity';
-import { PATIENT_BUCKET_FOLDER } from './types/GlobalTypes';
+import { TREATMENT_CONSENT } from './types/GlobalTypes';
 
 export function getEnglishNameFromInternationalizedField(
   document: SanityDocument,
@@ -79,6 +79,15 @@ export function isTouchDevice() {
   return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 }
 
-export function getPatientFileName(id: string) {
-  return `${PATIENT_BUCKET_FOLDER}/${id}`.trim();
+export function getPatientFileName(
+  id: string | number,
+  fileName: string
+): string {
+  return `${id}/${fileName}`.trim();
+}
+
+export function getTreatmentConsentFileName(
+  treatmentID: string | number
+): string {
+  return `${TREATMENT_CONSENT}/${treatmentID}`.trim();
 }

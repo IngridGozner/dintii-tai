@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { getPatientFileURL } from '@/supabase/actions/bucketActions';
 import { EditPatientForm } from '@/components/molecules/EditForm';
 import { DeletePatientButton } from '@/components/molecules/DeleteButton';
+import { GDPR_FILENAME, PATIENT_FILE_NAME } from '@/types/GlobalTypes';
 
 export type ProfileOverviewProps = {
   patient: NonNullable<PatientType>;
@@ -30,28 +31,44 @@ export default function ProfileOverview({
     city,
     country,
     patientFile,
+    gdpr,
   } = useDictionary();
 
   const [documentURL, setDocumentURL] = useState<string | null>(null);
+  const [gdprDocumentURL, setGdprDocumentURL] = useState<string | null>(null);
+
   const phoneNumber = getWhatsAppLink(patient?.phone ?? '');
-  const filePath = getPatientFileName(patient?.id?.toString() ?? '');
+  const filePath = getPatientFileName(
+    patient?.id?.toString() ?? '',
+    PATIENT_FILE_NAME
+  );
+
+  const gdprFilePath = getPatientFileName(
+    patient?.id?.toString() ?? '',
+    GDPR_FILENAME
+  );
+
   const [refreshFile, setRefreshFile] = useState(false);
 
   useEffect(() => {
     let url: string | null = null;
+    let gdprUrl: string | null = null;
 
     async function fetchFile() {
       await new Promise((resolve) => setTimeout(resolve, 500));
 
       url = await getPatientFileURL(filePath);
+      gdprUrl = await getPatientFileURL(gdprFilePath);
 
       setDocumentURL(url);
+      setGdprDocumentURL(gdprUrl);
     }
 
     fetchFile();
 
     return () => {
       if (url) URL.revokeObjectURL(url);
+      if (gdprUrl) URL.revokeObjectURL(gdprUrl);
     };
   }, [refreshFile]);
 
@@ -70,8 +87,13 @@ export default function ProfileOverview({
     { label: country, value: patient?.country },
     {
       label: patientFile,
-      value: documentURL ? `${patient.first_name}_${patient.last_name}` : '-',
+      value: documentURL ? `${patient.first_name} ${patient.last_name}` : '-',
       link: documentURL ?? undefined,
+    },
+    {
+      label: gdpr,
+      value: gdprDocumentURL ? gdpr : '-',
+      link: gdprDocumentURL ?? undefined,
     },
   ];
 
@@ -147,6 +169,11 @@ export default function ProfileOverview({
               {
                 element: 'patientFile',
                 label: patientFile,
+                type: 'file',
+              },
+              {
+                element: 'gdprFile',
+                label: gdpr,
                 type: 'file',
               },
               {

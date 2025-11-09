@@ -9,6 +9,8 @@ import {
   editTreatment,
 } from '@/supabase/actions/treatmentActions';
 import { LoadRowsFunction, SupabaseArray } from '@/types/GeneralTypes';
+import { getPatientFileName, getTreatmentConsentFileName } from '@/helpers';
+import { getPatientFileURL } from '@/supabase/actions/bucketActions';
 
 export type TreatmentsOverviewProps = {
   data: SupabaseArray;
@@ -23,9 +25,20 @@ export default function TreatmentsOverview({
   patientID,
   loadRows,
 }: TreatmentsOverviewProps) {
-  const { treatment, date, price, gdpr, consent } = useDictionary();
+  const { treatment, date, price, consentFile } = useDictionary();
 
   const today = new Date().toISOString().slice(0, 10);
+
+  const getConsentFile = async (treatmentID: string) => {
+    const filePath = getPatientFileName(
+      patientID.toString(),
+      getTreatmentConsentFileName(treatmentID)
+    );
+
+    const documentURL = await getPatientFileURL(filePath);
+
+    return documentURL;
+  };
 
   const formFields = [
     {
@@ -46,16 +59,10 @@ export default function TreatmentsOverview({
       type: 'number',
     },
     {
-      element: 'gdpr',
-      label: gdpr,
+      element: 'consentFile',
+      label: consentFile,
       value: undefined,
-      type: 'checkbox',
-    },
-    {
-      element: 'consent',
-      label: consent,
-      value: undefined,
-      type: 'checkbox',
+      type: 'file',
     },
     {
       element: 'patientID',
@@ -78,6 +85,15 @@ export default function TreatmentsOverview({
         loadRows={(from, to, ascending, element) =>
           loadRows(from, to, ascending, element, patientID)
         }
+        clickableCell={{
+          clickableCellHeader: 'consent_file',
+          clickableCellFunction: async (rowData) => {
+            const link = await getConsentFile(rowData.id.toString());
+
+            if (link) open(link);
+          },
+        }}
+        useHeaderTranslationForRows={['consent_file']}
         tableHeader={
           <>
             <div className='border-font/20 mb-2 flex flex-row border-b-2 border-dashed pb-2'>
