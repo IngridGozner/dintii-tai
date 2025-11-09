@@ -51,18 +51,18 @@ export default function DeleteButton({
             <div className='text-xl text-white'>{message}</div>
             <div className='flex flex-col gap-y-2 md:flex-row md:gap-x-3'>
               <Button
-                label={yes ?? ''}
-                onClick={handleFormSubmission}
-                className='w-full rounded-full'
-                iconName='check_circle'
-                type='button'
-              />
-              <Button
                 label={no ?? ''}
                 onClick={closeDialog}
                 className='w-full rounded-full'
                 type='button'
                 iconName='cancel'
+              />
+              <Button
+                label={yes ?? ''}
+                onClick={handleFormSubmission}
+                className='w-full rounded-full'
+                iconName='check_circle'
+                type='button'
               />
             </div>
           </div>,

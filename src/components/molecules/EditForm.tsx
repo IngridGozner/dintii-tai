@@ -89,6 +89,13 @@ export default function EditForm({
             ) : (
               <div className='flex flex-col gap-y-2 md:flex-row md:gap-x-3'>
                 <Button
+                  label={cancel ?? ''}
+                  className='w-full rounded-full text-center'
+                  onClick={closeDialog}
+                  iconName='cancel'
+                  type='button'
+                />
+                <Button
                   formAction={async (formData) =>
                     handleFormSubmission(formData)
                   }
@@ -96,13 +103,6 @@ export default function EditForm({
                   className='w-full rounded-full text-center'
                   iconName='save'
                   onClick={() => onSave && onSave()}
-                />
-                <Button
-                  label={cancel ?? ''}
-                  className='w-full rounded-full text-center'
-                  onClick={closeDialog}
-                  iconName='cancel'
-                  type='button'
                 />
               </div>
             )}
