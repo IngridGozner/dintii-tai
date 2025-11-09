@@ -5,11 +5,19 @@ import { revalidatePath } from 'next/cache';
 import { createClient } from '@/supabase/server';
 import { notFound } from 'next/navigation';
 import {
+  GDPR_FILENAME,
   PATIENT_DATABASE,
+  PATIENT_FILE_NAME,
   PATIENTS_PATH,
   ROWS_TO_LOAD,
+  TREATMENT_CONSENT,
 } from '@/types/GlobalTypes';
-import { addPatientFile, deletePatientFile } from './bucketActions';
+import {
+  addPatientFile,
+  deleteFolder,
+  deletePatientFile,
+  updatePatientFile,
+} from './bucketActions';
 import { getPatientFileName } from '@/helpers';
 
 export async function addPatient(formData: FormData) {
@@ -38,6 +46,7 @@ export async function addPatient(formData: FormData) {
   if (newPatient && patientFile.size) {
     const patientFileId = await addPatientFile(
       `${newPatient.id.toString()}`,
+      PATIENT_FILE_NAME,
       patientFile
     );
 
@@ -94,11 +103,11 @@ export async function editPatient(formData: FormData) {
   const supabase = await createClient();
 
   const id = formData.get('id')?.toString().trim();
-  let patientFileID = null;
 
   if (!id) return;
 
   const patientFile = formData.get('patientFile') as File;
+  const gdprFile = formData.get('gdprFile') as File;
 
   const data = {
     first_name: formData.get('firstName'),
@@ -116,19 +125,20 @@ export async function editPatient(formData: FormData) {
     .update(data)
     .eq('id', id);
 
-  if (patientFile.size) {
-    patientFileID = await addPatientFile(id, patientFile);
-
-    const { error: fileError } = await supabase
-      .from(PATIENT_DATABASE)
-      .update({ patient_file_id: patientFileID })
-      .eq('id', id);
-
-    if (fileError) {
-      console.error(`Error adding file for ${id}: ${patientFileID}`, fileError);
-      throw fileError;
-    }
-  }
+  await updatePatientFile(
+    id,
+    PATIENT_FILE_NAME,
+    patientFile,
+    PATIENT_DATABASE,
+    'patient_file_id'
+  );
+  await updatePatientFile(
+    id,
+    GDPR_FILENAME,
+    gdprFile,
+    PATIENT_DATABASE,
+    'gdpr_file_id'
+  );
 
   if (error) throw error;
 
@@ -146,8 +156,18 @@ export async function deletePatient(id: number) {
     .eq('id', id)
     .select();
 
-  if (deletedPatient && deletedPatient[0].patient_file_id) {
-    deletePatientFile(getPatientFileName(id.toString()));
+  if (deletedPatient) {
+    if (deletedPatient[0].patient_file_id) {
+      await deletePatientFile(
+        getPatientFileName(id.toString(), PATIENT_FILE_NAME)
+      );
+    }
+
+    if (deletedPatient[0].gdpr_file_id) {
+      await deletePatientFile(getPatientFileName(id.toString(), GDPR_FILENAME));
+    }
+
+    deleteFolder(`${id.toString()}/${TREATMENT_CONSENT}`);
   }
 
   if (error) {

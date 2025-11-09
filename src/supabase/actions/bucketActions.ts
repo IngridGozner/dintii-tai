@@ -4,20 +4,27 @@ import { getPatientFileName } from '@/helpers';
 import { createClient } from '@/supabase/server';
 import { PATIENT_FILE_BUCKET } from '@/types/GlobalTypes';
 
-export async function addPatientFile(patientID: string, file: File) {
+export async function addPatientFile(
+  patientID: string,
+  fileName: string,
+  file: File
+) {
   const supabase = await createClient();
 
   if (!patientID || !file) return null;
 
   const { data, error } = await supabase.storage
     .from(PATIENT_FILE_BUCKET)
-    .upload(getPatientFileName(patientID), file, {
+    .upload(getPatientFileName(patientID, fileName), file, {
       cacheControl: '3600',
       upsert: true,
     });
 
   if (error) {
-    console.error(`Error uploading file for ${patientID}: ${file}`, error);
+    console.error(
+      `Error uploading file for ${patientID}: ${fileName} for ${file}`,
+      error
+    );
     throw error;
   }
 
@@ -29,7 +36,7 @@ export async function deletePatientFile(fileName: string) {
 
   const { error } = await supabase.storage
     .from(PATIENT_FILE_BUCKET)
-    .remove(['patient_files/44']);
+    .remove([fileName]);
 
   if (error) {
     console.error(
@@ -75,3 +82,56 @@ export async function getPatientFileURL(fileName: string) {
 
   return data?.signedUrl;
 }
+
+export async function updatePatientFile(
+  id: string,
+  fileName: string,
+  file: File,
+  database: string,
+  fileType: string,
+  treatmentID?: string
+) {
+  if (!file || !file?.size) return;
+
+  const supabase = await createClient();
+  const newFileID = await addPatientFile(id, fileName, file);
+
+  const { error: fileError } = await supabase
+    .from(database)
+    .update({ [fileType]: newFileID })
+    .eq('id', treatmentID ? treatmentID : id);
+
+  if (fileError) {
+    console.error(
+      `Error adding file ${fileName} for patient ${id}: ${newFileID}`,
+      fileError
+    );
+    throw fileError;
+  }
+}
+
+export const deleteFolder = async (folderName: string) => {
+  const supabase = await createClient();
+
+  const { data: list, error } = await supabase.storage
+    .from(PATIENT_FILE_BUCKET)
+    .list(folderName);
+
+  if (error) {
+    console.error(`Error listing folder: ${folderName}`, error);
+    throw error;
+  }
+
+  const filesToRemove = list?.map((x) => `${folderName}/${x.name}`);
+
+  if (!filesToRemove || filesToRemove.length === 0) return;
+
+  const { error: errorRemoveFiles } = await supabase.storage
+    .from(PATIENT_FILE_BUCKET)
+    .remove(filesToRemove);
+
+  if (errorRemoveFiles) {
+    console.error(`Error deleting folder: ${folderName}`, errorRemoveFiles);
+    throw errorRemoveFiles;
+  }
+};

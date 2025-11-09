@@ -9,26 +9,53 @@ import {
   TREATMENT_DATABASE,
 } from '@/types/GlobalTypes';
 import { TreatmentType } from '@/types/TreatmentType';
+import {
+  addPatientFile,
+  deletePatientFile,
+  updatePatientFile,
+} from './bucketActions';
+import { getPatientFileName, getTreatmentConsentFileName } from '@/helpers';
 
 export async function addTreatment(formData: FormData) {
   const supabase = await createClient();
+
+  const consentFile = formData.get('consentFile') as File;
 
   const treatmentData: TreatmentType = {
     date: formData.get('date')?.toString() || null,
     price: Number(formData.get('price')) || null,
     treatment: formData.get('treatment')?.toString() || null,
-    gdpr: Boolean(formData.get('gdpr')),
-    consent: Boolean(formData.get('consent')),
     patientID: Number(formData.get('patientID')),
+    consent_file: null,
   };
 
-  const { error } = await supabase
+  const { data: newTreatment, error } = await supabase
     .from(TREATMENT_DATABASE)
-    .insert(treatmentData);
+    .insert(treatmentData)
+    .select()
+    .single();
 
   if (error) {
     console.error('Error adding treatment:', error);
     throw error;
+  }
+
+  if (consentFile && consentFile.size) {
+    const consentFileId = await addPatientFile(
+      `${treatmentData.patientID.toString()}`,
+      getTreatmentConsentFileName(newTreatment.id),
+      consentFile
+    );
+
+    const { error: fileError } = await supabase
+      .from(TREATMENT_DATABASE)
+      .update({ consent_file: consentFileId })
+      .eq('id', newTreatment.id);
+
+    if (fileError) {
+      console.error('Error adding consent file for treatment:', fileError);
+      throw fileError;
+    }
   }
 
   revalidatePath(`${PATIENTS_PATH}/${treatmentData.patientID}`);
@@ -45,12 +72,17 @@ export async function getPatientTreatments(
 
   const supabase = await createClient();
 
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from(TREATMENT_DATABASE)
-    .select('id, date, treatment, price, gdpr, consent')
+    .select('id, date, treatment, price, consent_file')
     .eq('patientID', id)
     .order(element, { ascending: ascending })
     .range(from, to);
+
+  if (error) {
+    console.error('Error fetching treatments:', error);
+    return [];
+  }
 
   return data;
 }
@@ -58,23 +90,34 @@ export async function getPatientTreatments(
 export async function editTreatment(formData: FormData) {
   const supabase = await createClient();
 
-  const id = formData.get('id');
+  const id = formData.get('id')?.toString().trim();
+  const patientID = Number(formData.get('patientID'));
 
-  if (!id) return;
+  if (!id || !patientID) return;
+
+  const consentFile = formData.get('consentFile') as File;
 
   const treatmentData: TreatmentType = {
     date: formData.get('date')?.toString() || null,
     price: Number(formData.get('price')) || null,
     treatment: formData.get('treatment')?.toString() || null,
-    gdpr: Boolean(formData.get('gdpr')),
-    consent: Boolean(formData.get('consent')),
-    patientID: Number(formData.get('patientID')),
+    consent_file: null,
+    patientID: patientID,
   };
 
   const { error } = await supabase
     .from(TREATMENT_DATABASE)
     .update(treatmentData)
     .eq('id', id);
+
+  await updatePatientFile(
+    patientID.toString(),
+    getTreatmentConsentFileName(id),
+    consentFile,
+    TREATMENT_DATABASE,
+    'consent_file',
+    id
+  );
 
   if (error) throw error;
 
@@ -84,11 +127,28 @@ export async function editTreatment(formData: FormData) {
 export async function deleteTreatment(id: number) {
   const supabase = await createClient();
 
-  const deletedTreatment = await supabase
+  const { data: deletedTreatment, error } = await supabase
     .from(TREATMENT_DATABASE)
     .delete()
     .eq('id', id)
-    .select();
+    .select()
+    .single();
 
-  revalidatePath(`${PATIENTS_PATH}/${deletedTreatment?.data?.[0]?.patientID}`);
+  if (error) {
+    console.error(`Error deleting treatment: ${deletedTreatment}`, error);
+    throw error;
+  }
+
+  const patientID = deletedTreatment.patientID;
+
+  if (deletedTreatment?.consent_file) {
+    const fileName = getPatientFileName(
+      patientID,
+      getTreatmentConsentFileName(id)
+    );
+
+    deletePatientFile(fileName);
+  }
+
+  revalidatePath(`${PATIENTS_PATH}/${patientID}`);
 }
