@@ -20,11 +20,7 @@ export const dictionaryTreatmentType = defineType({
       type: 'internationalizedArrayString',
     }),
     defineField({
-      name: 'gdpr',
-      type: 'internationalizedArrayString',
-    }),
-    defineField({
-      name: 'consent',
+      name: 'consentFile',
       type: 'internationalizedArrayString',
     }),
   ],

@@ -108,6 +108,7 @@ export const DICTIONARY_PATIENT_QUERY =
     "city": city[_key == $language][0].value,
     "country": country[_key == $language][0].value,
     "patientFile": patientFile[_key == $language][0].value,
+    "gdpr": gdpr[_key == $language][0].value,
     "birthdate": birthdate[_key == $language][0].value,
     "cnp": cnp
   }`);
@@ -116,8 +117,7 @@ export const DICTIONARY_TREATMENT_QUERY =
   defineQuery(`*[_type == "dictionaryTreatment"][0]{
     "treatment": treatment[_key == $language][0].value,
     "price": price[_key == $language][0].value,
-    "gdpr": gdpr[_key == $language][0].value,
-    "consent": consent[_key == $language][0].value,
+    "consentFile": consentFile[_key == $language][0].value,
     "date": date[_key == $language][0].value,
   }`);
 

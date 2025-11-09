@@ -28,7 +28,7 @@ export const defaultDictionaryEntries: DICTIONARY_QUERYResult = {
   date: 'Date',
   price: 'Price',
   gdpr: 'GDPR',
-  consent: 'Consent',
+  consentFile: 'Consent',
   editPatient: 'Edit Patient',
   addPatient: 'Add Patient',
   deletePatient: 'Delete Patient',

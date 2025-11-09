@@ -2,7 +2,6 @@ export type TreatmentType = {
   date: string | null;
   price: number | null;
   treatment: string | null;
-  gdpr: boolean;
-  consent: boolean;
+  consent_file: string | null;
   patientID: number;
 };

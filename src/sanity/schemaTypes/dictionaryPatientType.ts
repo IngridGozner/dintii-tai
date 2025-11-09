@@ -24,6 +24,10 @@ export const dictionaryPatientType = defineType({
       type: 'internationalizedArrayString',
     }),
     defineField({
+      name: 'gdpr',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
       name: 'birthdate',
       type: 'internationalizedArrayString',
     }),

@@ -6,8 +6,11 @@ export const UPDATE_PASSWORD = '/login/update-password';
 
 export const PATIENT_DATABASE = 'patient';
 
-export const PATIENT_BUCKET_FOLDER = 'patient_files';
 export const PATIENT_FILE_BUCKET = 'patients';
+
+export const GDPR_FILENAME = 'gdpr_consent';
+export const TREATMENT_CONSENT = 'informed_consent';
+export const PATIENT_FILE_NAME = 'patient_file';
 
 export const TREATMENT_DATABASE = 'treatment';
 
