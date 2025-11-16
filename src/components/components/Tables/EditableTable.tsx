@@ -345,7 +345,7 @@ export default function EditableTable(props: SpecificTableProps) {
           {moreDataToLoad && <Loading ref={containerRef} />}
         </div>
       ) : (
-        <div>{emptyTableMessage}</div>
+        <div className='col-span-6 md:col-span-12'>{emptyTableMessage}</div>
       )}
     </>
   );
