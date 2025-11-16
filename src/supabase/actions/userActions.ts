@@ -4,7 +4,11 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 import { createClient } from '@/supabase/server';
-import { LOGIN_PATH, UPDATE_PASSWORD } from '@/types/GlobalTypes';
+import {
+  DASHBOARD_PATH,
+  LOGIN_PATH,
+  UPDATE_PASSWORD,
+} from '@/types/GlobalTypes';
 
 export async function login(formData: FormData) {
   const supabase = await createClient();
@@ -21,7 +25,7 @@ export async function login(formData: FormData) {
   }
 
   revalidatePath('/', 'layout');
-  redirect('/dashboard');
+  redirect(DASHBOARD_PATH);
 }
 
 export async function signOut() {
@@ -61,4 +65,27 @@ export async function updatePassword(formData: FormData) {
   const newPassword = formData.get('newPassword')?.toString();
 
   await supabase.auth.updateUser({ password: newPassword });
+}
+
+export async function registerUser(formData: FormData) {
+  const supabase = await createClient();
+
+  const userData = {
+    email: formData.get('email') as string,
+    password: formData.get('password') as string,
+    options: {
+      emailRedirectTo: DASHBOARD_PATH,
+    },
+  };
+
+  const { error } = await supabase.auth.signUp(userData);
+
+  if (error) {
+    return { success: false, message: error.message };
+  } else {
+    return {
+      success: true,
+      message: 'New user added successfully. Email has to be validated!',
+    };
+  }
 }

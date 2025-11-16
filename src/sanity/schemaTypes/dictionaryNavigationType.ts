@@ -24,6 +24,10 @@ export const dictionaryNavigationType = defineType({
       type: 'internationalizedArrayString',
     }),
     defineField({
+      name: 'addNewUser',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
       name: 'logout',
       type: 'internationalizedArrayString',
     }),

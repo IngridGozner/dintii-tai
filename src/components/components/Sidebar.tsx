@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { signOut } from '@/supabase/actions/userActions';
 import {
   DASHBOARD_PATH,
+  NEW_USER_PATH,
   PATIENTS_PATH,
   STUDIO_PATH,
 } from '@/types/GlobalTypes';
@@ -19,29 +20,35 @@ export default function Sidebar({ menuOpen, setMenuOpen }: MenuProps) {
   const dictionary = useDictionary();
   const [activeTab, setActiveTab] = useState<string | null>('');
 
-  const { menu, general } = dictionary || defaultDictionaryEntries;
+  const { menu, general, addNewUser, dashboard, patients, studio, logout } =
+    dictionary || defaultDictionaryEntries;
 
   const menuLinks = [
     {
-      name: dictionary?.dashboard || '',
+      name: dashboard || '',
       href: DASHBOARD_PATH,
       icon: 'dashboard',
     },
     {
-      name: dictionary?.patients || '',
+      name: patients || '',
       href: PATIENTS_PATH,
       icon: 'perm_identity',
     },
   ];
   const generalLinks = [
     {
-      name: dictionary.studio || '',
+      name: studio || '',
       href: STUDIO_PATH,
       icon: 'edit_note',
       target: '_blank',
     },
     {
-      name: dictionary?.logout || '',
+      name: addNewUser || '',
+      href: NEW_USER_PATH,
+      icon: 'person_add',
+    },
+    {
+      name: logout || '',
       onClick: () => {
         signOut();
       },

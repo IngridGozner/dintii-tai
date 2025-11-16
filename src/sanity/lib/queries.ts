@@ -83,6 +83,7 @@ export const DICTIONARY_NAVIGATION_QUERY =
     "patients":patients[_key == $language][0].value,
     "menu":menu[_key == $language][0].value,
     "general":general[_key == $language][0].value,
+    "addNewUser":addNewUser[_key == $language][0].value,
     "logout":logout[_key == $language][0].value,
     "profile": profile[_key == $language][0].value,
     "backToPatients": backToPatients[_key == $language][0].value,

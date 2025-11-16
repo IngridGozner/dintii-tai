@@ -43,7 +43,7 @@ export function Input(props: InputProps) {
         id={element}
         type={type}
         name={element}
-        className={`${isCheckbox ? checkboxStylesInput : `peer w-full min-w-72 rounded-lg border-b bg-white p-3 placeholder:text-transparent`} ${className ?? ''}`}
+        className={`${isCheckbox ? checkboxStylesInput : `peer w-full min-w-72 rounded-lg border border-gray-500 bg-white p-3 placeholder:text-transparent`} ${className ?? ''}`}
         placeholder='name'
         required={required}
         autoComplete={autoComplete ?? 'off'}

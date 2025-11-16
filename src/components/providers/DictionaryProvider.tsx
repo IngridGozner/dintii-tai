@@ -12,6 +12,7 @@ export const defaultDictionaryEntries: DICTIONARY_QUERYResult = {
   schedule: 'Schedule',
   login: 'Login',
   email: 'Email',
+  addNewUser: 'Add New User',
   logout: 'Logout',
   patients: 'Patients',
   password: 'Password',
