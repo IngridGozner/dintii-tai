@@ -1,7 +1,11 @@
-import DashboardClientWrapper from '@/components/components/Dashboard/DashboardClientWrapper';
 import { createClient } from '@/supabase/server';
 import { LOGIN_PATH } from '@/types/GlobalTypes';
 import { redirect } from 'next/navigation';
+import { lazy } from 'react';
+
+const DashboardClientWrapper = lazy(
+  () => import('@/components/components/Dashboard/DashboardClientWrapper')
+);
 
 export default async function DashboardLayout({
   children,

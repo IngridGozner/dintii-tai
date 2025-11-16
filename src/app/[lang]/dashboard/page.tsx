@@ -13,3 +13,5 @@ export default function Dashboard() {
     </Container>
   );
 }
+
+export const revalidate = 300;

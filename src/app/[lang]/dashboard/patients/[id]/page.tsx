@@ -7,8 +7,12 @@ import {
   addTreatment,
   getPatientTreatments,
 } from '@/supabase/actions/treatmentActions';
-import PatientClientWrapper from '@/components/components/PatientClientWrapper';
 import { ROWS_TO_LOAD } from '@/types/GlobalTypes';
+import { lazy } from 'react';
+
+const PatientClientWrapper = lazy(
+  () => import('@/components/components/PatientClientWrapper')
+);
 
 export default async function PatientDetail({
   params,
@@ -34,3 +38,5 @@ export default async function PatientDetail({
     />
   );
 }
+
+export const revalidate = 300;
