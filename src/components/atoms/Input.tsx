@@ -12,6 +12,7 @@ export type InputProps = PropsWithChildren & {
   className?: string;
   containerClassName?: string;
   autoComplete?: string;
+  pattern?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   ref?: Ref<HTMLInputElement>;
 };
@@ -28,9 +29,8 @@ export function Input(props: InputProps) {
     containerClassName,
     autoComplete,
     labelClassName,
-    onChange,
     children,
-    ref,
+    ...rest
   } = props;
 
   const isCheckbox = type === 'checkbox';
@@ -52,8 +52,7 @@ export function Input(props: InputProps) {
         autoComplete={autoComplete ?? 'off'}
         readOnly={readOnly}
         defaultValue={value}
-        ref={ref}
-        onChange={onChange}
+        {...rest}
         {...(isCheckbox && Boolean(value) === true
           ? { defaultChecked: true }
           : {})}
@@ -62,7 +61,7 @@ export function Input(props: InputProps) {
         <Button
           asLink
           iconName={showPassword ? 'visibility_off' : 'visibility'}
-          className='absolute top-3 right-3'
+          className='absolute top-3 right-4'
           onClick={() => {
             setShowPassword(!showPassword);
           }}
