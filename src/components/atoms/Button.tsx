@@ -36,9 +36,13 @@ export function Button({
   const buttonContent = (
     <>
       {iconPlacement === 'left' && icon}
-      <span className={iconName && iconPlacement === 'left' ? 'ml-2' : 'mr-2'}>
-        {label ? label : ''}
-      </span>
+      {label != undefined && (
+        <span
+          className={iconName && iconPlacement === 'left' ? 'ml-2' : 'mr-2'}
+        >
+          {label ? label : ''}
+        </span>
+      )}
       {iconPlacement === 'right' && icon}
     </>
   );
