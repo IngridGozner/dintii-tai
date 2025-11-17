@@ -58,7 +58,7 @@ export function Input(props: InputProps) {
           ? { defaultChecked: true }
           : {})}
       />
-      {element === 'password' && (
+      {type === 'password' && (
         <Button
           asLink
           iconName={showPassword ? 'visibility' : 'visibility_off'}
