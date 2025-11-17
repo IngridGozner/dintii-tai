@@ -1,4 +1,5 @@
-import { PropsWithChildren, Ref } from 'react';
+import { PropsWithChildren, Ref, useState } from 'react';
+import { Button } from './Button';
 
 export type InputProps = PropsWithChildren & {
   label: string | null;
@@ -37,11 +38,13 @@ export function Input(props: InputProps) {
   const checkboxStylesInput = 'w-fit mr-3';
   const checkboxStylesLabel = 'text-white';
 
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <div className={`relative ${containerClassName || ''}`}>
       <input
         id={element}
-        type={type}
+        type={type === 'password' ? (showPassword ? 'text' : 'password') : type}
         name={element}
         className={`${isCheckbox ? checkboxStylesInput : `peer w-full min-w-72 rounded-lg border border-gray-500 bg-white p-3 placeholder:text-transparent`} ${className ?? ''}`}
         placeholder='name'
@@ -55,6 +58,19 @@ export function Input(props: InputProps) {
           ? { defaultChecked: true }
           : {})}
       />
+      {element === 'password' && (
+        <Button
+          asLink
+          iconName={showPassword ? 'visibility' : 'visibility_off'}
+          className='absolute top-3 right-3'
+          onClick={() => {
+            setShowPassword(!showPassword);
+          }}
+          type='button'
+          ariaLabel='toggle password visibility'
+        />
+      )}
+
       {children}
       {type != 'hidden' && (
         <label
