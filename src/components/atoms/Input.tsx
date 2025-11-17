@@ -61,7 +61,7 @@ export function Input(props: InputProps) {
       {type === 'password' && (
         <Button
           asLink
-          iconName={showPassword ? 'visibility' : 'visibility_off'}
+          iconName={showPassword ? 'visibility_off' : 'visibility'}
           className='absolute top-3 right-3'
           onClick={() => {
             setShowPassword(!showPassword);
