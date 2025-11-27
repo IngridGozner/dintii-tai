@@ -2,16 +2,17 @@
 
 import Dialog from '@/components/components/Dialog';
 import { useDictionary } from '@/components/providers/DictionaryProvider';
+import { login } from '@/supabase/actions/userActions';
 import { lazy } from 'react';
 
-const LoginForm = lazy(() => import('@/components/molecules/LoginForm'));
+const UserForm = lazy(() => import('@/components/molecules/UserForm'));
 
 export default function LoginPage() {
   const { login: loginEntry } = useDictionary();
 
   return (
     <Dialog headline={loginEntry ?? 'Login'} closeButton={false}>
-      <LoginForm />
+      <UserForm formAction={login} />
     </Dialog>
   );
 }

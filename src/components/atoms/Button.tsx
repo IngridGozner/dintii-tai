@@ -2,11 +2,11 @@ import { GoogleIcon, GoogleIconProps } from './GoogleIcon';
 
 export type ButtonProps = Partial<GoogleIconProps> & {
   className?: string;
-  label?: string;
+  label?: string | null;
   onClick?: () => void;
   href?: string;
   asLink?: boolean;
-  type?: 'button' | 'submit';
+  type?: 'button' | 'submit' | 'reset';
   iconPlacement?: 'left' | 'right';
   formAction?: (formData: FormData) => Promise<void>;
 };

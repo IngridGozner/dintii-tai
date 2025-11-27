@@ -55,16 +55,32 @@ export async function resetPassword(formData: FormData) {
 
   if (!email) return;
 
-  await supabase.auth.resetPasswordForEmail(email, {
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo: UPDATE_PASSWORD,
   });
+
+  if (error) {
+    return { success: false, message: error.message };
+  } else {
+    return {
+      success: true,
+      message: 'Password reset email sent successfully.',
+    };
+  }
 }
 
 export async function updatePassword(formData: FormData) {
   const supabase = await createClient();
-  const newPassword = formData.get('newPassword')?.toString();
 
-  await supabase.auth.updateUser({ password: newPassword });
+  const newPassword = formData.get('password')?.toString();
+  const { error } = await supabase.auth.updateUser({ password: newPassword });
+
+  //TODO: handle error status 422/check why it occurs
+  if (error && error.status != 422) {
+    return { success: false, message: error.message };
+  } else {
+    return { success: true, message: 'Password updated successfully' };
+  }
 }
 
 export async function registerUser(formData: FormData) {
