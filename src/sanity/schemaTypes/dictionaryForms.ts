@@ -1,38 +1,46 @@
 import { DocumentTextIcon } from '@sanity/icons';
 import { defineField, defineType } from 'sanity';
 
-export const dictionaryGeneralType = defineType({
-  name: 'dictionaryGeneral',
-  title: 'Dictionary General',
+export const dictionaryFormType = defineType({
+  name: 'dictionaryForm',
+  title: 'Dictionary Forms',
   type: 'document',
   icon: DocumentTextIcon,
   fields: [
     defineField({
-      name: 'aboutUs',
+      name: 'backToLogin',
       type: 'internationalizedArrayString',
     }),
     defineField({
-      name: 'contact',
+      name: 'resetPassword',
       type: 'internationalizedArrayString',
     }),
     defineField({
-      name: 'prices',
+      name: 'updatePassword',
       type: 'internationalizedArrayString',
     }),
     defineField({
-      name: 'pricesTableTitle',
+      name: 'login',
       type: 'internationalizedArrayString',
     }),
     defineField({
-      name: 'schedule',
+      name: 'email',
       type: 'internationalizedArrayString',
     }),
     defineField({
-      name: 'studio',
-      type: 'string',
+      name: 'password',
+      type: 'internationalizedArrayString',
     }),
     defineField({
-      name: 'search',
+      name: 'confirmPassword',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'forgotPassword',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'passwordDoNotMatch',
       type: 'internationalizedArrayString',
     }),
   ],

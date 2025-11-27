@@ -1,6 +1,7 @@
 import {
   DICTIONARY_EDIT_QUERYResult,
   DICTIONARY_FEEDBACK_QUERYResult,
+  DICTIONARY_FORM_QUERYResult,
   DICTIONARY_GENERAL_QUERYResult,
   DICTIONARY_NAVIGATION_QUERYResult,
   DICTIONARY_PATIENT_QUERYResult,
@@ -41,7 +42,8 @@ export type DICTIONARY_QUERYResult = NonNullable<DICTIONARY_EDIT_QUERYResult> &
   NonNullable<DICTIONARY_NAVIGATION_QUERYResult> &
   NonNullable<DICTIONARY_PATIENT_QUERYResult> &
   NonNullable<DICTIONARY_TREATMENT_QUERYResult> &
-  NonNullable<DICTIONARY_FEEDBACK_QUERYResult>;
+  NonNullable<DICTIONARY_FEEDBACK_QUERYResult> &
+  NonNullable<DICTIONARY_FORM_QUERYResult>;
 
 export type SupabaseArray = { [key: string]: string }[] | [] | null;
 

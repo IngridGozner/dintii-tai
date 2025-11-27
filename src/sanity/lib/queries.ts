@@ -69,9 +69,6 @@ export const DICTIONARY_GENERAL_QUERY =
     "prices": prices[_key == $language][0].value,
     "contact":contact[_key == $language][0].value,
     "pricesTableTitle":pricesTableTitle[_key == $language][0].value,
-    "login":login[_key == $language][0].value,
-    "email":email[_key == $language][0].value,
-    "password":password[_key == $language][0].value,
     "schedule":schedule[_key == $language][0].value,
     "studio":studio,
     "search":search[_key == $language][0].value,
@@ -132,4 +129,17 @@ export const DICTIONARY_FEEDBACK_QUERY =
     "emptyTreatmentData": emptyTreatmentData[_key == $language][0].value,
     "yes": yes[_key == $language][0].value,
     "no": no[_key == $language][0].value,
+  }`);
+
+export const DICTIONARY_FORM_QUERY =
+  defineQuery(`*[_type == "dictionaryForm"][0]{
+    "backToLogin":backToLogin[_key == $language][0].value,
+    "resetPassword": resetPassword[_key == $language][0].value,
+    "updatePassword":updatePassword[_key == $language][0].value,
+    "forgotPassword":forgotPassword[_key == $language][0].value,
+    "login":login[_key == $language][0].value,
+    "email":email[_key == $language][0].value,
+    "password":password[_key == $language][0].value,
+    "confirmPassword":confirmPassword[_key == $language][0].value,
+    "passwordDoNotMatch":passwordDoNotMatch[_key == $language][0].value,
   }`);

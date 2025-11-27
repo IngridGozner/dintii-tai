@@ -13,6 +13,59 @@
  */
 
 // Source: schema.json
+export type DictionaryForm = {
+  _id: string;
+  _type: 'dictionaryForm';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  backToLogin?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  resetPassword?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  updatePassword?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  login?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  email?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  password?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  confirmPassword?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  forgotPassword?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  passwordDoNotMatch?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+};
+
 export type DictionaryFeedback = {
   _id: string;
   _type: 'dictionaryFeedback';
@@ -83,21 +136,6 @@ export type DictionaryGeneral = {
     } & InternationalizedArrayStringValue
   >;
   pricesTableTitle?: Array<
-    {
-      _key: string;
-    } & InternationalizedArrayStringValue
-  >;
-  login?: Array<
-    {
-      _key: string;
-    } & InternationalizedArrayStringValue
-  >;
-  email?: Array<
-    {
-      _key: string;
-    } & InternationalizedArrayStringValue
-  >;
-  password?: Array<
     {
       _key: string;
     } & InternationalizedArrayStringValue
@@ -612,6 +650,7 @@ export type SanityAssetSourceData = {
 };
 
 export type AllSanitySchemaTypes =
+  | DictionaryForm
   | DictionaryFeedback
   | DictionaryGeneral
   | DictionaryEdit
@@ -801,15 +840,12 @@ export type TREATMENT_QUERYResult = Array<{
   }>;
 }>;
 // Variable: DICTIONARY_GENERAL_QUERY
-// Query: *[_type == "dictionaryGeneral"][0]{    "aboutUs":aboutUs[_key == $language][0].value,    "prices": prices[_key == $language][0].value,    "contact":contact[_key == $language][0].value,    "pricesTableTitle":pricesTableTitle[_key == $language][0].value,    "login":login[_key == $language][0].value,    "email":email[_key == $language][0].value,    "password":password[_key == $language][0].value,    "schedule":schedule[_key == $language][0].value,    "studio":studio,    "search":search[_key == $language][0].value,  }
+// Query: *[_type == "dictionaryGeneral"][0]{    "aboutUs":aboutUs[_key == $language][0].value,    "prices": prices[_key == $language][0].value,    "contact":contact[_key == $language][0].value,    "pricesTableTitle":pricesTableTitle[_key == $language][0].value,    "schedule":schedule[_key == $language][0].value,    "studio":studio,    "search":search[_key == $language][0].value,  }
 export type DICTIONARY_GENERAL_QUERYResult = {
   aboutUs: string | null;
   prices: string | null;
   contact: string | null;
   pricesTableTitle: string | null;
-  login: string | null;
-  email: string | null;
-  password: string | null;
   schedule: string | null;
   studio: string | null;
   search: string | null;
@@ -871,6 +907,19 @@ export type DICTIONARY_FEEDBACK_QUERYResult = {
   yes: string | null;
   no: string | null;
 } | null;
+// Variable: DICTIONARY_FORM_QUERY
+// Query: *[_type == "dictionaryForm"][0]{    "backToLogin":backToLogin[_key == $language][0].value,    "resetPassword": resetPassword[_key == $language][0].value,    "updatePassword":updatePassword[_key == $language][0].value,    "forgotPassword":forgotPassword[_key == $language][0].value,    "login":login[_key == $language][0].value,    "email":email[_key == $language][0].value,    "password":password[_key == $language][0].value,    "confirmPassword":confirmPassword[_key == $language][0].value,    "passwordDoNotMatch":passwordDoNotMatch[_key == $language][0].value,  }
+export type DICTIONARY_FORM_QUERYResult = {
+  backToLogin: string | null;
+  resetPassword: string | null;
+  updatePassword: string | null;
+  forgotPassword: string | null;
+  login: string | null;
+  email: string | null;
+  password: string | null;
+  confirmPassword: string | null;
+  passwordDoNotMatch: string | null;
+} | null;
 
 // Query TypeMap
 import '@sanity/client';
@@ -882,11 +931,12 @@ declare module '@sanity/client' {
     '*[_type == "article"]{\n  _id,\n  title[_key == $language][0]{value},\n  image,\n  body[_key == $language][0]{value},\n}': ARTICLE_QUERYResult;
     '*[_type == "article"][slug.current == $slug][0] {\n  _id,\n  title[_key == $language][0]{value},\n  image,\n  body[_key == $language][0]{value},\n  "plainContent":pt::text(body[_key == $language].value)\n}': ARTICLE_SLUG_QUERYResult;
     '*[_type == "treatmentGroup"] | order(order asc) {\n  _id,\n  name[_key == $language][0]{value},\n  order,\n  slug,\n  "treatments": *[_type == "treatment" && references(^._id)]\n    | order(name[_key == $language][0].value asc) {\n      _id,\n      name[_key == $language][0]{value},\n      price,\n      slug\n    }\n}': TREATMENT_QUERYResult;
-    '*[_type == "dictionaryGeneral"][0]{\n    "aboutUs":aboutUs[_key == $language][0].value,\n    "prices": prices[_key == $language][0].value,\n    "contact":contact[_key == $language][0].value,\n    "pricesTableTitle":pricesTableTitle[_key == $language][0].value,\n    "login":login[_key == $language][0].value,\n    "email":email[_key == $language][0].value,\n    "password":password[_key == $language][0].value,\n    "schedule":schedule[_key == $language][0].value,\n    "studio":studio,\n    "search":search[_key == $language][0].value,\n  }': DICTIONARY_GENERAL_QUERYResult;
+    '*[_type == "dictionaryGeneral"][0]{\n    "aboutUs":aboutUs[_key == $language][0].value,\n    "prices": prices[_key == $language][0].value,\n    "contact":contact[_key == $language][0].value,\n    "pricesTableTitle":pricesTableTitle[_key == $language][0].value,\n    "schedule":schedule[_key == $language][0].value,\n    "studio":studio,\n    "search":search[_key == $language][0].value,\n  }': DICTIONARY_GENERAL_QUERYResult;
     '*[_type == "dictionaryNavigation"][0]{\n    "dashboard":dashboard[_key == $language][0].value,\n    "patients":patients[_key == $language][0].value,\n    "menu":menu[_key == $language][0].value,\n    "general":general[_key == $language][0].value,\n    "addNewUser":addNewUser[_key == $language][0].value,\n    "logout":logout[_key == $language][0].value,\n    "profile": profile[_key == $language][0].value,\n    "backToPatients": backToPatients[_key == $language][0].value,\n  }': DICTIONARY_NAVIGATION_QUERYResult;
     '*[_type == "dictionaryEdit"][0]{\n    "addPatient": addPatient[_key == $language][0].value,\n    "editPatient": editPatient[_key == $language][0].value,\n    "deletePatient": deletePatient[_key == $language][0].value,\n    "addTreatment": addTreatment[_key == $language][0].value,\n    "editTreatment": editTreatment[_key == $language][0].value,\n    "deleteTreatment": deleteTreatment[_key == $language][0].value,\n    "save": save[_key == $language][0].value,\n    "cancel": cancel[_key == $language][0].value,\n  }': DICTIONARY_EDIT_QUERYResult;
     '*[_type == "dictionaryPatient"][0]{\n    "firstName": firstName[_key == $language][0].value,\n    "lastName": lastName[_key == $language][0].value,\n    "phone": phone[_key == $language][0].value,\n    "city": city[_key == $language][0].value,\n    "country": country[_key == $language][0].value,\n    "patientFile": patientFile[_key == $language][0].value,\n    "gdpr": gdpr[_key == $language][0].value,\n    "birthdate": birthdate[_key == $language][0].value,\n    "cnp": cnp\n  }': DICTIONARY_PATIENT_QUERYResult;
     '*[_type == "dictionaryTreatment"][0]{\n    "treatment": treatment[_key == $language][0].value,\n    "price": price[_key == $language][0].value,\n    "consentFile": consentFile[_key == $language][0].value,\n    "date": date[_key == $language][0].value,\n  }': DICTIONARY_TREATMENT_QUERYResult;
     '*[_type == "dictionaryFeedback"][0]{\n    "successMessage": successMessage[_key == $language][0].value,\n    "errorMessage": errorMessage[_key == $language][0].value,\n    "deletePatientMessage": deletePatientMessage[_key == $language][0].value,\n    "deleteTreatmentMessage": deleteTreatmentMessage[_key == $language][0].value,\n    "emptyPatientData": emptyPatientData[_key == $language][0].value,\n    "emptyTreatmentData": emptyTreatmentData[_key == $language][0].value,\n    "yes": yes[_key == $language][0].value,\n    "no": no[_key == $language][0].value,\n  }': DICTIONARY_FEEDBACK_QUERYResult;
+    '*[_type == "dictionaryForm"][0]{\n    "backToLogin":backToLogin[_key == $language][0].value,\n    "resetPassword": resetPassword[_key == $language][0].value,\n    "updatePassword":updatePassword[_key == $language][0].value,\n    "forgotPassword":forgotPassword[_key == $language][0].value,\n    "login":login[_key == $language][0].value,\n    "email":email[_key == $language][0].value,\n    "password":password[_key == $language][0].value,\n    "confirmPassword":confirmPassword[_key == $language][0].value,\n    "passwordDoNotMatch":passwordDoNotMatch[_key == $language][0].value,\n  }': DICTIONARY_FORM_QUERYResult;
   }
 }

@@ -20,6 +20,7 @@ export const structure: StructureResolver = (S) =>
         'Dictionary Treatment'
       ),
       S.documentTypeListItem('dictionaryFeedback').title('Dictionary Feedback'),
+      S.documentTypeListItem('dictionaryForm').title('Dictionary Form'),
 
       S.divider(),
       ...S.documentTypeListItems().filter(
@@ -37,6 +38,7 @@ export const structure: StructureResolver = (S) =>
             'dictionaryPatient',
             'dictionaryTreatment',
             'dictionaryFeedback',
+            'dictionaryForm',
           ].includes(item.getId()!)
       ),
     ]);
