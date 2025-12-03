@@ -16,6 +16,14 @@ export const dictionaryNavigationType = defineType({
       type: 'internationalizedArrayString',
     }),
     defineField({
+      name: 'adults',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'minors',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
       name: 'dashboard',
       type: 'internationalizedArrayString',
     }),

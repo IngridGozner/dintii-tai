@@ -82,9 +82,7 @@ export default function TreatmentsOverview({
         deleteAction={deleteTreatment}
         formFields={formFields}
         formType='treatment'
-        loadRows={(from, to, ascending, element) =>
-          loadRows(from, to, ascending, element, patientID)
-        }
+        loadRows={(params) => loadRows(params)}
         clickableCell={{
           clickableCellHeader: 'consent_file',
           clickableCellFunction: async (rowData) => {

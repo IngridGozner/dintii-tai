@@ -20,8 +20,16 @@ export default function Sidebar({ menuOpen, setMenuOpen }: MenuProps) {
   const dictionary = useDictionary();
   const [activeTab, setActiveTab] = useState<string | null>('');
 
-  const { menu, general, addNewUser, dashboard, patients, studio, logout } =
-    dictionary || defaultDictionaryEntries;
+  const {
+    menu,
+    general,
+    addNewUser,
+    adults,
+    minors,
+    dashboard,
+    studio,
+    logout,
+  } = dictionary || defaultDictionaryEntries;
 
   const menuLinks = [
     {
@@ -30,9 +38,14 @@ export default function Sidebar({ menuOpen, setMenuOpen }: MenuProps) {
       icon: 'dashboard',
     },
     {
-      name: patients || '',
-      href: PATIENTS_PATH,
-      icon: 'perm_identity',
+      name: adults || 'Adults',
+      href: `${PATIENTS_PATH}/adult`,
+      icon: 'account_box',
+    },
+    {
+      name: minors || 'Minors',
+      href: `${PATIENTS_PATH}/minor`,
+      icon: 'account_circle',
     },
   ];
   const generalLinks = [

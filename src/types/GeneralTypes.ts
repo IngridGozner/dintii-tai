@@ -47,10 +47,17 @@ export type DICTIONARY_QUERYResult = NonNullable<DICTIONARY_EDIT_QUERYResult> &
 
 export type SupabaseArray = { [key: string]: string }[] | [] | null;
 
+export type PatientCategory = 'adult' | 'minor';
+
+export type LoadRowsParams = {
+  from: number;
+  to: number;
+  ascending?: boolean;
+  element?: string;
+  id?: number;
+  category?: 'adult' | 'minor';
+};
+
 export type LoadRowsFunction = (
-  from: number,
-  to: number,
-  ascending?: boolean,
-  element?: string,
-  id?: number
+  params: LoadRowsParams
 ) => Promise<SupabaseArray | undefined>;

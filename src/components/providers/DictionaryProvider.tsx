@@ -51,6 +51,8 @@ export const defaultDictionaryEntries: DICTIONARY_QUERYResult = {
   emptyPatientData: 'No patients have been added yet',
   emptyTreatmentData: 'No treatments have been added yet',
   search: 'Search',
+  adults: null,
+  minors: null,
   backToLogin: null,
   resetPassword: null,
   updatePassword: null,

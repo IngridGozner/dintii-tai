@@ -78,6 +78,8 @@ export const DICTIONARY_NAVIGATION_QUERY =
   defineQuery(`*[_type == "dictionaryNavigation"][0]{
     "dashboard":dashboard[_key == $language][0].value,
     "patients":patients[_key == $language][0].value,
+    "adults":adults[_key == $language][0].value,
+    "minors":minors[_key == $language][0].value,
     "menu":menu[_key == $language][0].value,
     "general":general[_key == $language][0].value,
     "addNewUser":addNewUser[_key == $language][0].value,

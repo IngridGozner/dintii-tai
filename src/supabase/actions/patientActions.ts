@@ -19,6 +19,7 @@ import {
   updatePatientFile,
 } from './bucketActions';
 import { getPatientFileName } from '@/helpers';
+import { PatientCategory } from '@/types/GeneralTypes';
 
 export async function addPatient(formData: FormData) {
   const supabase = await createClient();
@@ -86,13 +87,27 @@ export async function getPatientFields(
   from = 0,
   to = ROWS_TO_LOAD - 1,
   ascending = true,
-  element = 'first_name'
+  element = 'first_name',
+  category: PatientCategory = 'adult'
 ) {
   const supabase = await createClient();
+
+  const today = new Date();
+  const adultDate = new Date(
+    today.getFullYear() - 18,
+    today.getMonth(),
+    today.getDate()
+  ).toISOString();
+
+  const categoryCondition =
+    category === 'adult'
+      ? `birthdate.lte.${adultDate}, birthdate.is.null`
+      : `birthdate.gt.${adultDate}`;
 
   const { data } = await supabase
     .from(PATIENT_DATABASE)
     .select('id, first_name, last_name, phone')
+    .or(categoryCondition)
     .order(element, { ascending: ascending })
     .range(from, to);
 

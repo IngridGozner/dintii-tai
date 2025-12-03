@@ -14,8 +14,10 @@ import { useDictionary } from '../providers/DictionaryProvider';
 import TreatmentsOverview, {
   TreatmentsOverviewProps,
 } from './TreatmentsOveriew/TreatmentsOverview';
+import { PatientCategory } from '@/types/GeneralTypes';
 
-type PatientClientWrapperProps = TreatmentsOverviewProps & ProfileOverviewProps;
+type PatientClientWrapperProps = TreatmentsOverviewProps &
+  ProfileOverviewProps & { patientCategory: PatientCategory };
 
 export default function PatientClientWrapper({
   patientID,
@@ -25,6 +27,7 @@ export default function PatientClientWrapper({
   editAction: editPatient,
   deleteAction: deletePatient,
   loadRows,
+  patientCategory,
 }: PatientClientWrapperProps) {
   const { backToPatients, profile, treatment } = useDictionary();
   const { first_name, last_name } = patient;
@@ -35,7 +38,7 @@ export default function PatientClientWrapper({
         <GridContainer>
           <div className='col-span-6 md:col-span-12'>
             <Link
-              href={PATIENTS_PATH}
+              href={`${PATIENTS_PATH}/${patientCategory}`}
               label={backToPatients}
               className='mt-3 mb-3 md:mt-0'
               iconName='arrow_back'

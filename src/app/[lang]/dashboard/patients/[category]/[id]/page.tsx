@@ -7,6 +7,7 @@ import {
   addTreatment,
   getPatientTreatments,
 } from '@/supabase/actions/treatmentActions';
+import { PatientCategory } from '@/types/GeneralTypes';
 import { ROWS_TO_LOAD } from '@/types/GlobalTypes';
 import { lazy } from 'react';
 
@@ -17,9 +18,9 @@ const PatientClientWrapper = lazy(
 export default async function PatientDetail({
   params,
 }: Readonly<{
-  params: Promise<{ id: string; lang: string }>;
+  params: Promise<{ category: PatientCategory; id: string; lang: string }>;
 }>) {
-  const { id } = await params;
+  const { category, id } = await params;
 
   const [patient, treatments] = await Promise.all([
     getPatientWithID(Number(id)),
@@ -34,7 +35,18 @@ export default async function PatientDetail({
       addAction={addTreatment}
       editAction={editPatient}
       deleteAction={deletePatient}
-      loadRows={getPatientTreatments}
+      patientCategory={category}
+      loadRows={async (params) => {
+        'use server';
+
+        return await getPatientTreatments(
+          params.from,
+          params.to,
+          params.ascending,
+          params.element,
+          Number(id)
+        );
+      }}
     />
   );
 }

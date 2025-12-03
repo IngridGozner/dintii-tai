@@ -5,7 +5,11 @@ import { EditablePatientTable } from '@/components/components/Tables/EditableTab
 import { EditPatientForm } from '@/components/molecules/EditForm';
 import { useDictionary } from '@/components/providers/DictionaryProvider';
 import { getWhatsAppLink } from '@/helpers';
-import { LoadRowsFunction, SupabaseArray } from '@/types/GeneralTypes';
+import {
+  LoadRowsFunction,
+  PatientCategory,
+  SupabaseArray,
+} from '@/types/GeneralTypes';
 import { PATIENTS_PATH } from '@/types/GlobalTypes';
 import { redirect } from 'next/navigation';
 
@@ -13,28 +17,41 @@ export default function EditableTablePatientAdd({
   data,
   formAction,
   loadRows,
+  patientCategory,
 }: {
   data: SupabaseArray;
   formAction?: (formData: FormData) => Promise<void>;
   loadRows?: LoadRowsFunction;
+  patientCategory?: PatientCategory;
 }) {
-  const { patients, firstName, lastName, phone, patientFile } = useDictionary();
+  const { adults, minors, firstName, lastName, phone, patientFile } =
+    useDictionary();
 
   return (
     <EditablePatientTable
       data={data}
       excludedHeaders={['id']}
-      onClickRow={(rowData) => redirect(`${PATIENTS_PATH}/${rowData.id}`)}
+      onClickRow={(rowData) =>
+        redirect(`${PATIENTS_PATH}/${patientCategory}/${rowData.id}`)
+      }
       clickableCell={{
         clickableCellHeader: 'phone',
         clickableCellFunction: (rowData) =>
           redirect(getWhatsAppLink(rowData.phone)),
       }}
       loadRows={loadRows}
+      patientCategory={patientCategory}
       tableHeader={
         <>
           <div className='col-span-6 mt-3 md:mt-0'>
-            <Headline headline={patients ?? ''} className='!mb-0' />
+            <Headline
+              headline={
+                patientCategory === 'adult'
+                  ? adults || 'Adults'
+                  : minors || 'Minors'
+              }
+              className='!mb-0'
+            />
           </div>
           <div className='col-span-6 flex h-fit md:justify-end'>
             <EditPatientForm

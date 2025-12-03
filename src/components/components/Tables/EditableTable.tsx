@@ -9,7 +9,11 @@ import { Input, InputProps } from '@/components/atoms/Input';
 import { DeleteTreatmentButton } from '@/components/molecules/DeleteButton';
 import { Button } from '@/components/atoms/Button';
 import { useElementInViewport } from '@/app/hooks/useElementInViewport';
-import { LoadRowsFunction, SupabaseArray } from '@/types/GeneralTypes';
+import {
+  LoadRowsFunction,
+  PatientCategory,
+  SupabaseArray,
+} from '@/types/GeneralTypes';
 import { ROWS_TO_LOAD } from '@/types/GlobalTypes';
 import { Loading } from '../Loading';
 
@@ -32,6 +36,7 @@ type EditableTableProps = {
   loadRows?: LoadRowsFunction;
   unsortableHeaders?: string[];
   useHeaderTranslationForRows?: string[];
+  patientCategory?: PatientCategory;
 };
 
 type SpecificTableProps = EditableTableProps & {
@@ -61,6 +66,7 @@ export default function EditableTable(props: SpecificTableProps) {
     loadRows,
     unsortableHeaders = [],
     useHeaderTranslationForRows = [],
+    patientCategory,
   } = props;
 
   const t = useDictionary();
@@ -115,12 +121,13 @@ export default function EditableTable(props: SpecificTableProps) {
     const rangeTo = rangeStart + ROWS_TO_LOAD;
     setRangeStart(rangeTo);
 
-    const newData = await loadRows?.(
-      rangeStart,
-      rangeTo,
-      sortOrder === 'asc',
-      sortedHeader ?? undefined
-    );
+    const newData = await loadRows?.({
+      from: rangeStart,
+      to: rangeTo,
+      ascending: sortOrder === 'asc',
+      element: sortedHeader ?? undefined,
+      category: patientCategory,
+    });
 
     if (newData && newData?.length) {
       setTableData([...(tableData ?? []), ...(newData ?? [])]);
@@ -149,12 +156,13 @@ export default function EditableTable(props: SpecificTableProps) {
   async function sortDataByHeader(header: string, order: SortOrder) {
     if (!tableData) return;
 
-    const newSortedData = await loadRows?.(
-      0,
-      rangeStart,
-      order === 'asc',
-      header
-    );
+    const newSortedData = await loadRows?.({
+      from: 0,
+      to: rangeStart,
+      ascending: order === 'asc',
+      element: header,
+      category: patientCategory,
+    });
 
     if (!newSortedData) return;
 
