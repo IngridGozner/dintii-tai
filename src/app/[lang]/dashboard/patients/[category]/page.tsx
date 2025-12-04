@@ -4,16 +4,10 @@ import {
   getPatientFields,
 } from '@/supabase/actions/patientActions';
 import { GridContainer } from '@/components/molecules/GridContainer';
-import { lazy } from 'react';
 import { PatientCategory } from '@/types/GeneralTypes';
 import { ROWS_TO_LOAD } from '@/types/GlobalTypes';
 
-const EditableTablePatientAdd = lazy(
-  () =>
-    import(
-      '../../../../../components/components/Tables/EditableTablePatientAdd'
-    )
-);
+import EditableTablePatientAdd from '../../../../../components/components/Tables/EditableTablePatientAdd';
 
 export default async function Patients({
   params,

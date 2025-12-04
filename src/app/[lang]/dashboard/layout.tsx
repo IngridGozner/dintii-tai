@@ -1,9 +1,5 @@
 import { getUser } from '@/supabase/actions/userActions';
-import { lazy } from 'react';
-
-const DashboardClientWrapper = lazy(
-  () => import('@/components/components/Dashboard/DashboardClientWrapper')
-);
+import DashboardClientWrapper from '@/components/components/Dashboard/DashboardClientWrapper';
 
 export default async function DashboardLayout({
   children,

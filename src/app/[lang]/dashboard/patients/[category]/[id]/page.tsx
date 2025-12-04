@@ -9,11 +9,7 @@ import {
 } from '@/supabase/actions/treatmentActions';
 import { PatientCategory } from '@/types/GeneralTypes';
 import { ROWS_TO_LOAD } from '@/types/GlobalTypes';
-import { lazy } from 'react';
-
-const PatientClientWrapper = lazy(
-  () => import('@/components/components/PatientClientWrapper')
-);
+import PatientClientWrapper from '@/components/components/PatientClientWrapper';
 
 export default async function PatientDetail({
   params,
