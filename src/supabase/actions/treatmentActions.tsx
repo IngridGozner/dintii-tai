@@ -23,7 +23,7 @@ export async function addTreatment(formData: FormData) {
 
   const treatmentData: TreatmentType = {
     date: formData.get('date')?.toString() || null,
-    price: Number(formData.get('price')) || null,
+    price: formData.get('price')?.toString() || null,
     treatment: formData.get('treatment')?.toString() || null,
     patientID: Number(formData.get('patientID')),
     consent_file: null,
@@ -99,7 +99,7 @@ export async function editTreatment(formData: FormData) {
 
   const treatmentData: TreatmentType = {
     date: formData.get('date')?.toString() || null,
-    price: Number(formData.get('price')) || null,
+    price: formData.get('price')?.toString() || null,
     treatment: formData.get('treatment')?.toString() || null,
     patientID: patientID,
   };
