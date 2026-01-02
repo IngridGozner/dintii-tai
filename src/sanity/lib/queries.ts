@@ -144,4 +144,5 @@ export const DICTIONARY_FORM_QUERY =
     "password":password[_key == $language][0].value,
     "confirmPassword":confirmPassword[_key == $language][0].value,
     "passwordDoNotMatch":passwordDoNotMatch[_key == $language][0].value,
+    "patientAdultNotification":patientAdultNotification[_key == $language][0].value,
   }`);

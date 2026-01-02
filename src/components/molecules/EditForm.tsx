@@ -4,6 +4,7 @@ import { Button, ButtonProps } from '../atoms/Button';
 import { Input, InputProps } from '../atoms/Input';
 import { useDialog } from '../providers/DialogProvider';
 import { useDictionary } from '../providers/DictionaryProvider';
+import NotificationMessageLine from './NotificationMessageLine';
 
 type BaseEditFormProps = ButtonProps & {
   formFunctionality: 'add' | 'edit';
@@ -15,6 +16,7 @@ type EditFormProps = BaseEditFormProps & {
   addMessage: string;
   editMessage: string;
   buttonAddIconName: string;
+  notificationMessage?: string;
 };
 
 export default function EditForm({
@@ -25,6 +27,7 @@ export default function EditForm({
   editMessage,
   buttonAddIconName,
   onSave,
+  notificationMessage,
   ...rest
 }: EditFormProps) {
   const { save, cancel, errorMessage, successMessage } = useDictionary();
@@ -54,6 +57,14 @@ export default function EditForm({
       onClick={() =>
         handleClick(
           <form className='flex flex-col gap-y-7'>
+            {notificationMessage && (
+              <NotificationMessageLine
+                message={notificationMessage}
+                iconName='error'
+                notificationIconColor='text-yellow-300'
+                textColor='text-yellow-300'
+              />
+            )}
             {formFields.map(
               ({
                 label,
@@ -116,13 +127,14 @@ export default function EditForm({
 }
 
 export function EditPatientForm(props: BaseEditFormProps) {
-  const { addPatient, editPatient } = useDictionary();
+  const { addPatient, editPatient, patientAdultNotification } = useDictionary();
 
   return (
     <EditForm
       addMessage={addPatient ?? ''}
       editMessage={editPatient ?? ''}
       buttonAddIconName='person_add'
+      notificationMessage={patientAdultNotification ?? ''}
       {...props}
     />
   );

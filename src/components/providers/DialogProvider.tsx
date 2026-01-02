@@ -2,7 +2,7 @@
 
 import { createContext, ReactNode, useContext, useState } from 'react';
 import Dialog from '../components/Dialog';
-import { GoogleIcon } from '../atoms/GoogleIcon';
+import NotificationMessageLine from '../molecules/NotificationMessageLine';
 
 export const DialogContext = createContext<{
   isOpen: boolean;
@@ -33,16 +33,11 @@ export default function DialogProvider({
     setFeedback({ type, message });
     setIsOpen(true);
     setContent(
-      <div
-        className={`${type === 'success' ? 'text-green-500' : 'text-red-500'}`}
-      >
-        <p className='flex items-center justify-center gap-x-2'>
-          <GoogleIcon
-            iconName={type === 'success' ? 'check_circle' : 'error'}
-          />
-          <span className='text-white'>{message}</span>
-        </p>
-      </div>
+      <NotificationMessageLine
+        message={message}
+        iconName={type === 'success' ? 'check_circle' : 'error'}
+        notificationIconColor={`${type === 'success' ? 'text-green-500' : 'text-red-500'}`}
+      />
     );
     setClassName('text-xl');
   };

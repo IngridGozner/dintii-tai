@@ -64,6 +64,11 @@ export type DictionaryForm = {
       _key: string;
     } & InternationalizedArrayStringValue
   >;
+  patientAdultNotification?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
 };
 
 export type DictionaryFeedback = {
@@ -920,7 +925,7 @@ export type DICTIONARY_FEEDBACK_QUERYResult = {
   no: string | null;
 } | null;
 // Variable: DICTIONARY_FORM_QUERY
-// Query: *[_type == "dictionaryForm"][0]{    "backToLogin":backToLogin[_key == $language][0].value,    "resetPassword": resetPassword[_key == $language][0].value,    "updatePassword":updatePassword[_key == $language][0].value,    "forgotPassword":forgotPassword[_key == $language][0].value,    "login":login[_key == $language][0].value,    "email":email[_key == $language][0].value,    "password":password[_key == $language][0].value,    "confirmPassword":confirmPassword[_key == $language][0].value,    "passwordDoNotMatch":passwordDoNotMatch[_key == $language][0].value,  }
+// Query: *[_type == "dictionaryForm"][0]{    "backToLogin":backToLogin[_key == $language][0].value,    "resetPassword": resetPassword[_key == $language][0].value,    "updatePassword":updatePassword[_key == $language][0].value,    "forgotPassword":forgotPassword[_key == $language][0].value,    "login":login[_key == $language][0].value,    "email":email[_key == $language][0].value,    "password":password[_key == $language][0].value,    "confirmPassword":confirmPassword[_key == $language][0].value,    "passwordDoNotMatch":passwordDoNotMatch[_key == $language][0].value,    "patientAdultNotification":patientAdultNotification[_key == $language][0].value,  }
 export type DICTIONARY_FORM_QUERYResult = {
   backToLogin: string | null;
   resetPassword: string | null;
@@ -931,6 +936,7 @@ export type DICTIONARY_FORM_QUERYResult = {
   password: string | null;
   confirmPassword: string | null;
   passwordDoNotMatch: string | null;
+  patientAdultNotification: string | null;
 } | null;
 
 // Query TypeMap
@@ -949,6 +955,6 @@ declare module '@sanity/client' {
     '*[_type == "dictionaryPatient"][0]{\n    "firstName": firstName[_key == $language][0].value,\n    "lastName": lastName[_key == $language][0].value,\n    "phone": phone[_key == $language][0].value,\n    "city": city[_key == $language][0].value,\n    "country": country[_key == $language][0].value,\n    "patientFile": patientFile[_key == $language][0].value,\n    "gdpr": gdpr[_key == $language][0].value,\n    "birthdate": birthdate[_key == $language][0].value,\n    "cnp": cnp\n  }': DICTIONARY_PATIENT_QUERYResult;
     '*[_type == "dictionaryTreatment"][0]{\n    "treatment": treatment[_key == $language][0].value,\n    "price": price[_key == $language][0].value,\n    "consentFile": consentFile[_key == $language][0].value,\n    "date": date[_key == $language][0].value,\n  }': DICTIONARY_TREATMENT_QUERYResult;
     '*[_type == "dictionaryFeedback"][0]{\n    "successMessage": successMessage[_key == $language][0].value,\n    "errorMessage": errorMessage[_key == $language][0].value,\n    "deletePatientMessage": deletePatientMessage[_key == $language][0].value,\n    "deleteTreatmentMessage": deleteTreatmentMessage[_key == $language][0].value,\n    "emptyPatientData": emptyPatientData[_key == $language][0].value,\n    "emptyTreatmentData": emptyTreatmentData[_key == $language][0].value,\n    "yes": yes[_key == $language][0].value,\n    "no": no[_key == $language][0].value,\n  }': DICTIONARY_FEEDBACK_QUERYResult;
-    '*[_type == "dictionaryForm"][0]{\n    "backToLogin":backToLogin[_key == $language][0].value,\n    "resetPassword": resetPassword[_key == $language][0].value,\n    "updatePassword":updatePassword[_key == $language][0].value,\n    "forgotPassword":forgotPassword[_key == $language][0].value,\n    "login":login[_key == $language][0].value,\n    "email":email[_key == $language][0].value,\n    "password":password[_key == $language][0].value,\n    "confirmPassword":confirmPassword[_key == $language][0].value,\n    "passwordDoNotMatch":passwordDoNotMatch[_key == $language][0].value,\n  }': DICTIONARY_FORM_QUERYResult;
+    '*[_type == "dictionaryForm"][0]{\n    "backToLogin":backToLogin[_key == $language][0].value,\n    "resetPassword": resetPassword[_key == $language][0].value,\n    "updatePassword":updatePassword[_key == $language][0].value,\n    "forgotPassword":forgotPassword[_key == $language][0].value,\n    "login":login[_key == $language][0].value,\n    "email":email[_key == $language][0].value,\n    "password":password[_key == $language][0].value,\n    "confirmPassword":confirmPassword[_key == $language][0].value,\n    "passwordDoNotMatch":passwordDoNotMatch[_key == $language][0].value,\n    "patientAdultNotification":patientAdultNotification[_key == $language][0].value,\n  }': DICTIONARY_FORM_QUERYResult;
   }
 }

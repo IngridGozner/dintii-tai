@@ -43,6 +43,10 @@ export const dictionaryFormType = defineType({
       name: 'passwordDoNotMatch',
       type: 'internationalizedArrayString',
     }),
+    defineField({
+      name: 'patientAdultNotification',
+      type: 'internationalizedArrayString',
+    }),
   ],
   preview: {
     prepare() {

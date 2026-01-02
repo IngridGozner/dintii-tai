@@ -59,6 +59,7 @@ export const defaultDictionaryEntries: DICTIONARY_QUERYResult = {
   forgotPassword: null,
   confirmPassword: null,
   passwordDoNotMatch: null,
+  patientAdultNotification: null,
 };
 
 export const DictionaryContext = createContext<DICTIONARY_QUERYResult | null>(
