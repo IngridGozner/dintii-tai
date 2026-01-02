@@ -106,7 +106,7 @@ export const DICTIONARY_PATIENT_QUERY =
     "lastName": lastName[_key == $language][0].value,
     "phone": phone[_key == $language][0].value,
     "city": city[_key == $language][0].value,
-    "country": country[_key == $language][0].value,
+    "county": county[_key == $language][0].value,
     "patientFile": patientFile[_key == $language][0].value,
     "gdpr": gdpr[_key == $language][0].value,
     "birthdate": birthdate[_key == $language][0].value,

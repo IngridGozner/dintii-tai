@@ -23,7 +23,7 @@ export const defaultDictionaryEntries: DICTIONARY_QUERYResult = {
   lastName: 'Last Name',
   phone: 'Phone',
   city: 'City',
-  country: 'Country',
+  county: 'County',
   patientFile: 'Patient File',
   birthdate: 'Birthdate',
   date: 'Date',

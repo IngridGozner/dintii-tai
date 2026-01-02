@@ -131,7 +131,7 @@ export async function editPatient(formData: FormData) {
     cnp: formData.get('cnp'),
     email: formData.get('email'),
     city: formData.get('city'),
-    country: formData.get('country'),
+    county: formData.get('county'),
     birthdate: formData.get('birthdate')?.toString() || null,
   };
 

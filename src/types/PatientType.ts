@@ -5,7 +5,7 @@ export type PatientType = {
   email: string | null;
   phone: string | null;
   city: string | null;
-  country: string | null;
+  county: string | null;
   patient_file_id: string | null;
   gdpr_file_id: string | null;
   birthdate: string | null;

@@ -36,7 +36,7 @@ export const dictionaryPatientType = defineType({
       type: 'internationalizedArrayString',
     }),
     defineField({
-      name: 'country',
+      name: 'county',
       type: 'internationalizedArrayString',
     }),
     defineField({

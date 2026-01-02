@@ -1429,7 +1429,7 @@
         },
         "optional": true
       },
-      "country": {
+      "county": {
         "type": "objectAttribute",
         "value": {
           "type": "array",

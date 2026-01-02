@@ -29,7 +29,7 @@ export default function ProfileOverview({
     birthdate,
     cnp,
     city,
-    country,
+    county,
     patientFile,
     gdpr,
   } = useDictionary();
@@ -80,7 +80,7 @@ export default function ProfileOverview({
     { label: birthdate, value: patient?.birthdate },
     { label: cnp, value: patient?.cnp },
     { label: city, value: patient?.city },
-    { label: country, value: patient?.country },
+    { label: county, value: patient?.county },
     {
       label: patientFile,
       value: documentURL ? `${patient.first_name} ${patient.last_name}` : '-',
@@ -168,10 +168,10 @@ export default function ProfileOverview({
                 value: patient?.city || undefined,
               },
               {
-                element: 'country',
-                label: country,
-                value: patient?.country || undefined,
-                autoComplete: 'country-name',
+                element: 'county',
+                label: county,
+                value: patient?.county || undefined,
+                autoComplete: 'county-name',
               },
               {
                 element: 'patientFile',
