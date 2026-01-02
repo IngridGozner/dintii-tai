@@ -119,7 +119,7 @@ export default function EditableTable(props: SpecificTableProps) {
     if (!moreDataToLoad) return;
 
     const rangeTo = rangeStart + ROWS_TO_LOAD - 1;
-    setRangeStart(rangeTo);
+    setRangeStart(rangeTo + 1);
 
     const newData = await loadRows?.({
       from: rangeStart,
@@ -158,7 +158,7 @@ export default function EditableTable(props: SpecificTableProps) {
 
     const newSortedData = await loadRows?.({
       from: 0,
-      to: rangeStart,
+      to: rangeStart - 1,
       ascending: order === 'asc',
       element: header,
       category: patientCategory,
