@@ -65,7 +65,7 @@ export async function addPatient(formData: FormData) {
     }
   }
 
-  revalidatePath(PATIENTS_PATH);
+  revalidatePath(`${PATIENTS_PATH}/adult`);
 }
 
 export async function getPatientWithID(id: number) {

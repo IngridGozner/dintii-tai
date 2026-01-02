@@ -61,7 +61,7 @@ export default function ProfileOverview({
   useEffect(() => {
     getPatientFile();
     getGdprFile();
-  }, []);
+  }, [patient]);
 
   const fieldValues = [
     { label: firstName, value: patient?.first_name },

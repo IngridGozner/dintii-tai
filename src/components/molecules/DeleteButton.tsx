@@ -1,10 +1,9 @@
 'use client';
 
-import { PATIENTS_PATH } from '@/types/GlobalTypes';
 import { Button, ButtonProps } from '../atoms/Button';
 import { useDialog } from '../providers/DialogProvider';
 import { useDictionary } from '../providers/DictionaryProvider';
-import { redirect } from 'next/navigation';
+import { redirect, usePathname } from 'next/navigation';
 import { replaceEntry } from '@/helpers';
 
 type BaseDeleteButtonProps = {
@@ -78,11 +77,18 @@ export function DeletePatientButton({
   textForEntryToDelete,
 }: BaseDeleteButtonProps) {
   const { deletePatient, deletePatientMessage } = useDictionary();
+  const pathname = usePathname();
+
+  const pathnameSegments = pathname.split('/');
+  pathnameSegments.pop();
+  const pathnameWithoutId = pathnameSegments.join('/');
+
+  console.log('Redirect path:', pathnameWithoutId);
 
   return (
     <DeleteButton
       deleteAction={deleteAction}
-      redirectPath={PATIENTS_PATH}
+      redirectPath={pathnameWithoutId}
       dialogHeadline={deletePatient ?? ''}
       message={replaceEntry(deletePatientMessage || '', textForEntryToDelete)}
       className='!bg-red-700 hover:!bg-red-500'

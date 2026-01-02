@@ -101,7 +101,6 @@ export async function editTreatment(formData: FormData) {
     date: formData.get('date')?.toString() || null,
     price: Number(formData.get('price')) || null,
     treatment: formData.get('treatment')?.toString() || null,
-    consent_file: null,
     patientID: patientID,
   };
 
