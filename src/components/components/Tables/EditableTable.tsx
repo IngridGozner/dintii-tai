@@ -118,7 +118,7 @@ export default function EditableTable(props: SpecificTableProps) {
   async function fetchData() {
     if (!moreDataToLoad) return;
 
-    const rangeTo = rangeStart + ROWS_TO_LOAD;
+    const rangeTo = rangeStart + ROWS_TO_LOAD - 1;
     setRangeStart(rangeTo);
 
     const newData = await loadRows?.({
