@@ -57,7 +57,7 @@ export default function EditForm({
       onClick={() =>
         handleClick(
           <form className='flex flex-col gap-y-7'>
-            {notificationMessage && (
+            {notificationMessage && isAddDialog && (
               <NotificationMessageLine
                 message={notificationMessage}
                 iconName='error'
