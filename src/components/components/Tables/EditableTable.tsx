@@ -16,6 +16,10 @@ import {
 } from '@/types/GeneralTypes';
 import { ROWS_TO_LOAD } from '@/types/GlobalTypes';
 import { Loading } from '../Loading';
+import {
+  deleteTODOItem,
+  editTODOItem,
+} from '@/supabase/actions/todoListActions';
 
 type EditableTableProps = {
   data: SupabaseArray;
@@ -30,7 +34,6 @@ type EditableTableProps = {
   editAction?: (formData: FormData) => Promise<void>;
   deleteAction?: (id: number) => Promise<void>;
   formFields?: InputProps[];
-  formType?: 'patient' | 'treatment';
   addSearchBar?: boolean;
   initialSortOrder?: SortOrder;
   loadRows?: LoadRowsFunction;
@@ -384,6 +387,22 @@ export function EditableTreatmentTable(props: EditableTableProps) {
       emptyTableMessage={emptyTreatmentData ?? ''}
       initialSortOrder='desc'
       unsortableHeaders={['deleteTreatment', 'editTreatment']}
+      {...props}
+    />
+  );
+}
+
+export function EditableTODOListTable(props: EditableTableProps) {
+  // const { emptyTODOData } = useDictionary();
+
+  return (
+    <EditableTable
+      deleteMessage='deleteTODOItem'
+      editMessage='editTODOItem'
+      emptyTableMessage={'No TODO items.'}
+      unsortableHeaders={['deleteTODOItem', 'editTODOItem']}
+      editAction={editTODOItem}
+      deleteAction={deleteTODOItem}
       {...props}
     />
   );

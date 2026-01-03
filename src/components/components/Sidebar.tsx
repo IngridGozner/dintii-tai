@@ -12,6 +12,7 @@ import {
   NEW_USER_PATH,
   PATIENTS_PATH,
   STUDIO_PATH,
+  TODOS_PATH,
 } from '@/types/GlobalTypes';
 import { MenuProps } from './Dashboard/DashboardHeader';
 import { isTouchDevice } from '@/helpers';
@@ -46,6 +47,11 @@ export default function Sidebar({ menuOpen, setMenuOpen }: MenuProps) {
       name: minors || 'Minors',
       href: `${PATIENTS_PATH}/minor`,
       icon: 'account_circle',
+    },
+    {
+      name: 'Todos',
+      href: TODOS_PATH,
+      icon: 'check_box',
     },
   ];
   const generalLinks = [

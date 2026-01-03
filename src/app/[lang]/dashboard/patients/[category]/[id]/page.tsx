@@ -9,7 +9,7 @@ import {
 } from '@/supabase/actions/treatmentActions';
 import { PatientCategory } from '@/types/GeneralTypes';
 import { ROWS_TO_LOAD } from '@/types/GlobalTypes';
-import PatientClientWrapper from '@/components/components/PatientClientWrapper';
+import PatientClientWrapper from '@/components/components/Wrappers/PatientClientWrapper';
 
 export default async function PatientDetail({
   params,

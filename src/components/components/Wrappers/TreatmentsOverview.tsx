@@ -80,7 +80,6 @@ export default function TreatmentsOverview({
       editAction={editTreatment}
       deleteAction={deleteTreatment}
       formFields={formFields}
-      formType='treatment'
       loadRows={(params) => loadRows(params)}
       clickableCell={{
         clickableCellHeader: 'consent_file',
