@@ -16,10 +16,7 @@ import {
 } from '@/types/GeneralTypes';
 import { ROWS_TO_LOAD } from '@/types/GlobalTypes';
 import { Loading } from '../Loading';
-import {
-  deleteTODOItem,
-  editTODOItem,
-} from '@/supabase/actions/todoListActions';
+import { toggleTODOItemDone } from '@/supabase/actions/todoListActions';
 
 type EditableTableProps = {
   data: SupabaseArray;
@@ -308,9 +305,7 @@ export default function EditableTable(props: SpecificTableProps) {
                                     : '!text-red-700'
                                 }
                                 ariaLabel={
-                                  entry[header]
-                                    ? 'terms accepted'
-                                    : 'terms not accepted'
+                                  entry[header] ? 'todo done' : 'todo not done'
                                 }
                               />
                             ) : useHeaderTranslationForRows.includes(header) &&
@@ -400,9 +395,13 @@ export function EditableTODOListTable(props: EditableTableProps) {
       deleteMessage='deleteTODOItem'
       editMessage='editTODOItem'
       emptyTableMessage={'No TODO items.'}
+      excludedHeaders={['id']}
       unsortableHeaders={['deleteTODOItem', 'editTODOItem']}
-      editAction={editTODOItem}
-      deleteAction={deleteTODOItem}
+      clickableCell={{
+        clickableCellHeader: 'done',
+        clickableCellFunction: (rowData) =>
+          toggleTODOItemDone(Number(rowData.id), Boolean(rowData.done)),
+      }}
       {...props}
     />
   );

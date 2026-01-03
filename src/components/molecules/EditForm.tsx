@@ -152,3 +152,16 @@ export function EditTreatmentForm(props: BaseEditFormProps) {
     />
   );
 }
+
+export function EditTODOForm(props: BaseEditFormProps) {
+  // const { addTODO, editTODO } = useDictionary();
+
+  return (
+    <EditForm
+      addMessage={'Add To-Do'}
+      editMessage={'Edit To-Do'}
+      buttonAddIconName='add_task'
+      {...props}
+    />
+  );
+}
