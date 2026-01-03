@@ -74,44 +74,42 @@ export default function TreatmentsOverview({
   ];
 
   return (
-    <>
-      <EditableTreatmentTable
-        data={data}
-        excludedHeaders={['id']}
-        editAction={editTreatment}
-        deleteAction={deleteTreatment}
-        formFields={formFields}
-        formType='treatment'
-        loadRows={(params) => loadRows(params)}
-        clickableCell={{
-          clickableCellHeader: 'consent_file',
-          clickableCellFunction: async (rowData) => {
-            const link = await getConsentFile(rowData.id.toString());
+    <EditableTreatmentTable
+      data={data}
+      excludedHeaders={['id']}
+      editAction={editTreatment}
+      deleteAction={deleteTreatment}
+      formFields={formFields}
+      formType='treatment'
+      loadRows={(params) => loadRows(params)}
+      clickableCell={{
+        clickableCellHeader: 'consent_file',
+        clickableCellFunction: async (rowData) => {
+          const link = await getConsentFile(rowData.id.toString());
 
-            if (link) open(link);
-          },
-        }}
-        useHeaderTranslationForRows={['consent_file']}
-        tableHeader={
-          <>
-            <div className='border-font/20 mb-2 flex flex-row border-b-2 border-dashed pb-2'>
-              <div className='flex flex-1 items-center'>
-                <Headline
-                  headline={treatment ?? ''}
-                  className='!mb-0 !text-2xl'
-                />
-              </div>
-              <div className='flex h-fit flex-1 justify-end'>
-                <EditTreatmentForm
-                  formFunctionality='add'
-                  formAction={addAction}
-                  formFields={formFields}
-                />
-              </div>
+          if (link) open(link);
+        },
+      }}
+      useHeaderTranslationForRows={['consent_file']}
+      tableHeader={
+        <>
+          <div className='border-font/20 mb-2 flex flex-row border-b-2 border-dashed pb-2'>
+            <div className='flex flex-1 items-center'>
+              <Headline
+                headline={treatment ?? ''}
+                className='!mb-0 !text-2xl'
+              />
             </div>
-          </>
-        }
-      />
-    </>
+            <div className='flex h-fit flex-1 justify-end'>
+              <EditTreatmentForm
+                formFunctionality='add'
+                formAction={addAction}
+                formFields={formFields}
+              />
+            </div>
+          </div>
+        </>
+      }
+    />
   );
 }

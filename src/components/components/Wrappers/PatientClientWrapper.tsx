@@ -1,19 +1,19 @@
 'use client';
 
 import { PATIENTS_PATH } from '@/types/GlobalTypes';
-import { Link } from '../atoms/Link';
-import { Container } from '../molecules/Container';
-import { GridContainer } from '../molecules/GridContainer';
-import { Headline } from '../atoms/Headline';
+import { Link } from '../../atoms/Link';
+import { Container } from '../../molecules/Container';
+import { GridContainer } from '../../molecules/GridContainer';
+import { Headline } from '../../atoms/Headline';
 import ProfileOverview, {
   ProfileOverviewProps,
-} from './ProfileOverview/ProfileOverview';
-import Tabs from './Tabs/Tabs';
-import Tab from './Tabs/Tab';
-import { useDictionary } from '../providers/DictionaryProvider';
+} from '../ProfileOverview/ProfileOverview';
+import Tabs from '../Tabs/Tabs';
+import Tab from '../Tabs/Tab';
+import { useDictionary } from '../../providers/DictionaryProvider';
 import TreatmentsOverview, {
   TreatmentsOverviewProps,
-} from './TreatmentsOveriew/TreatmentsOverview';
+} from '../Wrappers/TreatmentsOverview';
 import { PatientCategory } from '@/types/GeneralTypes';
 
 type PatientClientWrapperProps = TreatmentsOverviewProps &
