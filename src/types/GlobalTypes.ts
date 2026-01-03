@@ -1,5 +1,6 @@
 export const DASHBOARD_PATH = '/dashboard';
 export const PATIENTS_PATH = '/dashboard/patients';
+export const TODOS_PATH = '/dashboard/todos';
 export const NEW_USER_PATH = '/dashboard/new-user';
 export const LOGIN_PATH = '/login';
 export const STUDIO_PATH = '/studio';
@@ -14,5 +15,7 @@ export const TREATMENT_CONSENT = 'informed_consent';
 export const PATIENT_FILE_NAME = 'patient_file';
 
 export const TREATMENT_DATABASE = 'treatment';
+
+export const TODO_LIST_DATABASE = 'todo_list';
 
 export const ROWS_TO_LOAD = 15;
