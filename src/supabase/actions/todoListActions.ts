@@ -11,7 +11,7 @@ import { revalidatePath } from 'next/cache';
 export async function getTODOList(
   from = 0,
   to = ROWS_TO_LOAD - 1,
-  ascending = false,
+  ascending = true,
   element = 'done'
 ) {
   const supabase = await createClient();
