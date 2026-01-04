@@ -16,10 +16,7 @@ import {
 } from '@/types/GeneralTypes';
 import { ROWS_TO_LOAD } from '@/types/GlobalTypes';
 import { Loading } from '../Loading';
-import {
-  deleteTODOItem,
-  toggleTODOItemDone,
-} from '@/supabase/actions/todoListActions';
+import { toggleTODOItemDone } from '@/supabase/actions/todoListActions';
 import { deleteTreatment } from '@/supabase/actions/treatmentActions';
 
 type EditableTableProps = {
@@ -367,7 +364,7 @@ export default function EditableTable(props: SpecificTableProps) {
               </tbody>
             </table>
           )}
-          {moreDataToLoad && <Loading ref={containerRef} />}
+          {moreDataToLoad && loadRows && <Loading ref={containerRef} />}
         </div>
       ) : (
         <div className='col-span-6 md:col-span-12'>{emptyTableMessage}</div>
@@ -441,7 +438,6 @@ export function EditableTODOListTable(props: EditableTableProps) {
         clickableCellFunction: (rowData) =>
           toggleTODOItemDone(Number(rowData.id), Boolean(rowData.done)),
       }}
-      deleteAction={deleteTODOItem}
       {...props}
     />
   );

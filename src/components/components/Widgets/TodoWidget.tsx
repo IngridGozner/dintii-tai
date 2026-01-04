@@ -15,7 +15,6 @@ export function TodoWidget({ data }: { data: SupabaseArray }) {
       <EditableTODOListTable data={data} />
 
       <Button
-        className='mt-4'
         label={redirectToTodoPage ?? 'Check out all todos'}
         href={TODOS_PATH}
       />
