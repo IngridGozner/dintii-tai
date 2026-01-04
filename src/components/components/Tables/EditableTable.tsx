@@ -43,7 +43,7 @@ type EditableTableProps = {
 
 type SpecificTableProps = EditableTableProps & {
   deleteMessage?: string;
-  editMessageText?: string;
+  editMessage?: string;
   emptyTableMessage: string;
 };
 
@@ -334,7 +334,9 @@ export default function EditableTable(props: SpecificTableProps) {
                                 asLink
                                 label=''
                                 addMessage={addMessage || ''}
-                                editMessage={editMessage || ''}
+                                editMessage={
+                                  t[editMessage as keyof typeof t] ?? ''
+                                }
                                 buttonAddIconName={buttonAddIconName || ''}
                               />
                             ) : undefined}
@@ -389,18 +391,13 @@ export function EditablePatientTable(props: EditableTableProps) {
 }
 
 export function EditableTreatmentTable(props: EditableTableProps) {
-  const {
-    emptyTreatmentData,
-    addTreatment,
-    editTreatment,
-    deleteTreatmentMessage,
-  } = useDictionary();
+  const { emptyTreatmentData, addTreatment, deleteTreatmentMessage } =
+    useDictionary();
 
   return (
     <EditableTable
       deleteMessage='deleteTreatment'
-      editMessageText='editTreatment'
-      editMessage={editTreatment ?? ''}
+      editMessage='editTreatment'
       emptyTableMessage={emptyTreatmentData ?? ''}
       initialSortOrder='desc'
       unsortableHeaders={['deleteTreatment', 'editTreatment']}
@@ -414,19 +411,13 @@ export function EditableTreatmentTable(props: EditableTableProps) {
 }
 
 export function EditableTODOListTable(props: EditableTableProps) {
-  const {
-    addTODOItem,
-    emptyTODOList,
-    editTODOItem: editTodoItemMessage,
-    deleteTODOItemMessage,
-  } = useDictionary();
+  const { addTODOItem, emptyTODOList, deleteTODOItemMessage } = useDictionary();
 
   return (
     <EditableTable
       deleteMessage='deleteTODOItem'
-      editMessageText='editTODOItem'
+      editMessage='editTODOItem'
       addMessage={addTODOItem ?? ''}
-      editMessage={editTodoItemMessage ?? ''}
       emptyTableMessage={emptyTODOList ?? 'No TODO items.'}
       excludedHeaders={['id']}
       unsortableHeaders={['deleteTODOItem', 'editTODOItem']}
