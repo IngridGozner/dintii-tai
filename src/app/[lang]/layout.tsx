@@ -11,6 +11,7 @@ import {
   DICTIONARY_GENERAL_QUERY,
   DICTIONARY_NAVIGATION_QUERY,
   DICTIONARY_PATIENT_QUERY,
+  DICTIONARY_TODO_QUERY,
   DICTIONARY_TREATMENT_QUERY,
   SITEINFO_QUERY,
 } from '@/sanity/lib/queries';
@@ -68,6 +69,7 @@ export async function getDictionaryEntries(
     { data: dictionaryTreatment },
     { data: dictionaryFeedback },
     { data: dictionaryForm },
+    { data: dictionaryTodo },
   ] = await Promise.all([
     sanityFetch({
       query: DICTIONARY_NAVIGATION_QUERY,
@@ -94,6 +96,10 @@ export async function getDictionaryEntries(
       query: DICTIONARY_FORM_QUERY,
       params: { language: lang },
     }),
+    sanityFetch({
+      query: DICTIONARY_TODO_QUERY,
+      params: { language: lang },
+    }),
   ]);
 
   const mergedEntries = {
@@ -104,6 +110,7 @@ export async function getDictionaryEntries(
     ...dictionaryTreatment,
     ...dictionaryFeedback,
     ...dictionaryForm,
+    ...dictionaryTodo,
   };
 
   const dictionaryEntries: DICTIONARY_QUERYResult = Object.fromEntries(

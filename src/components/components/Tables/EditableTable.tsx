@@ -388,15 +388,16 @@ export function EditableTreatmentTable(props: EditableTableProps) {
 }
 
 export function EditableTODOListTable(props: EditableTableProps) {
-  // const { emptyTODOData } = useDictionary();
+  const { emptyTODOList } = useDictionary();
 
   return (
     <EditableTable
       deleteMessage='deleteTODOItem'
       editMessage='editTODOItem'
-      emptyTableMessage={'No TODO items.'}
+      emptyTableMessage={emptyTODOList ?? 'No TODO items.'}
       excludedHeaders={['id']}
       unsortableHeaders={['deleteTODOItem', 'editTODOItem']}
+      useHeaderTranslationForRows={['done']}
       clickableCell={{
         clickableCellHeader: 'done',
         clickableCellFunction: (rowData) =>

@@ -1,17 +1,22 @@
+'use client';
+
 import { SupabaseArray } from '@/types/GeneralTypes';
 import { EditableTODOListTable } from '../Tables/EditableTable';
 import { Button } from '@/components/atoms/Button';
 import { TODOS_PATH } from '@/types/GlobalTypes';
 import BaseWidget from './BaseWidget';
+import { useDictionary } from '@/components/providers/DictionaryProvider';
 
 export function TodoWidget({ data }: { data: SupabaseArray }) {
+  const { redirectToTodoPage } = useDictionary();
+
   return (
     <BaseWidget>
       <EditableTODOListTable data={data} />
 
       <Button
         className='mt-4'
-        label={'Check out all todos'}
+        label={redirectToTodoPage ?? 'Check out all todos'}
         href={TODOS_PATH}
       />
     </BaseWidget>

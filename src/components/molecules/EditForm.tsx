@@ -154,12 +154,12 @@ export function EditTreatmentForm(props: BaseEditFormProps) {
 }
 
 export function EditTODOForm(props: BaseEditFormProps) {
-  // const { addTODO, editTODO } = useDictionary();
+  const { addTODOItem, editTODOItem } = useDictionary();
 
   return (
     <EditForm
-      addMessage={'Add To-Do'}
-      editMessage={'Edit To-Do'}
+      addMessage={addTODOItem ?? ''}
+      editMessage={editTODOItem ?? ''}
       buttonAddIconName='add_task'
       {...props}
     />

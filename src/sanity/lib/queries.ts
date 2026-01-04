@@ -146,3 +146,16 @@ export const DICTIONARY_FORM_QUERY =
     "passwordDoNotMatch":passwordDoNotMatch[_key == $language][0].value,
     "patientAdultNotification":patientAdultNotification[_key == $language][0].value,
   }`);
+
+export const DICTIONARY_TODO_QUERY =
+  defineQuery(`*[_type == "dictionaryTodo"][0]{
+    "todoHeadline": todoHeadline[_key == $language][0].value,
+    "todo": todo[_key == $language][0].value,
+    "comment": comment[_key == $language][0].value,
+    "done": done[_key == $language][0].value,
+    "redirectToTodoPage": redirectToTodoPage[_key == $language][0].value,
+    "editTODOItem": editTODOItem[_key == $language][0].value,
+    "deleteTODOItem": deleteTODOItem[_key == $language][0].value,
+    "emptyTODOList": emptyTODOList[_key == $language][0].value,
+    "addTODOItem": addTODOItem[_key == $language][0].value,
+  }`);

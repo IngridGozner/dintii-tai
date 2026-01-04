@@ -30,6 +30,7 @@ export default function Sidebar({ menuOpen, setMenuOpen }: MenuProps) {
     dashboard,
     studio,
     logout,
+    todoHeadline,
   } = dictionary || defaultDictionaryEntries;
 
   const menuLinks = [
@@ -49,7 +50,7 @@ export default function Sidebar({ menuOpen, setMenuOpen }: MenuProps) {
       icon: 'account_circle',
     },
     {
-      name: 'Todos',
+      name: todoHeadline || 'To-Do List',
       href: TODOS_PATH,
       icon: 'check_box',
     },

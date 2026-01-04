@@ -60,6 +60,15 @@ export const defaultDictionaryEntries: DICTIONARY_QUERYResult = {
   confirmPassword: null,
   passwordDoNotMatch: null,
   patientAdultNotification: null,
+  todoHeadline: 'To-Do List',
+  todo: 'To-Do',
+  comment: 'Comment',
+  done: 'Done',
+  deleteTODOItem: 'Delete TODO Item',
+  emptyTODOList: 'No TODO items have been added yet',
+  addTODOItem: 'Add To-Do',
+  editTODOItem: 'Edit To-Do',
+  redirectToTodoPage: 'Go to To-Do Page',
 };
 
 export const DictionaryContext = createContext<DICTIONARY_QUERYResult | null>(

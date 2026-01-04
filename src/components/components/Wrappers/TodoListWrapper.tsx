@@ -9,6 +9,7 @@ import {
   deleteTODOItem,
   editTODOItem,
 } from '@/supabase/actions/todoListActions';
+import { useDictionary } from '@/components/providers/DictionaryProvider';
 
 export type TodoListWrapperProps = {
   data: SupabaseArray;
@@ -16,17 +17,17 @@ export type TodoListWrapperProps = {
 };
 
 export default function TodoListWrapper({ data }: TodoListWrapperProps) {
-  //   const { } = useDictionary();
+  const { todoHeadline, todo, comment } = useDictionary();
 
   const formFields = [
     {
       element: 'todo',
-      label: 'todo',
+      label: todo,
       value: undefined,
     },
     {
       element: 'comment',
-      label: 'comment',
+      label: comment,
       value: undefined,
     },
   ];
@@ -41,7 +42,10 @@ export default function TodoListWrapper({ data }: TodoListWrapperProps) {
         <>
           <div className='border-font/20 mb-2 flex flex-row border-b-2 border-dashed pb-2'>
             <div className='flex flex-1 items-center'>
-              <Headline headline={'To-Do List'} className='!mb-0 !text-2xl' />
+              <Headline
+                headline={todoHeadline ?? 'To-Do List'}
+                className='!mb-0 !text-2xl'
+              />
             </div>
             <div className='flex h-fit flex-1 justify-end'>
               <EditTODOForm
