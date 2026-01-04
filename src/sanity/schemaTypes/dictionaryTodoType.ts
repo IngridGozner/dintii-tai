@@ -43,6 +43,10 @@ export const dictionaryTodoType = defineType({
       name: 'emptyTODOList',
       type: 'internationalizedArrayString',
     }),
+    defineField({
+      name: 'deleteTODOItemMessage',
+      type: 'internationalizedArrayString',
+    }),
   ],
   preview: {
     prepare() {

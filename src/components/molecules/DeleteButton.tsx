@@ -83,8 +83,6 @@ export function DeletePatientButton({
   pathnameSegments.pop();
   const pathnameWithoutId = pathnameSegments.join('/');
 
-  console.log('Redirect path:', pathnameWithoutId);
-
   return (
     <DeleteButton
       deleteAction={deleteAction}

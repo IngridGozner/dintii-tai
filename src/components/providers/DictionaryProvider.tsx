@@ -69,6 +69,8 @@ export const defaultDictionaryEntries: DICTIONARY_QUERYResult = {
   addTODOItem: 'Add To-Do',
   editTODOItem: 'Edit To-Do',
   redirectToTodoPage: 'Go to To-Do Page',
+  deleteTODOItemMessage:
+    'Are you sure you want to delete "{entry}" to-do item?',
 };
 
 export const DictionaryContext = createContext<DICTIONARY_QUERYResult | null>(

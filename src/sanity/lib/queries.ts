@@ -158,4 +158,5 @@ export const DICTIONARY_TODO_QUERY =
     "deleteTODOItem": deleteTODOItem[_key == $language][0].value,
     "emptyTODOList": emptyTODOList[_key == $language][0].value,
     "addTODOItem": addTODOItem[_key == $language][0].value,
+    "deleteTODOItemMessage": deleteTODOItemMessage[_key == $language][0].value,
   }`);

@@ -1,12 +1,12 @@
 'use client';
 
 import { ReactNode, useEffect, useMemo, useState } from 'react';
-import { convertSnakeToCamelCase } from '@/helpers';
+import { convertSnakeToCamelCase, replaceEntry } from '@/helpers';
 import { useDictionary } from '@/components/providers/DictionaryProvider';
 import { GoogleIcon } from '@/components/atoms/GoogleIcon';
 import EditForm, { EditFormProps } from '@/components/molecules/EditForm';
 import { Input, InputProps } from '@/components/atoms/Input';
-import { DeleteTreatmentButton } from '@/components/molecules/DeleteButton';
+import DeleteButton from '@/components/molecules/DeleteButton';
 import { Button } from '@/components/atoms/Button';
 import { useElementInViewport } from '@/app/hooks/useElementInViewport';
 import {
@@ -16,7 +16,11 @@ import {
 } from '@/types/GeneralTypes';
 import { ROWS_TO_LOAD } from '@/types/GlobalTypes';
 import { Loading } from '../Loading';
-import { toggleTODOItemDone } from '@/supabase/actions/todoListActions';
+import {
+  deleteTODOItem,
+  toggleTODOItemDone,
+} from '@/supabase/actions/todoListActions';
+import { deleteTreatment } from '@/supabase/actions/treatmentActions';
 
 type EditableTableProps = {
   data: SupabaseArray;
@@ -37,6 +41,7 @@ type EditableTableProps = {
   unsortableHeaders?: string[];
   useHeaderTranslationForRows?: string[];
   patientCategory?: PatientCategory;
+  deleteDialogMessage?: string;
 } & Partial<EditFormProps>;
 
 type SpecificTableProps = EditableTableProps & {
@@ -69,6 +74,7 @@ export default function EditableTable(props: SpecificTableProps) {
     patientCategory,
     addMessage,
     buttonAddIconName,
+    deleteDialogMessage,
   } = props;
 
   const t = useDictionary();
@@ -337,11 +343,19 @@ export default function EditableTable(props: SpecificTableProps) {
                             ) : undefined}
 
                             {header === deleteMessage && deleteAction ? (
-                              <DeleteTreatmentButton
+                              <DeleteButton
                                 deleteAction={() =>
                                   deleteAction(Number(entry['id']))
                                 }
-                                textForEntryToDelete={entry['treatment']}
+                                message={replaceEntry(
+                                  deleteDialogMessage || '',
+                                  entry['treatment'] || entry['todo'] || ''
+                                )}
+                                className='!text-red-700 hover:!text-red-500'
+                                asLink
+                                dialogHeadline={
+                                  t[deleteMessage as keyof typeof t] ?? ''
+                                }
                               />
                             ) : undefined}
                           </td>
@@ -378,7 +392,12 @@ export function EditablePatientTable(props: EditableTableProps) {
 }
 
 export function EditableTreatmentTable(props: EditableTableProps) {
-  const { emptyTreatmentData, addTreatment, editTreatment } = useDictionary();
+  const {
+    emptyTreatmentData,
+    addTreatment,
+    editTreatment,
+    deleteTreatmentMessage,
+  } = useDictionary();
 
   return (
     <EditableTable
@@ -390,6 +409,8 @@ export function EditableTreatmentTable(props: EditableTableProps) {
       unsortableHeaders={['deleteTreatment', 'editTreatment']}
       addMessage={addTreatment ?? ''}
       buttonAddIconName='post_add'
+      deleteDialogMessage={deleteTreatmentMessage ?? ''}
+      deleteAction={deleteTreatment}
       {...props}
     />
   );
@@ -400,6 +421,7 @@ export function EditableTODOListTable(props: EditableTableProps) {
     addTODOItem,
     emptyTODOList,
     editTODOItem: editTodoItemMessage,
+    deleteTODOItemMessage,
   } = useDictionary();
 
   return (
@@ -413,11 +435,13 @@ export function EditableTODOListTable(props: EditableTableProps) {
       unsortableHeaders={['deleteTODOItem', 'editTODOItem']}
       useHeaderTranslationForRows={['done']}
       buttonAddIconName='add_task'
+      deleteDialogMessage={deleteTODOItemMessage ?? ''}
       clickableCell={{
         clickableCellHeader: 'done',
         clickableCellFunction: (rowData) =>
           toggleTODOItemDone(Number(rowData.id), Boolean(rowData.done)),
       }}
+      deleteAction={deleteTODOItem}
       {...props}
     />
   );

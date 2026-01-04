@@ -64,6 +64,11 @@ export type DictionaryTodo = {
       _key: string;
     } & InternationalizedArrayStringValue
   >;
+  deleteTODOItemMessage?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
 };
 
 export type DictionaryForm = {
@@ -993,7 +998,7 @@ export type DICTIONARY_FORM_QUERYResult = {
   patientAdultNotification: string | null;
 } | null;
 // Variable: DICTIONARY_TODO_QUERY
-// Query: *[_type == "dictionaryTodo"][0]{    "todoHeadline": todoHeadline[_key == $language][0].value,    "todo": todo[_key == $language][0].value,    "comment": comment[_key == $language][0].value,    "done": done[_key == $language][0].value,    "redirectToTodoPage": redirectToTodoPage[_key == $language][0].value,    "editTODOItem": editTODOItem[_key == $language][0].value,    "deleteTODOItem": deleteTODOItem[_key == $language][0].value,    "emptyTODOList": emptyTODOList[_key == $language][0].value,    "addTODOItem": addTODOItem[_key == $language][0].value,  }
+// Query: *[_type == "dictionaryTodo"][0]{    "todoHeadline": todoHeadline[_key == $language][0].value,    "todo": todo[_key == $language][0].value,    "comment": comment[_key == $language][0].value,    "done": done[_key == $language][0].value,    "redirectToTodoPage": redirectToTodoPage[_key == $language][0].value,    "editTODOItem": editTODOItem[_key == $language][0].value,    "deleteTODOItem": deleteTODOItem[_key == $language][0].value,    "emptyTODOList": emptyTODOList[_key == $language][0].value,    "addTODOItem": addTODOItem[_key == $language][0].value,    "deleteTODOItemMessage": deleteTODOItemMessage[_key == $language][0].value,  }
 export type DICTIONARY_TODO_QUERYResult = {
   todoHeadline: string | null;
   todo: string | null;
@@ -1004,6 +1009,7 @@ export type DICTIONARY_TODO_QUERYResult = {
   deleteTODOItem: string | null;
   emptyTODOList: string | null;
   addTODOItem: string | null;
+  deleteTODOItemMessage: string | null;
 } | null;
 
 // Query TypeMap
@@ -1023,6 +1029,6 @@ declare module '@sanity/client' {
     '*[_type == "dictionaryTreatment"][0]{\n    "treatment": treatment[_key == $language][0].value,\n    "price": price[_key == $language][0].value,\n    "consentFile": consentFile[_key == $language][0].value,\n    "date": date[_key == $language][0].value,\n  }': DICTIONARY_TREATMENT_QUERYResult;
     '*[_type == "dictionaryFeedback"][0]{\n    "successMessage": successMessage[_key == $language][0].value,\n    "errorMessage": errorMessage[_key == $language][0].value,\n    "deletePatientMessage": deletePatientMessage[_key == $language][0].value,\n    "deleteTreatmentMessage": deleteTreatmentMessage[_key == $language][0].value,\n    "emptyPatientData": emptyPatientData[_key == $language][0].value,\n    "emptyTreatmentData": emptyTreatmentData[_key == $language][0].value,\n    "yes": yes[_key == $language][0].value,\n    "no": no[_key == $language][0].value,\n  }': DICTIONARY_FEEDBACK_QUERYResult;
     '*[_type == "dictionaryForm"][0]{\n    "backToLogin":backToLogin[_key == $language][0].value,\n    "resetPassword": resetPassword[_key == $language][0].value,\n    "updatePassword":updatePassword[_key == $language][0].value,\n    "forgotPassword":forgotPassword[_key == $language][0].value,\n    "login":login[_key == $language][0].value,\n    "email":email[_key == $language][0].value,\n    "password":password[_key == $language][0].value,\n    "confirmPassword":confirmPassword[_key == $language][0].value,\n    "passwordDoNotMatch":passwordDoNotMatch[_key == $language][0].value,\n    "patientAdultNotification":patientAdultNotification[_key == $language][0].value,\n  }': DICTIONARY_FORM_QUERYResult;
-    '*[_type == "dictionaryTodo"][0]{\n    "todoHeadline": todoHeadline[_key == $language][0].value,\n    "todo": todo[_key == $language][0].value,\n    "comment": comment[_key == $language][0].value,\n    "done": done[_key == $language][0].value,\n    "redirectToTodoPage": redirectToTodoPage[_key == $language][0].value,\n    "editTODOItem": editTODOItem[_key == $language][0].value,\n    "deleteTODOItem": deleteTODOItem[_key == $language][0].value,\n    "emptyTODOList": emptyTODOList[_key == $language][0].value,\n    "addTODOItem": addTODOItem[_key == $language][0].value,\n  }': DICTIONARY_TODO_QUERYResult;
+    '*[_type == "dictionaryTodo"][0]{\n    "todoHeadline": todoHeadline[_key == $language][0].value,\n    "todo": todo[_key == $language][0].value,\n    "comment": comment[_key == $language][0].value,\n    "done": done[_key == $language][0].value,\n    "redirectToTodoPage": redirectToTodoPage[_key == $language][0].value,\n    "editTODOItem": editTODOItem[_key == $language][0].value,\n    "deleteTODOItem": deleteTODOItem[_key == $language][0].value,\n    "emptyTODOList": emptyTODOList[_key == $language][0].value,\n    "addTODOItem": addTODOItem[_key == $language][0].value,\n    "deleteTODOItemMessage": deleteTODOItemMessage[_key == $language][0].value,\n  }': DICTIONARY_TODO_QUERYResult;
   }
 }
