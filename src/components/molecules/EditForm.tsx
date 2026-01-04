@@ -12,7 +12,7 @@ type BaseEditFormProps = ButtonProps & {
   onSave?: () => void;
 };
 
-type EditFormProps = BaseEditFormProps & {
+export type EditFormProps = BaseEditFormProps & {
   addMessage: string;
   editMessage: string;
   buttonAddIconName: string;

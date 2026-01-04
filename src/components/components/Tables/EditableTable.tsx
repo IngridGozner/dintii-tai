@@ -4,7 +4,7 @@ import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { convertSnakeToCamelCase } from '@/helpers';
 import { useDictionary } from '@/components/providers/DictionaryProvider';
 import { GoogleIcon } from '@/components/atoms/GoogleIcon';
-import { EditTreatmentForm } from '@/components/molecules/EditForm';
+import EditForm, { EditFormProps } from '@/components/molecules/EditForm';
 import { Input, InputProps } from '@/components/atoms/Input';
 import { DeleteTreatmentButton } from '@/components/molecules/DeleteButton';
 import { Button } from '@/components/atoms/Button';
@@ -37,11 +37,11 @@ type EditableTableProps = {
   unsortableHeaders?: string[];
   useHeaderTranslationForRows?: string[];
   patientCategory?: PatientCategory;
-};
+} & Partial<EditFormProps>;
 
 type SpecificTableProps = EditableTableProps & {
   deleteMessage?: string;
-  editMessage?: string;
+  editMessageText?: string;
   emptyTableMessage: string;
 };
 
@@ -67,6 +67,8 @@ export default function EditableTable(props: SpecificTableProps) {
     unsortableHeaders = [],
     useHeaderTranslationForRows = [],
     patientCategory,
+    addMessage,
+    buttonAddIconName,
   } = props;
 
   const t = useDictionary();
@@ -322,12 +324,15 @@ export default function EditableTable(props: SpecificTableProps) {
                             {header === editMessage &&
                             editAction &&
                             filledFormFields ? (
-                              <EditTreatmentForm
+                              <EditForm
                                 formFunctionality='edit'
                                 formAction={editAction}
                                 formFields={filledFormFields}
                                 asLink
                                 label=''
+                                addMessage={addMessage || ''}
+                                editMessage={editMessage || ''}
+                                buttonAddIconName={buttonAddIconName || ''}
                               />
                             ) : undefined}
 
@@ -373,31 +378,41 @@ export function EditablePatientTable(props: EditableTableProps) {
 }
 
 export function EditableTreatmentTable(props: EditableTableProps) {
-  const { emptyTreatmentData } = useDictionary();
+  const { emptyTreatmentData, addTreatment, editTreatment } = useDictionary();
 
   return (
     <EditableTable
       deleteMessage='deleteTreatment'
-      editMessage='editTreatment'
+      editMessageText='editTreatment'
+      editMessage={editTreatment ?? ''}
       emptyTableMessage={emptyTreatmentData ?? ''}
       initialSortOrder='desc'
       unsortableHeaders={['deleteTreatment', 'editTreatment']}
+      addMessage={addTreatment ?? ''}
+      buttonAddIconName='post_add'
       {...props}
     />
   );
 }
 
 export function EditableTODOListTable(props: EditableTableProps) {
-  const { emptyTODOList } = useDictionary();
+  const {
+    addTODOItem,
+    emptyTODOList,
+    editTODOItem: editTodoItemMessage,
+  } = useDictionary();
 
   return (
     <EditableTable
       deleteMessage='deleteTODOItem'
-      editMessage='editTODOItem'
+      editMessageText='editTODOItem'
+      addMessage={addTODOItem ?? ''}
+      editMessage={editTodoItemMessage ?? ''}
       emptyTableMessage={emptyTODOList ?? 'No TODO items.'}
       excludedHeaders={['id']}
       unsortableHeaders={['deleteTODOItem', 'editTODOItem']}
       useHeaderTranslationForRows={['done']}
+      buttonAddIconName='add_task'
       clickableCell={{
         clickableCellHeader: 'done',
         clickableCellFunction: (rowData) =>
