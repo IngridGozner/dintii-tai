@@ -304,11 +304,11 @@ export default function EditableTable(props: SpecificTableProps) {
                                     ? 'check_box'
                                     : 'check_box_outline_blank'
                                 }
-                                iconClassName={
+                                iconClassName={`${
                                   entry[header]
                                     ? '!text-green-700'
                                     : '!text-red-700'
-                                }
+                                } [vertical-align:bottom]`}
                                 ariaLabel={
                                   entry[header] ? 'todo done' : 'todo not done'
                                 }
