@@ -1,16 +1,26 @@
 'use server';
 
-import { TODO_LIST_DATABASE, TODOS_PATH } from '@/types/GlobalTypes';
+import {
+  ROWS_TO_LOAD,
+  TODO_LIST_DATABASE,
+  TODOS_PATH,
+} from '@/types/GlobalTypes';
 import { createClient } from '@/supabase/server';
 import { revalidatePath } from 'next/cache';
 
-export async function getTODOList(limit?: number) {
+export async function getTODOList(
+  from = 0,
+  to = ROWS_TO_LOAD - 1,
+  ascending = false,
+  element = 'done'
+) {
   const supabase = await createClient();
 
   const { data, error } = await supabase
     .from(TODO_LIST_DATABASE)
     .select('done, todo, comment, id')
-    .limit(limit || 200);
+    .order(element, { ascending: ascending })
+    .range(from, to);
 
   if (error) {
     console.error('Error fetching TODO list:', error);

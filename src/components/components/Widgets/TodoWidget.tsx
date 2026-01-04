@@ -12,7 +12,10 @@ export function TodoWidget({ data }: { data: SupabaseArray }) {
 
   return (
     <BaseWidget>
-      <EditableTODOListTable data={data} />
+      <EditableTODOListTable
+        data={data}
+        unsortableHeaders={['done', 'todo', 'comment']}
+      />
 
       <Button
         label={redirectToTodoPage ?? 'Check out all todos'}

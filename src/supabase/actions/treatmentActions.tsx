@@ -63,7 +63,7 @@ export async function addTreatment(formData: FormData) {
 
 export async function getPatientTreatments(
   from = 0,
-  to = ROWS_TO_LOAD,
+  to = ROWS_TO_LOAD - 1,
   ascending = false,
   element = 'date',
   id?: number

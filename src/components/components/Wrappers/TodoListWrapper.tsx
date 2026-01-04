@@ -8,6 +8,7 @@ import {
   addTODOItem,
   deleteTODOItem,
   editTODOItem,
+  getTODOList,
 } from '@/supabase/actions/todoListActions';
 import { useDictionary } from '@/components/providers/DictionaryProvider';
 
@@ -38,6 +39,9 @@ export default function TodoListWrapper({ data }: TodoListWrapperProps) {
       editAction={editTODOItem}
       deleteAction={deleteTODOItem}
       formFields={formFields}
+      loadRows={(params) =>
+        getTODOList(params.from, params.to, params.ascending, params.element)
+      }
       tableHeader={
         <>
           <div className='border-font/20 mb-2 flex flex-row border-b-2 border-dashed pb-2'>
