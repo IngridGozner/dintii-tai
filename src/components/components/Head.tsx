@@ -1,23 +1,9 @@
-import { ARTICLE_SLUG_QUERYResult, SITEINFO_QUERYResult } from '@/sanity/types';
 import Head from 'next/head';
 
-type HeadInfoProps = {
-  siteInfo?: NonNullable<SITEINFO_QUERYResult>;
-  article?: NonNullable<ARTICLE_SLUG_QUERYResult>;
-};
-
-export default function CustomHead(props: HeadInfoProps) {
-  const { siteInfo, article } = props;
-
-  if (!siteInfo && !article) return null;
-
-  const { title, name } = siteInfo || {};
-  const { plainContent } = article || {};
-
-  const browserTitle = siteInfo ? `${title} | ${name}` : '';
-  const description = plainContent
-    ? plainContent.substring(0, plainContent.indexOf(' ', 145)) + '...'
-    : '';
+export default function CustomHead() {
+  const browserTitle = 'DintiiTai - Dentist Cluj | Dr. Natalia Rednic';
+  const description =
+    'Cabinet stomatologic modern în Cluj-Napoca. Dr. Natalia Rednic oferă tratamente dentare, implanturi, albire și protetică. Programează-te la DintiiTai.';
 
   return (
     <Head>

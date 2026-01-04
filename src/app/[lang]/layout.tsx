@@ -26,25 +26,17 @@ export default async function RootLayout({
 }>) {
   const { lang } = await params;
 
-  const [{ data: siteInfo }, { data: aboutUsData }, dictionaryEntries] =
-    await Promise.all([
-      sanityFetch({
-        query: SITEINFO_QUERY,
-        params: { language: lang },
-      }),
-      sanityFetch({
-        query: ARTICLE_SLUG_QUERY,
-        params: { language: lang, slug: 'about-us' },
-      }),
-      getDictionaryEntries(lang),
-    ]);
+  const [{ data: siteInfo }, dictionaryEntries] = await Promise.all([
+    sanityFetch({
+      query: SITEINFO_QUERY,
+      params: { language: lang },
+    }),
+    getDictionaryEntries(lang),
+  ]);
 
   return (
     <html lang={lang}>
-      <CustomHead
-        siteInfo={siteInfo || undefined}
-        article={aboutUsData || undefined}
-      />
+      <CustomHead />
       <body>
         <Providers
           language={lang}
