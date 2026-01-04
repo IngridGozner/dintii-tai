@@ -38,7 +38,9 @@ export function Button({
       {iconPlacement === 'left' && icon}
       {label != undefined && (
         <span
-          className={iconName && iconPlacement === 'left' ? 'ml-2' : 'mr-2'}
+          className={
+            iconName ? (iconPlacement === 'left' ? 'ml-2' : 'mr-2') : ''
+          }
         >
           {label ? label : ''}
         </span>
