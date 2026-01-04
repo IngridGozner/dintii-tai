@@ -4,7 +4,6 @@ import CustomHead from '@/components/components/Head';
 import { Providers } from '@/components/providers/providers';
 import { sanityFetch } from '@/sanity/lib/live';
 import {
-  ARTICLE_SLUG_QUERY,
   DICTIONARY_EDIT_QUERY,
   DICTIONARY_FEEDBACK_QUERY,
   DICTIONARY_FORM_QUERY,
