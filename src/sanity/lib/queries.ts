@@ -4,6 +4,7 @@ export const SITEINFO_QUERY = defineQuery(`*[_type == "siteInfo"][0]{
   _id,
   title,
   subtitle[_key == $language][0]{value},
+  description[_key == $language][0]{value},
   name,
   profession[_key == $language][0]{value},
   logo,

@@ -28,6 +28,10 @@ export const siteInfoType = defineType({
       type: 'internationalizedArrayString',
     }),
     defineField({
+      name: 'description',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
       name: 'motto',
       type: 'internationalizedArrayString',
     }),

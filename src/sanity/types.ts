@@ -502,6 +502,11 @@ export type SiteInfo = {
       _key: string;
     } & InternationalizedArrayStringValue
   >;
+  description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
   motto?: Array<
     {
       _key: string;
@@ -760,11 +765,14 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: SITEINFO_QUERY
-// Query: *[_type == "siteInfo"][0]{  _id,  title,  subtitle[_key == $language][0]{value},  name,  profession[_key == $language][0]{value},  logo,  phone,  address,  email,   timetable[_key == $language][0]{value},  loginImage->{    image  },}
+// Query: *[_type == "siteInfo"][0]{  _id,  title,  subtitle[_key == $language][0]{value},  description[_key == $language][0]{value},  name,  profession[_key == $language][0]{value},  logo,  phone,  address,  email,   timetable[_key == $language][0]{value},  loginImage->{    image  },}
 export type SITEINFO_QUERYResult = {
   _id: string;
   title: string | null;
   subtitle: {
+    value: string | null;
+  } | null;
+  description: {
     value: string | null;
   } | null;
   name: string | null;
@@ -1022,7 +1030,7 @@ export type DICTIONARY_TODO_QUERYResult = {
 import '@sanity/client';
 declare module '@sanity/client' {
   interface SanityQueries {
-    '*[_type == "siteInfo"][0]{\n  _id,\n  title,\n  subtitle[_key == $language][0]{value},\n  name,\n  profession[_key == $language][0]{value},\n  logo,\n  phone,\n  address,\n  email, \n  timetable[_key == $language][0]{value},\n  loginImage->{\n    image\n  },\n}': SITEINFO_QUERYResult;
+    '*[_type == "siteInfo"][0]{\n  _id,\n  title,\n  subtitle[_key == $language][0]{value},\n  description[_key == $language][0]{value},\n  name,\n  profession[_key == $language][0]{value},\n  logo,\n  phone,\n  address,\n  email, \n  timetable[_key == $language][0]{value},\n  loginImage->{\n    image\n  },\n}': SITEINFO_QUERYResult;
     '*[_type == "gallery"]{\n  _id,\n  title,\n  image\n}': GALLERY_QUERYResult;
     '*[_type == "siteInfo"][0]{\n  _id,\n  motto[_key == $language][0]{value},\n  stageImage->{\n    image\n  },\n  name,\n  profession[_key == $language][0]{value}\n}': STAGE_QUERYResult;
     '*[_type == "article"]{\n  _id,\n  title[_key == $language][0]{value},\n  image,\n  body[_key == $language][0]{value},\n}': ARTICLE_QUERYResult;
