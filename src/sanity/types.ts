@@ -333,6 +333,11 @@ export type DictionaryTreatment = {
       _key: string;
     } & InternationalizedArrayStringValue
   >;
+  treatments?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
   date?: Array<
     {
       _key: string;
@@ -964,9 +969,10 @@ export type DICTIONARY_PATIENT_QUERYResult = {
   cnp: string | null;
 } | null;
 // Variable: DICTIONARY_TREATMENT_QUERY
-// Query: *[_type == "dictionaryTreatment"][0]{    "treatment": treatment[_key == $language][0].value,    "price": price[_key == $language][0].value,    "consentFile": consentFile[_key == $language][0].value,    "date": date[_key == $language][0].value,  }
+// Query: *[_type == "dictionaryTreatment"][0]{    "treatment": treatment[_key == $language][0].value,    "treatments": treatments[_key == $language][0].value,    "price": price[_key == $language][0].value,    "consentFile": consentFile[_key == $language][0].value,    "date": date[_key == $language][0].value,  }
 export type DICTIONARY_TREATMENT_QUERYResult = {
   treatment: string | null;
+  treatments: string | null;
   price: string | null;
   consentFile: string | null;
   date: string | null;
@@ -1026,7 +1032,7 @@ declare module '@sanity/client' {
     '*[_type == "dictionaryNavigation"][0]{\n    "dashboard":dashboard[_key == $language][0].value,\n    "patients":patients[_key == $language][0].value,\n    "adults":adults[_key == $language][0].value,\n    "minors":minors[_key == $language][0].value,\n    "menu":menu[_key == $language][0].value,\n    "general":general[_key == $language][0].value,\n    "addNewUser":addNewUser[_key == $language][0].value,\n    "logout":logout[_key == $language][0].value,\n    "profile": profile[_key == $language][0].value,\n    "backToPatients": backToPatients[_key == $language][0].value,\n  }': DICTIONARY_NAVIGATION_QUERYResult;
     '*[_type == "dictionaryEdit"][0]{\n    "addPatient": addPatient[_key == $language][0].value,\n    "editPatient": editPatient[_key == $language][0].value,\n    "deletePatient": deletePatient[_key == $language][0].value,\n    "addTreatment": addTreatment[_key == $language][0].value,\n    "editTreatment": editTreatment[_key == $language][0].value,\n    "deleteTreatment": deleteTreatment[_key == $language][0].value,\n    "save": save[_key == $language][0].value,\n    "cancel": cancel[_key == $language][0].value,\n  }': DICTIONARY_EDIT_QUERYResult;
     '*[_type == "dictionaryPatient"][0]{\n    "firstName": firstName[_key == $language][0].value,\n    "lastName": lastName[_key == $language][0].value,\n    "phone": phone[_key == $language][0].value,\n    "city": city[_key == $language][0].value,\n    "county": county[_key == $language][0].value,\n    "patientFile": patientFile[_key == $language][0].value,\n    "gdpr": gdpr[_key == $language][0].value,\n    "birthdate": birthdate[_key == $language][0].value,\n    "cnp": cnp\n  }': DICTIONARY_PATIENT_QUERYResult;
-    '*[_type == "dictionaryTreatment"][0]{\n    "treatment": treatment[_key == $language][0].value,\n    "price": price[_key == $language][0].value,\n    "consentFile": consentFile[_key == $language][0].value,\n    "date": date[_key == $language][0].value,\n  }': DICTIONARY_TREATMENT_QUERYResult;
+    '*[_type == "dictionaryTreatment"][0]{\n    "treatment": treatment[_key == $language][0].value,\n    "treatments": treatments[_key == $language][0].value,\n    "price": price[_key == $language][0].value,\n    "consentFile": consentFile[_key == $language][0].value,\n    "date": date[_key == $language][0].value,\n  }': DICTIONARY_TREATMENT_QUERYResult;
     '*[_type == "dictionaryFeedback"][0]{\n    "successMessage": successMessage[_key == $language][0].value,\n    "errorMessage": errorMessage[_key == $language][0].value,\n    "deletePatientMessage": deletePatientMessage[_key == $language][0].value,\n    "deleteTreatmentMessage": deleteTreatmentMessage[_key == $language][0].value,\n    "emptyPatientData": emptyPatientData[_key == $language][0].value,\n    "emptyTreatmentData": emptyTreatmentData[_key == $language][0].value,\n    "yes": yes[_key == $language][0].value,\n    "no": no[_key == $language][0].value,\n  }': DICTIONARY_FEEDBACK_QUERYResult;
     '*[_type == "dictionaryForm"][0]{\n    "backToLogin":backToLogin[_key == $language][0].value,\n    "resetPassword": resetPassword[_key == $language][0].value,\n    "updatePassword":updatePassword[_key == $language][0].value,\n    "forgotPassword":forgotPassword[_key == $language][0].value,\n    "login":login[_key == $language][0].value,\n    "email":email[_key == $language][0].value,\n    "password":password[_key == $language][0].value,\n    "confirmPassword":confirmPassword[_key == $language][0].value,\n    "passwordDoNotMatch":passwordDoNotMatch[_key == $language][0].value,\n    "patientAdultNotification":patientAdultNotification[_key == $language][0].value,\n  }': DICTIONARY_FORM_QUERYResult;
     '*[_type == "dictionaryTodo"][0]{\n    "todoHeadline": todoHeadline[_key == $language][0].value,\n    "todo": todo[_key == $language][0].value,\n    "comment": comment[_key == $language][0].value,\n    "done": done[_key == $language][0].value,\n    "redirectToTodoPage": redirectToTodoPage[_key == $language][0].value,\n    "editTODOItem": editTODOItem[_key == $language][0].value,\n    "deleteTODOItem": deleteTODOItem[_key == $language][0].value,\n    "emptyTODOList": emptyTODOList[_key == $language][0].value,\n    "addTODOItem": addTODOItem[_key == $language][0].value,\n    "deleteTODOItemMessage": deleteTODOItemMessage[_key == $language][0].value,\n  }': DICTIONARY_TODO_QUERYResult;

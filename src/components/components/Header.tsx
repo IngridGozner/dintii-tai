@@ -12,13 +12,15 @@ import { useState } from 'react';
 import BurgerMenu from '../molecules/BurgerMenu';
 import { useDictionary } from '../providers/DictionaryProvider';
 import { useSiteInfo } from '../providers/SiteInfoProvider';
+import { RATES_PATH } from '@/types/GlobalTypes';
 
 export function Header() {
   const t = useDictionary();
   const navigationLinks = [
-    { name: t?.prices, href: '#rates' },
-    { name: t?.aboutUs, href: '#aboutus' },
-    { name: t?.contact, href: '#contact' },
+    { name: t?.treatments, href: '/#treatment' },
+    { name: t?.aboutUs, href: '/#aboutus' },
+    { name: t?.contact, href: '/#contact' },
+    { name: t?.prices, href: RATES_PATH },
   ];
   const [menuOpen, setMenuOpen] = useState(false);
   const siteInfo = useSiteInfo();
@@ -72,7 +74,7 @@ export function Header() {
                 'md:relative md:top-0 md:block md:h-auto md:border-none md:bg-transparent md:shadow-none'
               }
             >
-              <ul className='flex flex-col gap-y-8 text-2xl md:flex-row md:justify-end md:gap-x-8 md:text-xl lg:gap-x-18'>
+              <ul className='flex flex-col gap-y-8 md:flex-row md:justify-end md:gap-x-6 md:text-base lg:gap-x-18 lg:text-2xl'>
                 {navigationLinks.map((link, index) => {
                   return link.name ? (
                     <li key={link.href + index}>

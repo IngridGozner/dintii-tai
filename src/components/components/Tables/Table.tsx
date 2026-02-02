@@ -9,13 +9,19 @@ import { useDictionary } from '@/components/providers/DictionaryProvider';
 
 type TableProps = {
   treatments: NonNullable<TREATMENT_QUERYResult>;
+  showPrices?: boolean;
 };
 
 export default function Table(props: TableProps) {
-  const { treatments } = props;
+  const { treatments, showPrices = false } = props;
 
   const treatmentGroups = Object.values(treatments);
-  const { treatment, pricesTableTitle, prices } = useDictionary();
+  const {
+    treatments: dictionaryTreatments,
+    treatment,
+    pricesTableTitle,
+    prices,
+  } = useDictionary();
 
   if (!treatmentGroups || !treatmentGroups.length) return null;
 
@@ -23,10 +29,17 @@ export default function Table(props: TableProps) {
   const headClasses = `bg-background !text-xl ${cellClasses}`;
 
   return (
-    <Container>
+    <Container contentClass={showPrices ? '!mt-5' : ''}>
       <GridContainer>
         <div className='col-span-6 md:col-span-12'>
-          <Headline headline={prices || ''} anchor='rates' />
+          <Headline
+            headline={
+              showPrices
+                ? prices || 'Rates'
+                : dictionaryTreatments || 'Treatments'
+            }
+            anchor='treatment'
+          />
 
           <table className='w-full text-left'>
             <colgroup>
@@ -36,7 +49,9 @@ export default function Table(props: TableProps) {
             <thead>
               <tr>
                 <th className={headClasses}>{treatment}</th>
-                <th className={headClasses}>{pricesTableTitle}</th>
+                {showPrices && (
+                  <th className={headClasses}>{pricesTableTitle}</th>
+                )}
               </tr>
             </thead>
             <tbody>
@@ -61,7 +76,9 @@ export default function Table(props: TableProps) {
                           className='hover:bg-background/50'
                         >
                           <td className={cellClasses}>{name?.value}</td>
-                          <td className={cellClasses}>{price}</td>
+                          {showPrices && (
+                            <td className={cellClasses}>{price}</td>
+                          )}
                         </tr>
                       );
                     })}

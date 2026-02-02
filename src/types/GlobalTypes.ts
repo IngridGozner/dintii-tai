@@ -5,6 +5,7 @@ export const NEW_USER_PATH = '/dashboard/new-user';
 export const LOGIN_PATH = '/login';
 export const STUDIO_PATH = '/studio';
 export const UPDATE_PASSWORD = '/login/update-password';
+export const RATES_PATH = '/rates';
 
 export const PATIENT_DATABASE = 'patient';
 

@@ -12,6 +12,10 @@ export const dictionaryTreatmentType = defineType({
       type: 'internationalizedArrayString',
     }),
     defineField({
+      name: 'treatments',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
       name: 'date',
       type: 'internationalizedArrayString',
     }),
