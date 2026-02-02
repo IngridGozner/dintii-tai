@@ -2339,6 +2339,20 @@
         },
         "optional": true
       },
+      "postalCode": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "city": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
       "timetable": {
         "type": "objectAttribute",
         "value": {

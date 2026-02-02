@@ -13,6 +13,8 @@ export const defaultSiteInfo = {
   logo: null,
   phone: null,
   address: null,
+  postalCode: null,
+  city: null,
   email: null,
   timetable: null,
   loginImage: null,

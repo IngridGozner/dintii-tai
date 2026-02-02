@@ -15,6 +15,8 @@ import {
   SITEINFO_QUERY,
 } from '@/sanity/lib/queries';
 import { DICTIONARY_QUERYResult } from '@/types/GeneralTypes';
+import { urlFor } from '@/sanity/lib/image';
+import SchemaScript from '@/components/molecules/SchemaScript';
 
 export async function generateMetadata({
   params,
@@ -28,7 +30,12 @@ export async function generateMetadata({
     params: { language: lang },
   });
 
-  const { title: siteTitle, name, description: plainContent } = siteInfo || {};
+  const {
+    title: siteTitle,
+    name,
+    description: plainContent,
+    logo,
+  } = siteInfo || {};
 
   const title =
     `${siteTitle} - Dentist Cluj | ${name}` ||
@@ -47,6 +54,16 @@ export async function generateMetadata({
       title: title,
       description: description,
       type: 'website',
+      images: [
+        {
+          url: logo
+            ? urlFor(logo).width(1200).height(1200).url()
+            : '/favicon.ico',
+          width: 1200,
+          height: 1200,
+          alt: `${siteTitle} Logo`,
+        },
+      ],
     },
   };
 }
@@ -70,6 +87,9 @@ export default async function RootLayout({
 
   return (
     <html lang={lang}>
+      <head>
+        <SchemaScript siteInfo={siteInfo} />
+      </head>
       <body>
         <Providers
           language={lang}

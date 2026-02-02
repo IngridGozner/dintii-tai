@@ -53,6 +53,14 @@ export const siteInfoType = defineType({
       type: 'string',
     }),
     defineField({
+      name: 'postalCode',
+      type: 'string',
+    }),
+    defineField({
+      name: 'city',
+      type: 'string',
+    }),
+    defineField({
       name: 'timetable',
       type: 'internationalizedArrayBlockContent',
     }),
