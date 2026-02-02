@@ -8,6 +8,7 @@ export const defaultSiteInfo = {
   title: null,
   subtitle: null,
   name: null,
+  description: null,
   profession: null,
   logo: null,
   phone: null,
